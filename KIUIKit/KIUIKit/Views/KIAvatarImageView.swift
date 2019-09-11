@@ -95,22 +95,22 @@ class KIAvatarImageView: UIImageView {
     private var gradientLayer: CAGradientLayer?
     private var label: UILabel?
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         self.initView()
     }
     
-    override init(image: UIImage?) {
+    public override init(image: UIImage?) {
         super.init(image: image)
         self.initView()
     }
     
-    override init(image: UIImage?, highlightedImage: UIImage?) {
+    public override init(image: UIImage?, highlightedImage: UIImage?) {
         super.init(image: image, highlightedImage: highlightedImage)
         self.initView()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -153,7 +153,7 @@ class KIAvatarImageView: UIImageView {
         
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         if let gradientLayer = self.gradientLayer {
             self.updateFrame(of: gradientLayer)
