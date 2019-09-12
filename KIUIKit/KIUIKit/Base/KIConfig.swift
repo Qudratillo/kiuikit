@@ -34,6 +34,8 @@ public struct KIConfig {
             }
         case .other(let object):
             break
+        case .empty:
+            imageView.image = nil
         }
     }
     

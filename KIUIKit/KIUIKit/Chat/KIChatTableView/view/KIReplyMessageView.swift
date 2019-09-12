@@ -8,30 +8,16 @@
 
 import UIKit
 
-public class KIReplyMessageView: UIView {
-    
-    public var viewModel: KIReplyMessageViewModel? {
-        didSet {
-            self.updateUI(with: self.viewModel)
-        }
-    }
+public class KIReplyMessageView: KIView<KIReplyMessageViewModel> {
     
     private let leftStrip: UIView = .init()
     private let imageView: UIImageView = .init()
     private let topTextLabel: UILabel = .init()
     private let bottomTextLabel: UILabel = .init()
     
-    public init(frame: CGRect, viewModel: KIReplyMessageViewModel) {
-        super.init(frame: frame)
-        self.viewModel = viewModel
-        self.initView()
-    }
+
     
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func initView() {
+    override func initView() {
         self.leftStrip.backgroundColor = KIConfig.accentColor
         self.leftStrip.frame = CGRect(x: 0, y: KIReplyMessageViewModel.yPadding, width: 2, height: self.bounds.height - KIReplyMessageViewModel.yPadding * 2)
         self.leftStrip.layer.cornerRadius = 1
@@ -49,11 +35,9 @@ public class KIReplyMessageView: UIView {
         self.bottomTextLabel.font = KIReplyMessageViewModel.bottomTextFont
         self.bottomTextLabel.textColor = KIConfig.secondaryTextColor
         self.addSubview(bottomTextLabel)
-        
-        self.updateUI(with: self.viewModel)
     }
     
-    private func updateUI(with viewModel: KIReplyMessageViewModel?) {
+    override func updateUI(with viewModel: KIReplyMessageViewModel?) {
         if let viewModel = viewModel {
             if let imageData = viewModel.imageData {
                 KIConfig.set(imageView: self.imageView, with: imageData)

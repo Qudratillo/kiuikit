@@ -15,10 +15,42 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+       
         
-        testReplyMessageView()
+        testMessageImageAttachmentView()
+//        testReplyMessageView()
+//        testAvatarImageView()
      
         
+    }
+    
+    
+    
+    func testMessageImageAttachmentView() {
+        let model = KIMessageImageAttachmentViewModel(width: 100, height: 200, minWidth: 170, minHeight: 150, whRatio: 0.1, imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), action: .download, metaText: "16:09", isMetaTextHidden: false)
+        let view = KIMessageImageAttachmentView(frame: .init(x: 20, y: 100, width: model.width, height: model.height), viewModel: model)
+        
+        self.view.addSubview(view)
+        
+        
+        q.addOperation {
+            sleep(1)
+            model.action = .loading
+            model.updateFrames()
+            OperationQueue.main.addOperation {
+                view.viewModel = model
+            }
+            sleep(1)
+            model.action = .play
+            model.metaText = "239KB, 12:00"
+            model.width = 200
+            model.height = 400
+            model.updateFrames()
+            OperationQueue.main.addOperation {
+                view.frame = .init(x: 20, y: 100, width: model.width, height: model.height)
+                view.viewModel = model
+            }
+        }
     }
     
     func testReplyMessageView() {

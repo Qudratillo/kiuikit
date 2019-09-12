@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KIAvatarImageView: UIImageView {
+class KIAvatarImageView: KICircleImageView {
     
     public static var colors: [UIColor] = [#colorLiteral(red: 1, green: 0.3300932944, blue: 0.2421161532, alpha: 1), #colorLiteral(red: 1, green: 0.6498119235, blue: 0, alpha: 1), #colorLiteral(red: 1, green: 0.8288275599, blue: 0, alpha: 1), #colorLiteral(red: 0.3430494666, green: 0.8636034131, blue: 0.467017293, alpha: 1), #colorLiteral(red: 0.4119389951, green: 0.8247622848, blue: 0.9853010774, alpha: 1), #colorLiteral(red: 0, green: 0.5694751143, blue: 1, alpha: 1), #colorLiteral(red: 0.4212433696, green: 0.4374559522, blue: 0.8710277677, alpha: 1), #colorLiteral(red: 1, green: 0.2842617035, blue: 0.4058894515, alpha: 1)] {
         didSet {

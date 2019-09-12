@@ -13,4 +13,5 @@ public enum KIImageData {
     case url(url: URL)
     case urlString(urlString: String)
     case other(object: Any)
+    case empty
 }

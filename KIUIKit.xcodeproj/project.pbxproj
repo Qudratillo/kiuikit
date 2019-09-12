@@ -20,6 +20,15 @@
 		F269A1292327B7B9001AC17C /* KIImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269A1282327B7B9001AC17C /* KIImageData.swift */; };
 		F269A12B2327B87D001AC17C /* KIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269A12A2327B87D001AC17C /* KIConfig.swift */; };
 		F269A12D2328C41B001AC17C /* KIChatTableViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = F269A12C2328C41B001AC17C /* KIChatTableViewConfig.swift */; };
+		F26EADDC2328CFC8008B9C2D /* KITextMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EADDB2328CFC8008B9C2D /* KITextMessageView.swift */; };
+		F26EADDE2328CFDC008B9C2D /* KITextMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EADDD2328CFDC008B9C2D /* KITextMessageViewModel.swift */; };
+		F26EADE02328D481008B9C2D /* KITextMessageContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EADDF2328D481008B9C2D /* KITextMessageContentViewModel.swift */; };
+		F26EADE323290772008B9C2D /* KIMessageImageAttachmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EADE223290772008B9C2D /* KIMessageImageAttachmentViewModel.swift */; };
+		F26EADE523290BC5008B9C2D /* KICircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EADE423290BC5008B9C2D /* KICircleImageView.swift */; };
+		F26EADEB23291171008B9C2D /* KIMessageImageAttachmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EADEA23291171008B9C2D /* KIMessageImageAttachmentView.swift */; };
+		F26EADED232911F1008B9C2D /* KIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EADEC232911F1008B9C2D /* KIView.swift */; };
+		F26EADEF23292060008B9C2D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EADEE23292060008B9C2D /* Extensions.swift */; };
+		F26EADF123292548008B9C2D /* KIPaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EADF023292548008B9C2D /* KIPaddingLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +48,15 @@
 		F269A12A2327B87D001AC17C /* KIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIConfig.swift; sourceTree = "<group>"; };
 		F269A12C2328C41B001AC17C /* KIChatTableViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIChatTableViewConfig.swift; sourceTree = "<group>"; };
 		F269A1302328CA0B001AC17C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		F26EADDB2328CFC8008B9C2D /* KITextMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KITextMessageView.swift; sourceTree = "<group>"; };
+		F26EADDD2328CFDC008B9C2D /* KITextMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KITextMessageViewModel.swift; sourceTree = "<group>"; };
+		F26EADDF2328D481008B9C2D /* KITextMessageContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KITextMessageContentViewModel.swift; sourceTree = "<group>"; usesTabs = 0; };
+		F26EADE223290772008B9C2D /* KIMessageImageAttachmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIMessageImageAttachmentViewModel.swift; sourceTree = "<group>"; };
+		F26EADE423290BC5008B9C2D /* KICircleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KICircleImageView.swift; sourceTree = "<group>"; };
+		F26EADEA23291171008B9C2D /* KIMessageImageAttachmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIMessageImageAttachmentView.swift; sourceTree = "<group>"; };
+		F26EADEC232911F1008B9C2D /* KIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIView.swift; sourceTree = "<group>"; };
+		F26EADEE23292060008B9C2D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F26EADF023292548008B9C2D /* KIPaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIPaddingLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +115,8 @@
 			isa = PBXGroup;
 			children = (
 				F269A11723267478001AC17C /* KIAvatarImageView.swift */,
+				F26EADE423290BC5008B9C2D /* KICircleImageView.swift */,
+				F26EADF023292548008B9C2D /* KIPaddingLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -139,6 +159,9 @@
 			isa = PBXGroup;
 			children = (
 				F269A12123278A3F001AC17C /* KiReplyMessageViewModel.swift */,
+				F26EADDD2328CFDC008B9C2D /* KITextMessageViewModel.swift */,
+				F26EADDF2328D481008B9C2D /* KITextMessageContentViewModel.swift */,
+				F26EADE223290772008B9C2D /* KIMessageImageAttachmentViewModel.swift */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -147,6 +170,8 @@
 			isa = PBXGroup;
 			children = (
 				F269A11F232786F3001AC17C /* KIReplyMessageView.swift */,
+				F26EADDB2328CFC8008B9C2D /* KITextMessageView.swift */,
+				F26EADEA23291171008B9C2D /* KIMessageImageAttachmentView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -158,6 +183,8 @@
 				F269A1262327B55B001AC17C /* TypeAliases.swift */,
 				F269A1282327B7B9001AC17C /* KIImageData.swift */,
 				F269A12A2327B87D001AC17C /* KIConfig.swift */,
+				F26EADEC232911F1008B9C2D /* KIView.swift */,
+				F26EADEE23292060008B9C2D /* Extensions.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -234,16 +261,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F26EADE02328D481008B9C2D /* KITextMessageContentViewModel.swift in Sources */,
+				F26EADEF23292060008B9C2D /* Extensions.swift in Sources */,
+				F26EADEB23291171008B9C2D /* KIMessageImageAttachmentView.swift in Sources */,
 				F269A12223278A3F001AC17C /* KiReplyMessageViewModel.swift in Sources */,
 				F269A11823267478001AC17C /* KIAvatarImageView.swift in Sources */,
 				F269A10623267452001AC17C /* ViewController.swift in Sources */,
+				F26EADE323290772008B9C2D /* KIMessageImageAttachmentViewModel.swift in Sources */,
 				F269A1242327B13A001AC17C /* KISizeAwareViewModel.swift in Sources */,
+				F26EADF123292548008B9C2D /* KIPaddingLabel.swift in Sources */,
 				F269A12B2327B87D001AC17C /* KIConfig.swift in Sources */,
+				F26EADDE2328CFDC008B9C2D /* KITextMessageViewModel.swift in Sources */,
+				F26EADDC2328CFC8008B9C2D /* KITextMessageView.swift in Sources */,
 				F269A10423267452001AC17C /* AppDelegate.swift in Sources */,
 				F269A1292327B7B9001AC17C /* KIImageData.swift in Sources */,
+				F26EADE523290BC5008B9C2D /* KICircleImageView.swift in Sources */,
 				F269A12D2328C41B001AC17C /* KIChatTableViewConfig.swift in Sources */,
 				F269A1272327B55B001AC17C /* TypeAliases.swift in Sources */,
 				F269A120232786F3001AC17C /* KIReplyMessageView.swift in Sources */,
+				F26EADED232911F1008B9C2D /* KIView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
