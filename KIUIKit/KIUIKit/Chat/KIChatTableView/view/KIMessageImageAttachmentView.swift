@@ -50,8 +50,8 @@ public class KIMessageImageAttachmentView: KIView<KIMessageImageAttachmentViewMo
         addSubview(metaTextLabel)
     }
     
-    override func updateUI(with viewModel: KIMessageImageAttachmentViewModel?) {
-        if let viewModel = viewModel {
+    override func updateUI(with viewModel: KIMessageImageAttachmentViewModel) {
+        
             imageView.frame = .init(x: 0, y: 0, width: viewModel.width, height: viewModel.height)
             KIConfig.set(imageView: imageView, with: viewModel.imageData)
            
@@ -61,15 +61,9 @@ public class KIMessageImageAttachmentView: KIView<KIMessageImageAttachmentViewMo
             actionImageView.frame = viewModel.actionFrame
             loadingIndicator.frame = viewModel.actionFrame
             self.updateUI(with: viewModel.action)
-            
-            metaTextLabel.isHidden = viewModel.isMetaTextHidden
         
             metaTextLabel.text = viewModel.metaText
             metaTextLabel.frame = viewModel.metaTextFrame
-        
-        } else {
-          self.isHidden = true
-        }
     }
     
     public func updateUI(with action: KIMessageAttachmentAction) {
@@ -78,21 +72,17 @@ public class KIMessageImageAttachmentView: KIView<KIMessageImageAttachmentViewMo
             actionImageView.image = UIImage(named: "action_download")
             actionImageView.isHidden = false
             loadingIndicator.stopAnimating()
-            loadingIndicator.isHidden = true
         case .play:
             actionImageView.image = UIImage(named: "action_play")
             actionImageView.isHidden = false
             loadingIndicator.stopAnimating()
-            loadingIndicator.isHidden = true
         case .action(let image):
             actionImageView.image = image
             actionImageView.isHidden = false
             loadingIndicator.stopAnimating()
-            loadingIndicator.isHidden = true
         case .loading:
             actionImageView.isHidden = true
             loadingIndicator.startAnimating()
-            loadingIndicator.isHidden = false
         
         case .none:
             actionWrap.isHidden = true

@@ -11,7 +11,7 @@ import UIKit
 public class KIView<ViewModel>: UIView {
     public var viewModel: ViewModel? {
         didSet {
-            self.updateUI(with: self.viewModel)
+           updateUI()
         }
     }
     
@@ -19,7 +19,7 @@ public class KIView<ViewModel>: UIView {
         super.init(frame: frame)
         self.viewModel = viewModel
         self.initView()
-        self.updateUI(with: viewModel)
+        self.updateUI()
     }
     
     
@@ -31,7 +31,16 @@ public class KIView<ViewModel>: UIView {
         
     }
     
-    func updateUI(with viewModel: ViewModel?) {
+    private func updateUI() {
+        if let viewModel = viewModel {
+            self.updateUI(with: viewModel)
+        }
+        else {
+            self.isHidden = true
+        }
+    }
+    
+    func updateUI(with viewModel: ViewModel) {
         
     }
     

@@ -16,18 +16,65 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
        
-        
-        testMessageImageAttachmentView()
+        testMessageDetailAttachmentView()
+//        testMessageImageAttachmentView()
 //        testReplyMessageView()
 //        testAvatarImageView()
      
         
     }
     
-    
+    func testMessageDetailAttachmentView() {
+        let model = KIMessageDetailAttachmentViewModel(width: 200, action: .download, imageData: .empty, imageGradientBase: nil, imageInitialsText: nil, topText: "Johnny Dertiy - Hey ladies.mp3", bottomText: "04:21, 1.2 MB", sliderValue: 0)
+        let view = KIMessageDetailAttachmentView(frame: .init(x: 20, y: 100, width: model.width, height: model.height), viewModel: model)
+        
+        self.view.addSubview(view)
+        
+        
+        q.addOperation {
+            sleep(1)
+            model.action = .loading
+            model.updateFrames()
+            OperationQueue.main.addOperation {
+                view.viewModel = model
+            }
+            sleep(1)
+            model.action = .play
+            model.width = 150
+            model.updateFrames()
+            OperationQueue.main.addOperation {
+                view.frame = .init(x: 20, y: 100, width: model.width, height: model.height)
+                view.viewModel = model
+            }
+            sleep(1)
+            model.topText = nil
+            model.sliderValue = 0.3
+            model.updateFrames()
+            OperationQueue.main.addOperation {
+                view.viewModel = model
+            }
+            sleep(1)
+            model.topText = "Henry Coughman"
+            model.bottomText = "+1 293 8329 233"
+            model.action = .none
+            model.imageGradientBase = 120
+            model.imageInitialsText = "Henry Coughman"
+            model.updateFrames()
+            OperationQueue.main.addOperation {
+                view.viewModel = model
+            }
+            sleep(1)
+            model.imageData = .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg")
+            model.width = 200
+            model.updateFrames()
+            OperationQueue.main.addOperation {
+                view.viewModel = model
+            }
+        }
+    }
     
     func testMessageImageAttachmentView() {
-        let model = KIMessageImageAttachmentViewModel(width: 100, height: 200, minWidth: 170, minHeight: 150, whRatio: 0.1, imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), action: .download, metaText: "16:09", isMetaTextHidden: false)
+        let model = KIMessageImageAttachmentViewModel(width: 100, height: 200, minWidth: 170, minHeight: 150, whRatio: 0.1, imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), action: .download, metaText: "16:09")
         let view = KIMessageImageAttachmentView(frame: .init(x: 20, y: 100, width: model.width, height: model.height), viewModel: model)
         
         self.view.addSubview(view)
@@ -42,7 +89,7 @@ class ViewController: UIViewController {
             }
             sleep(1)
             model.action = .play
-            model.metaText = "239KB, 12:00"
+            model.metaText = nil
             model.width = 200
             model.height = 400
             model.updateFrames()

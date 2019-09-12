@@ -30,13 +30,11 @@ public class KIReplyMessageViewModel: KISizeAwareViewModel {
 
     
     public init(width: CGFloat, height: CGFloat, imageData: KIImageData?, topText: String?, bottomText: String?) {
-        super.init(width: width, height: height)
-        
         self.imageData = imageData
         self.topText = topText
         self.bottomText = bottomText
         
-        self.updateFrames()
+        super.init(width: width, height: height)  
     }
     
     public override func updateFrames() {

@@ -37,27 +37,22 @@ public class KIReplyMessageView: KIView<KIReplyMessageViewModel> {
         self.addSubview(bottomTextLabel)
     }
     
-    override func updateUI(with viewModel: KIReplyMessageViewModel?) {
-        if let viewModel = viewModel {
-            if let imageData = viewModel.imageData {
-                KIConfig.set(imageView: self.imageView, with: imageData)
-                self.imageView.isHidden = false
-            }
-            else {
-                self.imageView.image = nil
-                self.imageView.isHidden = true
-            }
-            
-            self.topTextLabel.text = viewModel.topText
-            self.topTextLabel.frame = viewModel.topTextFrame
-            
-            self.bottomTextLabel.text = viewModel.bottomText
-            self.bottomTextLabel.frame = viewModel.bottomTextFrame
-            self.bottomTextLabel.textColor = viewModel.bottomTextColor
+    override func updateUI(with viewModel: KIReplyMessageViewModel) {
+        if let imageData = viewModel.imageData {
+            KIConfig.set(imageView: self.imageView, with: imageData)
+            self.imageView.isHidden = false
         }
         else {
-            self.isHidden = true
+            self.imageView.image = nil
+            self.imageView.isHidden = true
         }
+        
+        self.topTextLabel.text = viewModel.topText
+        self.topTextLabel.frame = viewModel.topTextFrame
+        
+        self.bottomTextLabel.text = viewModel.bottomText
+        self.bottomTextLabel.frame = viewModel.bottomTextFrame
+        self.bottomTextLabel.textColor = viewModel.bottomTextColor
     }
     
 }

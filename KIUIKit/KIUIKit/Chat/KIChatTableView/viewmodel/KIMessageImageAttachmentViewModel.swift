@@ -27,8 +27,7 @@ public class KIMessageImageAttachmentViewModel: KISizeAwareViewModel {
     public var actionWrapFrame: CGRect = .zero
     public var actionFrame: CGRect = .zero
     public var metaText: String?
-    public var metaTextFrame: CGRect = .zero
-    public var isMetaTextHidden: Bool
+    private(set) var metaTextFrame: CGRect = .zero
     public var minWidth: CGFloat
     public var minHeight: CGFloat
     
@@ -39,19 +38,16 @@ public class KIMessageImageAttachmentViewModel: KISizeAwareViewModel {
                          whRatio: CGFloat,
                          imageData: KIImageData,
                          action: KIMessageAttachmentAction,
-                         metaText: String?,
-                         isMetaTextHidden: Bool
+                         metaText: String?
                          ) {
         self.whRatio = whRatio
         self.imageData = imageData
         self.action = action
         self.metaText = metaText
-        self.isMetaTextHidden = isMetaTextHidden
         self.minWidth = minWidth
         self.minHeight = minHeight
-        super.init(width: width, height: height)
         
-        self.updateFrames()
+        super.init(width: width, height: height)
     }
     
     public override func updateFrames() {
@@ -67,6 +63,8 @@ public class KIMessageImageAttachmentViewModel: KISizeAwareViewModel {
             let h = KIMessageImageAttachmentViewModel.metaTextFont.lineHeight
             let w = KIMessageImageAttachmentViewModel.metaTextFont.size(ofString: metaText, constrainedToHeight: h).width + 12
             metaTextFrame = .init(x: 4, y: 4, width: min(w, width - 20) , height: h + 8)
+        } else {
+            metaTextFrame = .zero
         }
     }
     

@@ -131,6 +131,7 @@ class KIAvatarImageView: KICircleImageView {
     
     private func addLabel(text: String) {
         let label = UILabel()
+        label.textColor = .white
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 1
         label.text = text
@@ -149,7 +150,7 @@ class KIAvatarImageView: KICircleImageView {
     
     private func updateFrame(of label: UILabel) {
         label.frame = self.bounds
-        label.font = label.font.withSize(self.bounds.height * 0.3)
+        label.font = label.font.withSize(self.bounds.height * 0.4)
         
     }
     
