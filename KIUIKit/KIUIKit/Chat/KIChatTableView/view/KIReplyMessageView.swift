@@ -19,7 +19,7 @@ public class KIReplyMessageView: KIView<KIReplyMessageViewModel> {
     
     override func initView() {
         self.leftStrip.backgroundColor = KIConfig.accentColor
-        self.leftStrip.frame = CGRect(x: 0, y: KIReplyMessageViewModel.yPadding, width: 2, height: self.bounds.height - KIReplyMessageViewModel.yPadding * 2)
+        
         self.leftStrip.layer.cornerRadius = 1
         self.addSubview(leftStrip)
         
@@ -38,6 +38,7 @@ public class KIReplyMessageView: KIView<KIReplyMessageViewModel> {
     }
     
     override func updateUI(with viewModel: KIReplyMessageViewModel) {
+        self.leftStrip.frame = CGRect(x: 2, y: KIReplyMessageViewModel.yPadding, width: 2, height: viewModel.height - KIReplyMessageViewModel.yPadding * 2)
         if let imageData = viewModel.imageData {
             KIConfig.set(imageView: self.imageView, with: imageData)
             self.imageView.isHidden = false

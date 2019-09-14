@@ -10,8 +10,8 @@ import UIKit
 
 public class KIReplyMessageViewModel: KISizeAwareViewModel {
     
-    public static var replyMessageViewHeightRecommended: CGFloat = KIReplyMessageViewModel.imageSize + KIReplyMessageViewModel.yPadding*2
-    public static var leftStripSpace: CGFloat = 8
+    public static var replyMessageViewHeightRecommended: CGFloat = KIReplyMessageViewModel.imageSize + KIReplyMessageViewModel.yPadding * 2
+    public static var leftStripSpace: CGFloat = 10
     public static var yPadding: CGFloat = 2
     public static var imageSize: CGFloat = 34
     public static var topTextFont: UIFont =  UIFont.systemFont(ofSize: 14, weight: .semibold)

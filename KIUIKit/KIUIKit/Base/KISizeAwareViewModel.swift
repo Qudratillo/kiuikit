@@ -12,6 +12,10 @@ public class KISizeAwareViewModel {
     public var width: CGFloat
     public var height: CGFloat
     
+    public var size: CGSize {
+        return .init(width: width, height: height)
+    }
+    
     public init(width: CGFloat, height: CGFloat) {
         self.width = width
         self.height = height

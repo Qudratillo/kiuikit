@@ -15,9 +15,16 @@ public class KIView<ViewModel>: UIView {
         }
     }
     
+    public init() {
+        super.init(frame: .zero)
+        self.clipsToBounds = true
+        self.initView()
+    }
+    
     public init(frame: CGRect, viewModel: ViewModel?) {
         super.init(frame: frame)
         self.viewModel = viewModel
+        self.clipsToBounds = true
         self.initView()
         self.updateUI()
     }

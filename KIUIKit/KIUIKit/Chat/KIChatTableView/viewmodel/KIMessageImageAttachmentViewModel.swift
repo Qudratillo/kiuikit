@@ -54,7 +54,7 @@ public class KIMessageImageAttachmentViewModel: KISizeAwareViewModel {
         if self.whRatio > 1 {
             self.height = max(self.width / self.whRatio, self.minHeight)
         } else {
-          self.width = max(self.height * self.whRatio, self.minWidth)
+            self.width = max(self.height * self.whRatio, self.minWidth)
         }
         
         actionWrapFrame = .init(x: (width - KIMessageImageAttachmentViewModel.actionSize)/2, y: (height - KIMessageImageAttachmentViewModel.actionSize)/2, width: KIMessageImageAttachmentViewModel.actionSize, height: KIMessageImageAttachmentViewModel.actionSize)

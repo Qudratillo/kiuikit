@@ -48,13 +48,13 @@ public class KIMessageDetailAttachmentViewModel: KISizeAwareViewModel {
     public override func updateFrames() {
         if topText == nil {
             topTextFrame = .zero
-            sliderFrame = .init(x: 48, y: 0, width: width - 48, height: 20)
+            sliderFrame = .init(x: 52, y: 0, width: width - 52, height: 20)
         } else {
-            topTextFrame = .init(x: 48, y: 0, width: width - 48, height: 20)
+            topTextFrame = .init(x: 52, y: 0, width: width - 52, height: 20)
             sliderFrame = .zero
         }
         
-        bottomeTextFrame = .init(x: 48, y: 20, width: width - 48, height: 20)
+        bottomeTextFrame = .init(x: 52, y: 20, width: width - 52, height: 20)
         height = 40
     }
     

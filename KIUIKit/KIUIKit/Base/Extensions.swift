@@ -10,16 +10,22 @@ import UIKit
 
 extension UIFont {
     func size (ofString string: String, constrainedToWidth width: CGFloat) -> CGSize {
-        let attributes = [NSAttributedString.Key.font: self]
+        let attributes = [NSAttributedString.Key.font: self, NSAttributedString.Key.paragraphStyle: WordWrapParagraphStyle()]
         let attString = NSAttributedString(string: string,attributes: attributes)
         let framesetter = CTFramesetterCreateWithAttributedString(attString)
         return CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRange(location: 0, length: 0), nil, CGSize(width: width, height: .greatestFiniteMagnitude), nil)
     }
     
     func size (ofString string: String, constrainedToHeight height: CGFloat) -> CGSize {
-        let attributes = [NSAttributedString.Key.font: self]
-        let attString = NSAttributedString(string: string,attributes: attributes)
+        let attributes = [NSAttributedString.Key.font: self, NSAttributedString.Key.paragraphStyle: WordWrapParagraphStyle()]
+        let attString = NSAttributedString.init(string: string, attributes: attributes)
         let framesetter = CTFramesetterCreateWithAttributedString(attString)
         return CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRange(location: 0, length: 0), nil, CGSize(width: .greatestFiniteMagnitude, height: height), nil)
+    }
+}
+
+class WordWrapParagraphStyle: NSParagraphStyle {
+    open override var lineBreakMode: NSLineBreakMode {
+        return .byWordWrapping
     }
 }

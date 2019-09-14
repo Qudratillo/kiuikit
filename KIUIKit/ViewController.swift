@@ -16,12 +16,69 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
        
-        testMessageDetailAttachmentView()
+        testTextMessageContentView()
+//        testMessageDetailAttachmentView()
 //        testMessageImageAttachmentView()
 //        testReplyMessageView()
 //        testAvatarImageView()
      
         
+    }
+    
+    func testTextMessageContentView() {
+        let replyModel = KIReplyMessageViewModel(width: 300, height: KIReplyMessageViewModel.replyMessageViewHeightRecommended, imageData: nil, topText: "Benjamin Jery", bottomText: "Hey ladies")
+        let detailAttachmentModel = KIMessageDetailAttachmentViewModel(width: 300, action: .download, imageData: .empty, imageGradientBase: nil, imageInitialsText: nil, topText: "Johnny Dertiy - Hey ladies.mp3", bottomText: "04:21, 1.2 MB", sliderValue: 0)
+        
+        let model = KITextMessageContentViewModel(width: 300, forwardedFromText: "Forwarded from me", replyModel: replyModel, attachmentModel: .detail(detailAttachmentViewModel: detailAttachmentModel), text: "Hey come over", messageStatus: nil, timeText: "12:05 AM")
+        let view = KITextMessageContentView(frame: .init(x: 20, y: 100, width: model.width, height: model.height), viewModel: model)
+//        view.layer.borderWidth = 2
+//        view.layer.borderColor  = UIColor.gray.cgColor
+        self.view.addSubview(view)
+        
+        
+        q.addOperation {
+            sleep(1)
+            let imageAttachmentModel = KIMessageImageAttachmentViewModel(width: 400, height: 200, minWidth: 200, minHeight: 150, whRatio: 0.8, imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), action: .download, metaText: "16:09")
+            model.attachmentModel = .image(imageAttachmentViewModel: imageAttachmentModel)
+            model.updateFrames()
+            OperationQueue.main.addOperation {
+                view.viewModel = model
+                view.frame = .init(origin: .init(x: 20, y: 100), size: model.size)
+            }
+            
+            sleep(2)
+            model.replyModel = nil
+            model.updateFrames()
+            OperationQueue.main.addOperation {
+                view.viewModel = model
+                view.frame = .init(origin: .init(x: 20, y: 100), size: model.size)
+            }
+            sleep(1)
+            model.forwardedFromText = nil
+            model.updateFrames()
+            OperationQueue.main.addOperation {
+                view.viewModel = model
+                view.frame = .init(origin: .init(x: 20, y: 100), size: model.size)
+            }
+            sleep(1)
+            model.text = nil
+            model.updateFrames()
+            OperationQueue.main.addOperation {
+                view.viewModel = model
+                view.frame = .init(origin: .init(x: 20, y: 100), size: model.size)
+            }
+            
+            sleep(1)
+            model.attachmentModel = .detail(detailAttachmentViewModel: detailAttachmentModel)
+            model.updateFrames()
+            OperationQueue.main.addOperation {
+                view.viewModel = model
+                view.frame = .init(origin: .init(x: 20, y: 100), size: model.size)
+            }
+            
+            
+            
+        }
     }
     
     func testMessageDetailAttachmentView() {
