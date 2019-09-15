@@ -62,7 +62,7 @@ public class KIMessageImageAttachmentViewModel: KISizeAwareViewModel {
         if let metaText = metaText {
             let h = KIMessageImageAttachmentViewModel.metaTextFont.lineHeight
             let w = KIMessageImageAttachmentViewModel.metaTextFont.size(ofString: metaText, constrainedToHeight: h).width + 12
-            metaTextFrame = .init(x: 4, y: 4, width: min(w, width - 20) , height: h + 8)
+            metaTextFrame = .init(x: 6, y: 4, width: min(w, width - 20) , height: h + 8)
         } else {
             metaTextFrame = .zero
         }

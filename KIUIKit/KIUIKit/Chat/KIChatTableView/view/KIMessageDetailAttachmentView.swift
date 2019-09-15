@@ -18,14 +18,14 @@ public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentView
     private let slider: UISlider = .init()
     
     override func initView() {
-        imageView.frame = .init(x: 4, y: 0, width: 40, height: 40)
+        imageView.frame = .init(x: KIMessageDetailAttachmentViewModel.leftPadding, y: 0, width: 40, height: 40)
         addSubview(imageView)
         
         
         actionWrap.backgroundColor = KIConfig.accentColor
         actionWrap.clipsToBounds = true
         actionWrap.layer.cornerRadius = 20
-        actionWrap.frame = .init(x: 4, y: 0, width: 40, height: 40)
+        actionWrap.frame = .init(x: KIMessageDetailAttachmentViewModel.leftPadding, y: 0, width: 40, height: 40)
         
         actionImageView.frame = .init(x: 8, y: 8, width: 24, height: 24)
         actionImageView.clipsToBounds = true

@@ -20,7 +20,7 @@ public class KIMessageImageAttachmentView: KIView<KIMessageImageAttachmentViewMo
     
     override func initView() {
         
-        self.layer.cornerRadius = 4
+        self.layer.cornerRadius = 14
         self.clipsToBounds = true
         
         imageView.clipsToBounds = true
@@ -37,7 +37,7 @@ public class KIMessageImageAttachmentView: KIView<KIMessageImageAttachmentViewMo
 
         addSubview(actionWrap)
         
-        metaTextLabel.layer.cornerRadius = 2
+        metaTextLabel.layer.cornerRadius = 4
         metaTextLabel.clipsToBounds = true
         metaTextLabel.topInset = 4
         metaTextLabel.bottomInset = 4

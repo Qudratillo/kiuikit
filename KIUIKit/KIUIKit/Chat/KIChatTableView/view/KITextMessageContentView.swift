@@ -9,6 +9,7 @@
 import UIKit
 
 public class KITextMessageContentView: KIView<KITextMessageContentViewModel> {
+    private let nameTextView: UILabel = .init()
     private let forwardedFromTextLabel: UILabel = .init()
     private let replyMessageView: KIReplyMessageView = .init()
     private let imageAttachmentView: KIMessageImageAttachmentView = .init()
@@ -19,6 +20,10 @@ public class KITextMessageContentView: KIView<KITextMessageContentViewModel> {
     private let timeTextLabel: UILabel = .init()
     
     override func initView() {
+        nameTextView.font = KITextMessageContentViewModel.nameTextFont
+        nameTextView.textColor = KIConfig.primaryColor
+        addSubview(nameTextView)
+        
         forwardedFromTextLabel.font = KITextMessageContentViewModel.forwardedFromTextFont
         forwardedFromTextLabel.textColor = KIConfig.primaryColor
         addSubview(forwardedFromTextLabel)
@@ -30,6 +35,7 @@ public class KITextMessageContentView: KIView<KITextMessageContentViewModel> {
         textLabel.font = KITextMessageContentViewModel.textFont
         addSubview(textLabel)
         
+        timeView.layer.cornerRadius = 4
         addSubview(timeView)
         
         timeView.addSubview(messageStatusImageView)
@@ -38,6 +44,9 @@ public class KITextMessageContentView: KIView<KITextMessageContentViewModel> {
     }
     
     override func updateUI(with viewModel: KITextMessageContentViewModel) {
+        nameTextView.text = viewModel.nameText
+        nameTextView.frame = viewModel.nameTextFrame
+        
         forwardedFromTextLabel.text = viewModel.forwardedFromText
         forwardedFromTextLabel.frame = viewModel.forwardedFromTextFrame
         
@@ -60,7 +69,7 @@ public class KITextMessageContentView: KIView<KITextMessageContentViewModel> {
         
         timeView.frame = viewModel.timeFrame
         timeView.backgroundColor = viewModel.timeBackgroundColor
-        timeView.layer.cornerRadius = 2
+
         
         if let messageStatus = viewModel.messageStatus {
             switch messageStatus {
