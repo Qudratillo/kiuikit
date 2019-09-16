@@ -16,6 +16,9 @@ public enum KIMessageContainerLocation {
 
 public class KITextMessageViewModel: KISizeAwareViewModel {
     
+    public static var maxContainerOffset: CGFloat = 100
+    public static var maxContainerWidth: CGFloat = 400
+    
     
     public static var leftMessageContainerColor: UIColor = .white
     public static var rightMessageContainerColor: UIColor = #colorLiteral(red: 0.9002717783, green: 0.9960784314, blue: 0.8971452887, alpha: 1)
@@ -33,7 +36,7 @@ public class KITextMessageViewModel: KISizeAwareViewModel {
     
     
     public init(
-        width: CGFloat,
+        width: CGFloat = 0,
         avatarImageData: KIImageData?,
         avatarGradientBase: Int?,
         avatarInitialsText: String?,
@@ -49,8 +52,10 @@ public class KITextMessageViewModel: KISizeAwareViewModel {
     }
     
     public override func updateFrames() {
-        let containerWidth: CGFloat = contentModel.width + 4
-        var containerHeight: CGFloat = contentModel.height + 4
+        contentModel.width = min(KITextMessageViewModel.maxContainerWidth, width - KITextMessageViewModel.maxContainerOffset)
+        contentModel.updateFrames()
+        let containerWidth: CGFloat = contentModel.width
+        let containerHeight: CGFloat = contentModel.height
         
         
         var xOffset: CGFloat = 0

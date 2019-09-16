@@ -28,7 +28,7 @@ public class KIMessageDetailAttachmentViewModel: KISizeAwareViewModel {
     private(set) var sliderFrame: CGRect = .zero
     
     public init(
-        width: CGFloat,
+        width: CGFloat = 0,
         action: KIMessageAttachmentAction,
         imageData: KIImageData,
         imageGradientBase: Int?,

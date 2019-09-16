@@ -27,9 +27,10 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
     public static var timeTextFont: UIFont = .systemFont(ofSize: 12)
     public static var timeFrameHeight: CGFloat = KITextMessageContentViewModel.timeTextFont.lineHeight + 4
     public static var messageStatusY: CGFloat = (KITextMessageContentViewModel.timeFrameHeight - 10) / 2
-    public static var textLeftMargin: CGFloat = 6
+    public static var textMarginX: CGFloat = 8
     
     public var nameText: String?
+    public var nameTextColor: UIColor?
     private(set) var nameTextFrame: CGRect = .zero
     public var forwardedFromText: String?
     private(set) var forwardedFromTextFrame: CGRect = .zero
@@ -52,8 +53,9 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
     
     
     public init(
-        width: CGFloat,
+        width: CGFloat = 0,
         nameText: String?,
+        nameTextColor: UIColor? = nil,
         forwardedFromText: String?,
         replyModel: KIReplyMessageViewModel?,
         attachmentModel: KIMessageAttachmentViewModel?,
@@ -62,6 +64,7 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
         timeText: String
         ) {
         self.nameText = nameText
+        self.nameTextColor = nameTextColor
         self.forwardedFromText = forwardedFromText
         self.replyModel = replyModel
         self.attachmentModel = attachmentModel
@@ -73,27 +76,31 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
     
     public override func updateFrames() {
         if case .image(let imageAttachmentViewModel)? = attachmentModel {
-            width = imageAttachmentViewModel.width
+            imageAttachmentViewModel.width = width - 4
+            imageAttachmentViewModel.updateFrames()
+            width = imageAttachmentViewModel.width + 4
         }
         
-        var height: CGFloat = 0
+        var height: CGFloat = 2
         
         if nameText == nil {
             nameTextFrame = .zero
         } else {
-            nameTextFrame = .init(x: KITextMessageContentViewModel.textLeftMargin, y: height + 6, width: width - KITextMessageContentViewModel.textLeftMargin * 2, height: KITextMessageContentViewModel.nameTextFont.lineHeight)
+            nameTextFrame = .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6, width: width - KITextMessageContentViewModel.textMarginX * 2, height: KITextMessageContentViewModel.nameTextFont.lineHeight)
             height = nameTextFrame.maxY
         }
         
         if forwardedFromText == nil {
             forwardedFromTextFrame = .zero
         } else {
-            forwardedFromTextFrame = .init(x: KITextMessageContentViewModel.textLeftMargin, y: height + 6, width: width - KITextMessageContentViewModel.textLeftMargin * 2, height: KITextMessageContentViewModel.forwardedFromTextFont.lineHeight)
+            forwardedFromTextFrame = .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6, width: width - KITextMessageContentViewModel.textMarginX * 2, height: KITextMessageContentViewModel.forwardedFromTextFont.lineHeight)
             height = forwardedFromTextFrame.maxY
         }
         
         if let replyModel = replyModel {
-            replyFrame = .init(x: KITextMessageContentViewModel.textLeftMargin, y: height + 6, width: replyModel.width, height: replyModel.height)
+            replyModel.width = width - 2 * KITextMessageContentViewModel.textMarginX
+            replyModel.updateFrames()
+            replyFrame = .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6, width: replyModel.width, height: replyModel.height)
             height = replyFrame.maxY
         } else {
             replyFrame = .zero
@@ -102,11 +109,13 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
         if let attachmentModel = attachmentModel {
             switch attachmentModel {
             case .image(let imageAttachmentViewModel):
-                imageAttachmentFrame = .init(x: 0, y: height == 0 ? 0 : height + 4, width: imageAttachmentViewModel.width, height: imageAttachmentViewModel.height)
+                imageAttachmentFrame = .init(x: 2, y: height == 2 ? 2 : (height + 4), width: imageAttachmentViewModel.width, height: imageAttachmentViewModel.height)
                 detailAttachmentFrame = .zero
                 height = imageAttachmentFrame.maxY
             case .detail(let detailAttachmentViewModel):
                 imageAttachmentFrame = .zero
+                detailAttachmentViewModel.width = width
+                detailAttachmentViewModel.updateFrames()
                 detailAttachmentFrame = .init(x: 0, y: height + 6, width: detailAttachmentViewModel.width, height: detailAttachmentViewModel.height)
                 height += detailAttachmentFrame.height + 6
             }
@@ -116,7 +125,7 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
         }
         
         if let text = text {
-            textFrame = .init(origin: .init(x: KITextMessageContentViewModel.textLeftMargin, y: height + 6), size: KITextMessageContentViewModel.textFont.size(ofString: text, constrainedToWidth: width - KITextMessageContentViewModel.textLeftMargin * 2))
+            textFrame = .init(origin: .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6), size: KITextMessageContentViewModel.textFont.size(ofString: text, constrainedToWidth: width - KITextMessageContentViewModel.textMarginX * 2))
             height = textFrame.maxY
         }
         else {
@@ -152,7 +161,7 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
         }
         
         
-        self.height = height
+        self.height = height + 2
     }
     
     private func setTimeLight() {

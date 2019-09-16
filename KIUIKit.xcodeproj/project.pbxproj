@@ -30,6 +30,7 @@
 		F26EADF123292548008B9C2D /* KIPaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EADF023292548008B9C2D /* KIPaddingLabel.swift */; };
 		F26EADF3232A10A1008B9C2D /* KIMessageDetailAttachmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EADF2232A10A1008B9C2D /* KIMessageDetailAttachmentViewModel.swift */; };
 		F26EADF5232A268B008B9C2D /* KIMessageDetailAttachmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26EADF4232A268B008B9C2D /* KIMessageDetailAttachmentView.swift */; };
+		F2B43B75232FAB180038AE7A /* KIChatMessageCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B43B74232FAB180038AE7A /* KIChatMessageCellModel.swift */; };
 		F2DB2BC8232CF28A00723BA1 /* KITextMessageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2DB2BC7232CF28A00723BA1 /* KITextMessageContentView.swift */; };
 		F2DB2BCC232F693100723BA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2DB2BCB232F693100723BA1 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,7 @@
 		F26EADF023292548008B9C2D /* KIPaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIPaddingLabel.swift; sourceTree = "<group>"; };
 		F26EADF2232A10A1008B9C2D /* KIMessageDetailAttachmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIMessageDetailAttachmentViewModel.swift; sourceTree = "<group>"; };
 		F26EADF4232A268B008B9C2D /* KIMessageDetailAttachmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIMessageDetailAttachmentView.swift; sourceTree = "<group>"; };
+		F2B43B74232FAB180038AE7A /* KIChatMessageCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIChatMessageCellModel.swift; sourceTree = "<group>"; };
 		F2DB2BC7232CF28A00723BA1 /* KITextMessageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KITextMessageContentView.swift; sourceTree = "<group>"; };
 		F2DB2BCB232F693100723BA1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,6 +171,7 @@
 				F26EADDF2328D481008B9C2D /* KITextMessageContentViewModel.swift */,
 				F26EADE223290772008B9C2D /* KIMessageImageAttachmentViewModel.swift */,
 				F26EADF2232A10A1008B9C2D /* KIMessageDetailAttachmentViewModel.swift */,
+				F2B43B74232FAB180038AE7A /* KIChatMessageCellModel.swift */,
 			);
 			path = viewmodel;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				F26EADEB23291171008B9C2D /* KIMessageImageAttachmentView.swift in Sources */,
 				F269A12223278A3F001AC17C /* KiReplyMessageViewModel.swift in Sources */,
 				F26EADF3232A10A1008B9C2D /* KIMessageDetailAttachmentViewModel.swift in Sources */,
+				F2B43B75232FAB180038AE7A /* KIChatMessageCellModel.swift in Sources */,
 				F2DB2BC8232CF28A00723BA1 /* KITextMessageContentView.swift in Sources */,
 				F269A11823267478001AC17C /* KIAvatarImageView.swift in Sources */,
 				F269A10623267452001AC17C /* ViewController.swift in Sources */,

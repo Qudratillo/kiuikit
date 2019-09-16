@@ -42,8 +42,10 @@ public class KITextMessageView: KIView<KITextMessageViewModel> {
         containerView.frame = viewModel.containerFrame
         containerView.backgroundColor = viewModel.containerBackgroundColor
         
+        viewModel.contentModel.nameTextColor = avatar.color?.darker(by: 10.0)
+        
         contentView.viewModel = viewModel.contentModel
-        contentView.frame = .init(origin: .init(x: 2, y: 2), size: viewModel.contentModel.size)
+        contentView.frame = .init(origin: .init(x: 0, y: 0), size: viewModel.contentModel.size)
         
         
     }

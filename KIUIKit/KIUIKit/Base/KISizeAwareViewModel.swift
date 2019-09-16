@@ -19,7 +19,9 @@ public class KISizeAwareViewModel {
     public init(width: CGFloat, height: CGFloat) {
         self.width = width
         self.height = height
-        self.updateFrames()
+        if width != 0 || height != 0 {
+            self.updateFrames()
+        }
     }
     
     public func updateFrames() {

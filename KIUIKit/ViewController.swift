@@ -28,11 +28,11 @@ class ViewController: UIViewController {
     
     
     func testTextMessageView() {
-        let replyModel = KIReplyMessageViewModel(width: 300, height: KIReplyMessageViewModel.replyMessageViewHeightRecommended, imageData: nil, topText: "Benjamin Jery", bottomText: "Hey ladies")
+        let replyModel = KIReplyMessageViewModel(width: 300, imageData: nil, topText: "Benjamin Jery", bottomText: "Hey ladies")
         let detailAttachmentModel = KIMessageDetailAttachmentViewModel(width: 300, action: .download, imageData: .empty, imageGradientBase: nil, imageInitialsText: nil, topText: "Johnny Dertiy - Hey ladies.mp3", bottomText: "04:21, 1.2 MB", sliderValue: 0)
         
         let contentModel = KITextMessageContentViewModel(width: 300, nameText: "Benjamin Fankley", forwardedFromText: "Forwarded from me", replyModel: replyModel, attachmentModel: .detail(detailAttachmentViewModel: detailAttachmentModel), text: "Hey come over", messageStatus: nil, timeText: "12:05 AM")
-        let model = KITextMessageViewModel(width: self.view.frame.width, avatarImageData: nil, avatarGradientBase: 10, avatarInitialsText: nil, contentModel: contentModel, containerLocation: .right)
+        let model = KITextMessageViewModel(width: self.view.frame.width, avatarImageData: nil, avatarGradientBase: 4, avatarInitialsText: nil, contentModel: contentModel, containerLocation: .right)
         let view = KITextMessageView(frame: .init(origin: .init(x: 0, y: 100), size: model.size), viewModel: model)
         self.view.addSubview(view)
         
@@ -54,11 +54,10 @@ class ViewController: UIViewController {
             model.avatarImageData = nil
             contentModel.nameText = nil
             contentModel.replyModel = nil
-            let imageAttachmentModel = KIMessageImageAttachmentViewModel(width: 400, height: 200, minWidth: 200, minHeight: 150, whRatio: 0.8, imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), action: .download, metaText: "16:09")
+            let imageAttachmentModel = KIMessageImageAttachmentViewModel(width: 400, height: 200, whRatio: 0.8, imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), action: .download, metaText: "16:09")
             contentModel.attachmentModel = .image(imageAttachmentViewModel: imageAttachmentModel)
             contentModel.text = nil
             contentModel.forwardedFromText = nil
-            contentModel.updateFrames()
             model.updateFrames()
             OperationQueue.main.addOperation {
                 view.viewModel = model
@@ -69,7 +68,6 @@ class ViewController: UIViewController {
             sleep(2)
             contentModel.nameText = "Kertan Menidas"
             model.avatarImageData = .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg")
-            contentModel.updateFrames()
             model.updateFrames()
             OperationQueue.main.addOperation {
                 view.viewModel = model
@@ -85,7 +83,7 @@ class ViewController: UIViewController {
     
     
     func testTextMessageContentView() {
-        let replyModel = KIReplyMessageViewModel(width: 300, height: KIReplyMessageViewModel.replyMessageViewHeightRecommended, imageData: nil, topText: "Benjamin Jery", bottomText: "Hey ladies")
+        let replyModel = KIReplyMessageViewModel(width: 300, imageData: nil, topText: "Benjamin Jery", bottomText: "Hey ladies")
         let detailAttachmentModel = KIMessageDetailAttachmentViewModel(width: 300, action: .download, imageData: .empty, imageGradientBase: nil, imageInitialsText: nil, topText: "Johnny Dertiy - Hey ladies.mp3", bottomText: "04:21, 1.2 MB", sliderValue: 0)
         
         let model = KITextMessageContentViewModel(width: 300, nameText: "Benjamin Fankley",forwardedFromText: "Forwarded from me", replyModel: replyModel, attachmentModel: .detail(detailAttachmentViewModel: detailAttachmentModel), text: "Hey come over", messageStatus: nil, timeText: "12:05 AM")
@@ -97,7 +95,7 @@ class ViewController: UIViewController {
         
         q.addOperation {
             sleep(1)
-            let imageAttachmentModel = KIMessageImageAttachmentViewModel(width: 400, height: 200, minWidth: 200, minHeight: 150, whRatio: 0.8, imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), action: .download, metaText: "16:09")
+            let imageAttachmentModel = KIMessageImageAttachmentViewModel(width: 400, height: 200, whRatio: 0.8, imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), action: .download, metaText: "16:09")
             model.attachmentModel = .image(imageAttachmentViewModel: imageAttachmentModel)
             model.updateFrames()
             OperationQueue.main.addOperation {
@@ -190,7 +188,7 @@ class ViewController: UIViewController {
     }
     
     func testMessageImageAttachmentView() {
-        let model = KIMessageImageAttachmentViewModel(width: 100, height: 200, minWidth: 170, minHeight: 150, whRatio: 0.1, imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), action: .download, metaText: "16:09")
+        let model = KIMessageImageAttachmentViewModel(width: 100, height: 200, whRatio: 0.1, imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), action: .download, metaText: "16:09")
         let view = KIMessageImageAttachmentView(frame: .init(x: 20, y: 100, width: model.width, height: model.height), viewModel: model)
         
         self.view.addSubview(view)
@@ -220,20 +218,20 @@ class ViewController: UIViewController {
         var width: CGFloat = 100
         let height: CGFloat = KIReplyMessageViewModel.replyMessageViewHeightRecommended
      
-        let replyMessageView = KIReplyMessageView(frame: CGRect(x: 100, y: 100, width: width, height: height), viewModel: KIReplyMessageViewModel(width: width, height: height, imageData: nil, topText: "Benjamin Jery", bottomText: "Hey ladies"))
+        let replyMessageView = KIReplyMessageView(frame: CGRect(x: 100, y: 100, width: width, height: height), viewModel: KIReplyMessageViewModel(width: width, imageData: nil, topText: "Benjamin Jery", bottomText: "Hey ladies"))
         
         q.addOperation {
             sleep(1)
             OperationQueue.main.addOperation {
                 width = 300
                 replyMessageView.frame = CGRect(x: 100, y: 100, width: width, height: height)
-                replyMessageView.viewModel = KIReplyMessageViewModel(width: width, height: height, imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), topText: "keaty floxy", bottomText: "Hey raspberry")
+                replyMessageView.viewModel = KIReplyMessageViewModel(width: width, imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), topText: "keaty floxy", bottomText: "Hey raspberry")
             }
             sleep(1)
             OperationQueue.main.addOperation {
                 width = 400
                 replyMessageView.frame = CGRect(x: 100, y: 100, width: width, height: height)
-                replyMessageView.viewModel = KIReplyMessageViewModel(width: width, height: height, imageData: nil, topText: "keaty floxy djasnd iausda", bottomText: nil)
+                replyMessageView.viewModel = KIReplyMessageViewModel(width: width, imageData: nil, topText: "keaty floxy djasnd iausda", bottomText: nil)
             }
             
             

@@ -21,7 +21,7 @@ public class KITextMessageContentView: KIView<KITextMessageContentViewModel> {
     
     override func initView() {
         nameTextView.font = KITextMessageContentViewModel.nameTextFont
-        nameTextView.textColor = KIConfig.primaryColor
+//        nameTextView.textColor = KIConfig.primaryColor
         addSubview(nameTextView)
         
         forwardedFromTextLabel.font = KITextMessageContentViewModel.forwardedFromTextFont
@@ -45,7 +45,9 @@ public class KITextMessageContentView: KIView<KITextMessageContentViewModel> {
     
     override func updateUI(with viewModel: KITextMessageContentViewModel) {
         nameTextView.text = viewModel.nameText
+        nameTextView.textColor = viewModel.nameTextColor ?? KIConfig.primaryColor
         nameTextView.frame = viewModel.nameTextFrame
+        
         
         forwardedFromTextLabel.text = viewModel.forwardedFromText
         forwardedFromTextLabel.frame = viewModel.forwardedFromTextFrame

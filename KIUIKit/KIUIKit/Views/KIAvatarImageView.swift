@@ -23,11 +23,11 @@ class KIAvatarImageView: KICircleImageView {
         })
     }
     
-    public var color: UIColor {
+    public var color: UIColor? {
         if let gradientBase = gradientBase {
             return KIAvatarImageView.colors[gradientBase.remainderReportingOverflow(dividingBy: KIAvatarImageView.colors.count).partialValue]
         }
-        return .black
+        return nil
     }
     
     public var gradientBase: Int? {

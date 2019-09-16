@@ -18,6 +18,10 @@ public enum KIMessageAttachmentAction {
 
 public class KIMessageImageAttachmentViewModel: KISizeAwareViewModel {
     
+    public static var minWidth: CGFloat = 100
+    public static var minHeight: CGFloat = 100
+    
+    
     public static var actionSize: CGFloat = 40
     public static var metaTextFont: UIFont = .systemFont(ofSize: 12)
     
@@ -28,13 +32,9 @@ public class KIMessageImageAttachmentViewModel: KISizeAwareViewModel {
     public var actionFrame: CGRect = .zero
     public var metaText: String?
     private(set) var metaTextFrame: CGRect = .zero
-    public var minWidth: CGFloat
-    public var minHeight: CGFloat
     
-    public init(width: CGFloat,
-                         height: CGFloat,
-                         minWidth: CGFloat,
-                         minHeight: CGFloat,
+    public init(width: CGFloat = 0,
+                         height: CGFloat = 0,
                          whRatio: CGFloat,
                          imageData: KIImageData,
                          action: KIMessageAttachmentAction,
@@ -44,17 +44,15 @@ public class KIMessageImageAttachmentViewModel: KISizeAwareViewModel {
         self.imageData = imageData
         self.action = action
         self.metaText = metaText
-        self.minWidth = minWidth
-        self.minHeight = minHeight
         
         super.init(width: width, height: height)
     }
     
     public override func updateFrames() {
         if self.whRatio > 1 {
-            self.height = max(self.width / self.whRatio, self.minHeight)
+            self.height = max(self.width / self.whRatio, KIMessageImageAttachmentViewModel.minHeight)
         } else {
-            self.width = max(self.height * self.whRatio, self.minWidth)
+            self.width = max(self.height * self.whRatio, KIMessageImageAttachmentViewModel.minWidth)
         }
         
         actionWrapFrame = .init(x: (width - KIMessageImageAttachmentViewModel.actionSize)/2, y: (height - KIMessageImageAttachmentViewModel.actionSize)/2, width: KIMessageImageAttachmentViewModel.actionSize, height: KIMessageImageAttachmentViewModel.actionSize)

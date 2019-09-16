@@ -29,12 +29,12 @@ public class KIReplyMessageViewModel: KISizeAwareViewModel {
     
 
     
-    public init(width: CGFloat, height: CGFloat, imageData: KIImageData?, topText: String?, bottomText: String?) {
+    public init(width: CGFloat = 0, imageData: KIImageData?, topText: String?, bottomText: String?) {
         self.imageData = imageData
         self.topText = topText
         self.bottomText = bottomText
         
-        super.init(width: width, height: height)  
+        super.init(width: width, height: 0)
     }
     
     public override func updateFrames() {
@@ -46,5 +46,7 @@ public class KIReplyMessageViewModel: KISizeAwareViewModel {
         let w = self.width - x
         self.topTextFrame = CGRect(x: x, y: KIReplyMessageViewModel.yPadding, width: w, height: KIReplyMessageViewModel.topTextFont.lineHeight)
         self.bottomTextFrame = CGRect(x: x, y: self.height - KIReplyMessageViewModel.yPadding - KIReplyMessageViewModel.bottomTextFont.lineHeight, width: w, height: KIReplyMessageViewModel.bottomTextFont.lineHeight)
+        
+        self.height = KIReplyMessageViewModel.replyMessageViewHeightRecommended
     }
 }
