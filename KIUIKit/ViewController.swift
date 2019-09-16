@@ -38,6 +38,17 @@ class ViewController: UIViewController {
         
         
         q.addOperation {
+            
+            sleep(2)
+            model.containerLocation = .left
+            model.avatarImageData = nil
+            contentModel.nameText = nil
+            model.updateFrames()
+            OperationQueue.main.addOperation {
+                view.viewModel = model
+                view.frame = .init(origin: .init(x: 0, y: 100), size: model.size)
+            }
+            
             sleep(2)
             model.containerLocation = .left
             model.avatarImageData = nil
@@ -54,15 +65,7 @@ class ViewController: UIViewController {
                 view.frame = .init(origin: .init(x: 0, y: 100), size: model.size)
             }
             
-            sleep(2)
-            model.containerLocation = .left
-            model.avatarImageData = nil
-            contentModel.nameText = nil
-            model.updateFrames()
-            OperationQueue.main.addOperation {
-                view.viewModel = model
-                view.frame = .init(origin: .init(x: 0, y: 100), size: model.size)
-            }
+            
             sleep(2)
             contentModel.nameText = "Kertan Menidas"
             model.avatarImageData = .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg")
