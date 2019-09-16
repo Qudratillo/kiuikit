@@ -16,7 +16,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
        
-        testTextMessageView()
+        testActionMessageView()
+//        testTextMessageView()
 //        testTextMessageContentView()
 //        testMessageDetailAttachmentView()
 //        testMessageImageAttachmentView()
@@ -26,12 +27,34 @@ class ViewController: UIViewController {
         
     }
     
+    func testActionMessageView() {
+        let model = KIActionMessageViewModel(width: self.view.frame.width, text: "Chat created with so many users, so please keep calm to respect them and take your seats to kate and play it with passion", imageData: nil)
+        let view = KIActionMessageView(frame: .init(origin: .init(x: 0, y: 100), size: model.size), viewModel: model)
+        
+        self.view.addSubview(view)
+        
+        
+        q.addOperation {
+            sleep(2)
+            model.text = "Chat created"
+            model.imageData = .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg")
+            model.updateFrames()
+            OperationQueue.main.addOperation {
+                view.viewModel = model
+                view.frame = .init(origin: .init(x: 0, y: 100), size: model.size)
+            }
+        }
+        
+    }
+    
     
     func testTextMessageView() {
         let replyModel = KIReplyMessageViewModel(width: 300, imageData: nil, topText: "Benjamin Jery", bottomText: "Hey ladies")
         let detailAttachmentModel = KIMessageDetailAttachmentViewModel(width: 300, action: .download, imageData: .empty, imageGradientBase: nil, imageInitialsText: nil, topText: "Johnny Dertiy - Hey ladies.mp3", bottomText: "04:21, 1.2 MB", sliderValue: 0)
         
-        let contentModel = KITextMessageContentViewModel(width: 300, nameText: "Benjamin Fankley", forwardedFromText: "Forwarded from me", replyModel: replyModel, attachmentModel: .detail(detailAttachmentViewModel: detailAttachmentModel), text: "Hey come over", messageStatus: nil, timeText: "12:05 AM")
+        let contentModel = KITextMessageContentViewModel(width: 300, nameText: "Benjamin Fankley", forwardedFromText: "Forwarded from me", replyModel: replyModel, attachmentModel: .detail(detailAttachmentViewModel: detailAttachmentModel), text: "Hi ladies and gentlemens, tonight we gonna keep"
+            //asking you to play this amazing game. Let me explain the game. It is so easy to play. You just need to sit down and then stand up. Person who did the most is the winner."
+            , messageStatus: nil, timeText: "12:05 AM")
         let model = KITextMessageViewModel(width: self.view.frame.width, avatarImageData: nil, avatarGradientBase: 4, avatarInitialsText: nil, contentModel: contentModel, containerLocation: .right)
         let view = KITextMessageView(frame: .init(origin: .init(x: 0, y: 100), size: model.size), viewModel: model)
         self.view.addSubview(view)

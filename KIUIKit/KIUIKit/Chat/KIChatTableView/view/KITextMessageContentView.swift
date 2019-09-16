@@ -21,6 +21,7 @@ public class KITextMessageContentView: KIView<KITextMessageContentViewModel> {
     
     override func initView() {
         nameTextView.font = KITextMessageContentViewModel.nameTextFont
+//        nameTextView.lineBreakMode = .byWordWrapping
 //        nameTextView.textColor = KIConfig.primaryColor
         addSubview(nameTextView)
         
@@ -33,6 +34,8 @@ public class KITextMessageContentView: KIView<KITextMessageContentViewModel> {
         addSubview(detailAttachmentView)
         
         textLabel.font = KITextMessageContentViewModel.textFont
+        textLabel.lineBreakMode = .byWordWrapping
+        textLabel.numberOfLines = 0
         addSubview(textLabel)
         
         timeView.layer.cornerRadius = 4

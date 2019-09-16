@@ -13,7 +13,9 @@ extension UIFont {
         let attributes = [NSAttributedString.Key.font: self, NSAttributedString.Key.paragraphStyle: WordWrapParagraphStyle()]
         let attString = NSAttributedString(string: string,attributes: attributes)
         let framesetter = CTFramesetterCreateWithAttributedString(attString)
-        return CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRange(location: 0, length: 0), nil, CGSize(width: width, height: .greatestFiniteMagnitude), nil)
+        
+        let size = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRange(location: 0, length: 0), nil, CGSize(width: width, height: .greatestFiniteMagnitude), nil)
+        return .init(width: ceil(size.width), height: round(size.height / self.lineHeight) * self.lineHeight)
     }
     
     func size (ofString string: String, constrainedToHeight height: CGFloat) -> CGSize {
