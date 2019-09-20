@@ -20,7 +20,7 @@ public class KITextMessageView: KIView<KITextMessageViewModel> {
         
         containerView.clipsToBounds = true
         containerView.layer.borderColor = UIColor.gray.cgColor
-        containerView.layer.borderWidth = 0.2
+        containerView.layer.borderWidth = 0.5
         containerView.layer.cornerRadius = 16
         addSubview(containerView)
         

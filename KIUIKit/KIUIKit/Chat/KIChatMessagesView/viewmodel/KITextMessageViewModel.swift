@@ -68,16 +68,16 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
             xOffset = 44
         }
         
-        self.height = max(containerHeight, 40)
+        self.height = max(containerHeight, 40) + 2
         
         switch containerLocation {
         case .right:
-            containerFrame = .init(x: width - containerWidth - 12 - xOffset, y: self.height - containerHeight, width: containerWidth, height: containerHeight)
+            containerFrame = .init(x: width - containerWidth - 12 - xOffset, y: self.height - containerHeight - 1, width: containerWidth, height: containerHeight)
             containerBackgroundColor = KITextMessageViewModel.rightMessageContainerColor
-            avatarFrame = .init(x: width - 8 - 40, y: self.height - 40, width: 40, height: 40)
+            avatarFrame = .init(x: width - 8 - 40, y: self.height - 40 - 1, width: 40, height: 40)
         case .left:
-            containerFrame = .init(x: 12 + xOffset, y: self.height - containerHeight, width: containerWidth, height: containerHeight)
-            avatarFrame = .init(x: 8, y: self.height - 40, width: 40, height: 40)
+            containerFrame = .init(x: 12 + xOffset, y: self.height - containerHeight - 1, width: containerWidth, height: containerHeight)
+            avatarFrame = .init(x: 8, y: self.height - 40 - 1, width: 40, height: 40)
             containerBackgroundColor = KITextMessageViewModel.leftMessageContainerColor
         }
         
