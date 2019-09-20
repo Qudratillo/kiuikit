@@ -9,12 +9,16 @@
 
 import UIKit
 
+public protocol KIMessageViewModel: KISizeAwareViewModel {
+    
+}
+
 public enum KIMessageContainerLocation {
     case right
     case left
 }
 
-public class KITextMessageViewModel: KISizeAwareViewModel {
+public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
     
     public static var maxContainerOffset: CGFloat = 100
     public static var maxContainerWidth: CGFloat = 400
@@ -64,19 +68,20 @@ public class KITextMessageViewModel: KISizeAwareViewModel {
             xOffset = 44
         }
         
+        self.height = max(containerHeight, 40)
         
         switch containerLocation {
         case .right:
-            containerFrame = .init(x: width - containerWidth - 12 - xOffset, y: 0, width: containerWidth, height: containerHeight)
+            containerFrame = .init(x: width - containerWidth - 12 - xOffset, y: self.height - containerHeight, width: containerWidth, height: containerHeight)
             containerBackgroundColor = KITextMessageViewModel.rightMessageContainerColor
-            avatarFrame = .init(x: width - 8 - 40, y: containerHeight - 40, width: 40, height: 40)
+            avatarFrame = .init(x: width - 8 - 40, y: self.height - 40, width: 40, height: 40)
         case .left:
-            containerFrame = .init(x: 12 + xOffset, y: 0, width: containerWidth, height: containerHeight)
-            avatarFrame = .init(x: 8, y: containerHeight - 40, width: 40, height: 40)
+            containerFrame = .init(x: 12 + xOffset, y: self.height - containerHeight, width: containerWidth, height: containerHeight)
+            avatarFrame = .init(x: 8, y: self.height - 40, width: 40, height: 40)
             containerBackgroundColor = KITextMessageViewModel.leftMessageContainerColor
         }
         
-        self.height = containerHeight
+        
     }
     
 }

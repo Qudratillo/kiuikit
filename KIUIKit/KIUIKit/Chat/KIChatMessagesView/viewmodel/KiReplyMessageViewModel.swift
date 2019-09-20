@@ -38,6 +38,7 @@ public class KIReplyMessageViewModel: KISizeAwareViewModel {
     }
     
     public override func updateFrames() {
+        self.height = KIReplyMessageViewModel.replyMessageViewHeightRecommended
         var x: CGFloat = KIReplyMessageViewModel.leftStripSpace
         if self.imageData != nil {
             x += KIReplyMessageViewModel.imageSize + 4
@@ -47,6 +48,6 @@ public class KIReplyMessageViewModel: KISizeAwareViewModel {
         self.topTextFrame = CGRect(x: x, y: KIReplyMessageViewModel.yPadding, width: w, height: KIReplyMessageViewModel.topTextFont.lineHeight)
         self.bottomTextFrame = CGRect(x: x, y: self.height - KIReplyMessageViewModel.yPadding - KIReplyMessageViewModel.bottomTextFont.lineHeight, width: w, height: KIReplyMessageViewModel.bottomTextFont.lineHeight)
         
-        self.height = KIReplyMessageViewModel.replyMessageViewHeightRecommended
+        
     }
 }

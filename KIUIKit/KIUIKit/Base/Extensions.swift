@@ -24,6 +24,14 @@ extension UIFont {
         let framesetter = CTFramesetterCreateWithAttributedString(attString)
         return CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRange(location: 0, length: 0), nil, CGSize(width: .greatestFiniteMagnitude, height: height), nil)
     }
+    
+    
+    func size (ofSingleLineString string: String) -> CGSize {
+        let attributes = [NSAttributedString.Key.font: self, NSAttributedString.Key.paragraphStyle: WordWrapParagraphStyle()]
+        let attString = NSAttributedString.init(string: string, attributes: attributes)
+        let framesetter = CTFramesetterCreateWithAttributedString(attString)
+        return CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRange(location: 0, length: 0), nil, CGSize(width: .greatestFiniteMagnitude, height: self.lineHeight), nil)
+    }
 }
 
 class WordWrapParagraphStyle: NSParagraphStyle {
@@ -52,5 +60,11 @@ extension UIColor {
         } else {
             return nil
         }
+    }
+}
+
+extension Array {
+    func element(at index: Int) -> Element? {
+        return index < 0 || index >= count ? nil : self[index]
     }
 }

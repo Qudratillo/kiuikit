@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class KIActionMessageViewModel: KISizeAwareViewModel {
+public class KIActionMessageViewModel: KISizeAwareViewModel, KIMessageViewModel  {
     
     public static var textFont: UIFont = .systemFont(ofSize: 14)
     
@@ -17,7 +17,7 @@ public class KIActionMessageViewModel: KISizeAwareViewModel {
     public var imageData: KIImageData?
     private(set) var imageFrame: CGRect = .zero
     
-    public init(width: CGFloat, text: String, imageData: KIImageData?) {
+    public init(width: CGFloat = 0, text: String, imageData: KIImageData?) {
         self.text = text
         self.imageData = imageData
         super.init(width: width, height: 0)

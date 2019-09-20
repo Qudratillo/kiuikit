@@ -77,6 +77,7 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
     public override func updateFrames() {
         if case .image(let imageAttachmentViewModel)? = attachmentModel {
             imageAttachmentViewModel.width = width - 4
+            imageAttachmentViewModel.height = width - 4
             imageAttachmentViewModel.updateFrames()
             width = imageAttachmentViewModel.width + 4
         }
@@ -152,7 +153,7 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
             
         }
         
-        if textFrame.height == 0 {
+        if textFrame.height == 0 && imageAttachmentFrame.height != 0 {
             timeFrame = .init(x: width - tw - 6, y: height - KITextMessageContentViewModel.timeFrameHeight - 4, width: tw, height: KITextMessageContentViewModel.timeFrameHeight)
         }
         else {

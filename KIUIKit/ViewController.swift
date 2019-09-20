@@ -15,8 +15,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-       
-        testActionMessageView()
+       testChatMessagesCollectionView()
+//        testActionMessageView()
 //        testTextMessageView()
 //        testTextMessageContentView()
 //        testMessageDetailAttachmentView()
@@ -25,6 +25,49 @@ class ViewController: UIViewController {
 //        testAvatarImageView()
      
         
+    }
+    
+    func testChatMessagesCollectionView() {
+        let view: KIChatMessagesCollectionView = .init(frame: self.view.frame)
+        var items: [KIChatMessageItem] = []
+        let df = DateFormatter()
+        df.dateStyle = .none
+        df.timeStyle = .short
+        for _ in 1...100 {
+            let date = Date(timeIntervalSinceNow: TimeInterval(arc4random() % (10*24*3600)))
+            var viewModel: KIMessageViewModel
+            
+            if arc4random()%10 == 1 {
+                viewModel = KIActionMessageViewModel(text: "Chat Photo Changed", imageData: arc4random()%2 == 1 ? nil : .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"))
+            } else {
+                let intialsText = "\(Unicode.Scalar.init(arc4random()%29 + UnicodeScalar("A").value) ?? UnicodeScalar("A")) \(Unicode.Scalar.init(arc4random()%29 + UnicodeScalar("A").value) ?? UnicodeScalar("A"))"
+                let replyModel = arc4random()%2 == 1 ? KIReplyMessageViewModel(imageData: nil, topText: "Cherry Botson", bottomText:
+                    randomAlphanumericString(length: Int(arc4random()%200))) : nil
+                
+                let imageAttachmentModel = arc4random()%2 == 1 ? KIMessageAttachmentViewModel.image(imageAttachmentViewModel: KIMessageImageAttachmentViewModel(whRatio: CGFloat((arc4random()%4 + 1))/CGFloat(arc4random()%4 + 1), imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), action: .download, metaText: nil)) : nil
+                let detailAttachmentModel = arc4random()%2 == 1 ? KIMessageAttachmentViewModel.detail(detailAttachmentViewModel: KIMessageDetailAttachmentViewModel(action: arc4random()%2 == 1 ? .play : .none, imageData: arc4random()%2 == 1 ? .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg") : .empty, imageGradientBase: Int(arc4random()), imageInitialsText: randomAlphanumericString(length: 10), topText: randomAlphanumericString(length: 10), bottomText: randomAlphanumericString(length: 20), sliderValue: Float((arc4random()%100)/100))) : nil
+                
+                viewModel = KITextMessageViewModel(avatarImageData: arc4random()%2 == 1 ? .empty : .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), avatarGradientBase: Int(arc4random()), avatarInitialsText: intialsText, contentModel: .init(nameText: arc4random()%2 == 1 ? "Merlyn Monro" : nil, forwardedFromText: arc4random() % 10 == 1 ? "Forwarded from Kate Bell" : nil, replyModel: replyModel, attachmentModel: arc4random()%2 == 1 ? imageAttachmentModel : detailAttachmentModel, text: arc4random() % 2 == 1 ? randomAlphanumericString(length: Int(arc4random() % 1000)) : nil, messageStatus: nil, timeText: df.string(from: date)) , containerLocation: arc4random()%2 == 1 ? .right : .left)
+            }
+            
+            items.append(.init(id: Int(date.timeIntervalSinceNow), date: date, viewModel: viewModel))
+        }
+        
+        view.set(items: items)
+        self.view.addSubview(view)
+    }
+    
+    func randomAlphanumericString(length: Int) -> String  {
+        enum Statics {
+            static let scalars = [UnicodeScalar("a").value...UnicodeScalar("z").value,
+                                  UnicodeScalar("A").value...UnicodeScalar("Z").value,
+                                  UnicodeScalar("0").value...UnicodeScalar("9").value].joined()
+            
+            static let characters = scalars.map { Character(UnicodeScalar($0)!) }
+        }
+        
+        let result = (0..<length).map { _ in Statics.characters.randomElement()! }
+        return String(result)
     }
     
     func testActionMessageView() {

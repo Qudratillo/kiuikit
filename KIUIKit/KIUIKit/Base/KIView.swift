@@ -15,7 +15,7 @@ public class KIView<ViewModel>: UIView {
         }
     }
     
-    public init() {
+    public required init() {
         super.init(frame: .zero)
         self.clipsToBounds = true
         self.initView()
@@ -38,8 +38,9 @@ public class KIView<ViewModel>: UIView {
         
     }
     
-    private func updateUI() {
+    public func updateUI() {
         if let viewModel = viewModel {
+            self.isHidden = false
             self.updateUI(with: viewModel)
         }
         else {

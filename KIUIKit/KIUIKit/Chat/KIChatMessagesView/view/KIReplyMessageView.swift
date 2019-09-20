@@ -30,10 +30,14 @@ public class KIReplyMessageView: KIView<KIReplyMessageViewModel> {
         
         self.topTextLabel.font = KIReplyMessageViewModel.topTextFont
         self.topTextLabel.textColor = KIConfig.primaryColor
+        self.topTextLabel.numberOfLines = 1
+        self.topTextLabel.lineBreakMode = .byTruncatingTail
         self.addSubview(topTextLabel)
         
         self.bottomTextLabel.font = KIReplyMessageViewModel.bottomTextFont
         self.bottomTextLabel.textColor = KIConfig.secondaryTextColor
+        self.bottomTextLabel.numberOfLines = 1
+        self.bottomTextLabel.lineBreakMode = .byTruncatingTail
         self.addSubview(bottomTextLabel)
     }
     
