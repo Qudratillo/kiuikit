@@ -49,6 +49,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         let flowLayout: UICollectionViewFlowLayout = .init()
         flowLayout.headerReferenceSize = .init(width: frame.width, height: 40)
         flowLayout.scrollDirection = .vertical
+        flowLayout.sectionHeadersPinToVisibleBounds = true
         
         super.init(frame: frame, collectionViewLayout: flowLayout)
         initView()
@@ -66,6 +67,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         self.register(KIChatMessageCell<KIActionMessageView, KIActionMessageViewModel>.self, forCellWithReuseIdentifier: "action-message-cell")
         self.register(KIChatMessageSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header-view")
         self.alwaysBounceVertical = true
+        
         
     }
     
