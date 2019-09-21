@@ -1,0 +1,206 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "KIMessageAttachmentAction"
+- "KIMessageImageAttachmentViewModel"
+provides-nominal:
+- "7KIUIKit25KIMessageAttachmentActionO"
+- "7KIUIKit33KIMessageImageAttachmentViewModelC"
+provides-member:
+- ["7KIUIKit25KIMessageAttachmentActionO", ""]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "*"
+- !private "+"
+- !private "-"
+- !private "/"
+- !private ">="
+- "AssignmentPrecedence"
+- "CGFloat"
+- "CGRect"
+- "KIImageData"
+- "KIMessageAttachmentAction"
+- "KIMessageImageAttachmentViewModel"
+- "KISizeAwareViewModel"
+- "String"
+- "UIFont"
+- "UIImage"
+- !private "max"
+- !private "min"
+depends-member:
+- !private ["So6CGRectV", "height"]
+- !private ["So6CGRectV", "init"]
+- !private ["So6CGRectV", "init"]
+- !private ["So6CGRectV", "width"]
+- ["So6CGRectV", "zero"]
+- !private ["So6CGSizeV", "width"]
+- !private ["s7CVarArgP", "lineHeight"]
+- !private ["s7CVarArgP", "size"]
+- ["s7CVarArgP", "systemFont"]
+- !private ["s28CustomDebugStringConvertibleP", "height"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "lineHeight"]
+- !private ["s28CustomDebugStringConvertibleP", "size"]
+- ["s28CustomDebugStringConvertibleP", "systemFont"]
+- !private ["s28CustomDebugStringConvertibleP", "width"]
+- ["s28CustomDebugStringConvertibleP", "zero"]
+- !private ["s17CustomReflectableP", "height"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "width"]
+- ["s17CustomReflectableP", "zero"]
+- !private ["s23CustomStringConvertibleP", "lineHeight"]
+- !private ["s23CustomStringConvertibleP", "size"]
+- ["s23CustomStringConvertibleP", "systemFont"]
+- !private ["Se", "height"]
+- !private ["Se", "init"]
+- !private ["Se", "init"]
+- !private ["Se", "width"]
+- ["Se", "zero"]
+- !private ["SE", "height"]
+- !private ["SE", "init"]
+- !private ["SE", "init"]
+- !private ["SE", "width"]
+- ["SE", "zero"]
+- !private ["SQ", "height"]
+- !private ["SQ", "init"]
+- !private ["SQ", "init"]
+- !private ["SQ", "lineHeight"]
+- !private ["SQ", "size"]
+- ["SQ", "systemFont"]
+- !private ["SQ", "width"]
+- ["SQ", "zero"]
+- !private ["SH", "lineHeight"]
+- !private ["SH", "size"]
+- ["SH", "systemFont"]
+- ["7KIUIKit25KIMessageAttachmentActionO", "UIImage"]
+- ["7KIUIKit25KIMessageAttachmentActionO", "action"]
+- ["7KIUIKit25KIMessageAttachmentActionO", "download"]
+- ["7KIUIKit25KIMessageAttachmentActionO", "loading"]
+- ["7KIUIKit25KIMessageAttachmentActionO", "none"]
+- ["7KIUIKit25KIMessageAttachmentActionO", "play"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "CGFloat"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "CGRect"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "KIImageData"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "KIMessageAttachmentAction"]
+- !private ["7KIUIKit33KIMessageImageAttachmentViewModelC", "KIMessageImageAttachmentViewModel"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "String"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "UIFont"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "action"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "actionFrame"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "actionSize"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "actionWrapFrame"]
+- !private ["7KIUIKit33KIMessageImageAttachmentViewModelC", "height"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "imageData"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "init"]
+- !private ["7KIUIKit33KIMessageImageAttachmentViewModelC", "max"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "metaText"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "metaTextFont"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "metaTextFrame"]
+- !private ["7KIUIKit33KIMessageImageAttachmentViewModelC", "min"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "minHeight"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "minWidth"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "updateFrames"]
+- ["7KIUIKit33KIMessageImageAttachmentViewModelC", "whRatio"]
+- !private ["7KIUIKit33KIMessageImageAttachmentViewModelC", "width"]
+- ["7KIUIKit20KISizeAwareViewModelC", "CGFloat"]
+- ["7KIUIKit20KISizeAwareViewModelC", "CGRect"]
+- ["7KIUIKit20KISizeAwareViewModelC", "KIImageData"]
+- ["7KIUIKit20KISizeAwareViewModelC", "KIMessageAttachmentAction"]
+- !private ["7KIUIKit20KISizeAwareViewModelC", "KIMessageImageAttachmentViewModel"]
+- ["7KIUIKit20KISizeAwareViewModelC", "String"]
+- ["7KIUIKit20KISizeAwareViewModelC", "UIFont"]
+- ["7KIUIKit20KISizeAwareViewModelC", ""]
+- ["7KIUIKit20KISizeAwareViewModelC", "action"]
+- ["7KIUIKit20KISizeAwareViewModelC", "actionFrame"]
+- ["7KIUIKit20KISizeAwareViewModelC", "actionSize"]
+- ["7KIUIKit20KISizeAwareViewModelC", "actionWrapFrame"]
+- !private ["7KIUIKit20KISizeAwareViewModelC", "height"]
+- ["7KIUIKit20KISizeAwareViewModelC", "imageData"]
+- ["7KIUIKit20KISizeAwareViewModelC", "init"]
+- !private ["7KIUIKit20KISizeAwareViewModelC", "max"]
+- ["7KIUIKit20KISizeAwareViewModelC", "metaText"]
+- ["7KIUIKit20KISizeAwareViewModelC", "metaTextFont"]
+- ["7KIUIKit20KISizeAwareViewModelC", "metaTextFrame"]
+- !private ["7KIUIKit20KISizeAwareViewModelC", "min"]
+- ["7KIUIKit20KISizeAwareViewModelC", "minHeight"]
+- ["7KIUIKit20KISizeAwareViewModelC", "minWidth"]
+- ["7KIUIKit20KISizeAwareViewModelC", "updateFrames"]
+- ["7KIUIKit20KISizeAwareViewModelC", "whRatio"]
+- !private ["7KIUIKit20KISizeAwareViewModelC", "width"]
+- !private ["So9NSCopyingP", "lineHeight"]
+- !private ["So9NSCopyingP", "size"]
+- ["So9NSCopyingP", "systemFont"]
+- !private ["So8NSObjectC", "lineHeight"]
+- !private ["So8NSObjectC", "size"]
+- ["So8NSObjectC", "systemFont"]
+- !private ["So8NSObjectP", "lineHeight"]
+- !private ["So8NSObjectP", "size"]
+- ["So8NSObjectP", "systemFont"]
+- !private ["So6UIFontC", "lineHeight"]
+- !private ["So6UIFontC", "size"]
+- ["So6UIFontC", "systemFont"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "height"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "init"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "init"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "width"]
+- ["s30_CustomPlaygroundQuickLookableP", "zero"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "lineHeight"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "size"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "systemFont"]
+- !private ["s21_ObjectiveCBridgeableP", "height"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "width"]
+- ["s21_ObjectiveCBridgeableP", "zero"]
+depends-nominal:
+- "So6CGRectV"
+- !private "So6CGSizeV"
+- "s7CVarArgP"
+- "s28CustomDebugStringConvertibleP"
+- "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- "Se"
+- "SE"
+- "SQ"
+- "SH"
+- "7KIUIKit25KIMessageAttachmentActionO"
+- "7KIUIKit33KIMessageImageAttachmentViewModelC"
+- "7KIUIKit20KISizeAwareViewModelC"
+- "So9NSCopyingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- "So6UIFontC"
+- "s30_CustomPlaygroundQuickLookableP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- "s21_ObjectiveCBridgeableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/kudratilloismatov/Desktop/Projects/iOS/KIUIKitTest/KIUIKit/KIUIKit.h"
+- "/Users/kudratilloismatov/Desktop/Projects/iOS/KIUIKitTest/build/KIUIKitTest.build/Debug-iphonesimulator/KIUIKit.build/unextended-module.modulemap"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "2f2bb7c3a6109573f5e7233d104571af"

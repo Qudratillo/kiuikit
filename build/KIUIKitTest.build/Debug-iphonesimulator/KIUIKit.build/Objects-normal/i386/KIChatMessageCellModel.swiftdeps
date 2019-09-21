@@ -1,0 +1,64 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "KIChatMessageCellModel"
+provides-nominal:
+- "7KIUIKit22KIChatMessageCellModelC"
+provides-member:
+- ["7KIUIKit22KIChatMessageCellModelC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- "AssignmentPrecedence"
+- "CGFloat"
+- !private "FloatLiteralType"
+- !private "IntegerLiteralType"
+- "KIChatMessageCellModel"
+- "KISizeAwareViewModel"
+- !private "StringLiteralType"
+depends-member:
+- ["7KIUIKit22KIChatMessageCellModelC", "CGFloat"]
+- !private ["7KIUIKit22KIChatMessageCellModelC", "height"]
+- ["7KIUIKit22KIChatMessageCellModelC", "init"]
+- ["7KIUIKit22KIChatMessageCellModelC", "messageData"]
+- ["7KIUIKit22KIChatMessageCellModelC", "updateFrames"]
+- ["7KIUIKit22KIChatMessageCellModelC", "viewModel"]
+- !private ["7KIUIKit22KIChatMessageCellModelC", "width"]
+- ["7KIUIKit20KISizeAwareViewModelC", "CGFloat"]
+- ["7KIUIKit20KISizeAwareViewModelC", ""]
+- !private ["7KIUIKit20KISizeAwareViewModelC", "height"]
+- ["7KIUIKit20KISizeAwareViewModelC", "init"]
+- ["7KIUIKit20KISizeAwareViewModelC", "messageData"]
+- ["7KIUIKit20KISizeAwareViewModelC", "updateFrames"]
+- ["7KIUIKit20KISizeAwareViewModelC", "viewModel"]
+- !private ["7KIUIKit20KISizeAwareViewModelC", "width"]
+depends-nominal:
+- "7KIUIKit22KIChatMessageCellModelC"
+- "7KIUIKit20KISizeAwareViewModelC"
+depends-dynamic-lookup:
+depends-external:
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/ObjectiveC.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreImage.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/QuartzCore.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Metal.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Darwin.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Foundation.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreFoundation.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/CoreGraphics.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Swift.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/UIKit.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/SwiftOnoneSupport.swiftmodule"
+- "/Users/kudratilloismatov/Desktop/Projects/iOS/KIUIKitTest/KIUIKit/KIUIKit.h"
+- "/Users/kudratilloismatov/Desktop/Projects/iOS/KIUIKitTest/build/KIUIKitTest.build/Debug-iphonesimulator/KIUIKit.build/unextended-module.modulemap"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/i386/Dispatch.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "8b49dbe2f0950d4c139621c5077d07a5"

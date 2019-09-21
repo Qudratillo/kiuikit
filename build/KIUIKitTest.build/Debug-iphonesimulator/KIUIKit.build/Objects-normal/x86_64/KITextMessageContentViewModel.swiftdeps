@@ -1,0 +1,417 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "KIMessageStatus"
+- "KIMessageAttachmentViewModel"
+- "KITextMessageContentViewModel"
+provides-nominal:
+- "7KIUIKit15KIMessageStatusO"
+- "7KIUIKit28KIMessageAttachmentViewModelO"
+- "7KIUIKit29KITextMessageContentViewModelC"
+provides-member:
+- ["7KIUIKit15KIMessageStatusO", ""]
+- ["7KIUIKit28KIMessageAttachmentViewModelO", ""]
+- ["7KIUIKit29KITextMessageContentViewModelC", ""]
+provides-dynamic-lookup:
+depends-top-level:
+- !private "!="
+- !private "&&"
+- !private "*"
+- "+"
+- !private "+="
+- "-"
+- "/"
+- "=="
+- "AssignmentPrecedence"
+- "CGFloat"
+- "CGRect"
+- "FloatLiteralType"
+- "IntegerLiteralType"
+- "KIConfig"
+- "KIMessageAttachmentViewModel"
+- "KIMessageDetailAttachmentViewModel"
+- "KIMessageImageAttachmentViewModel"
+- "KIMessageStatus"
+- "KIReplyMessageViewModel"
+- "KISizeAwareViewModel"
+- "KITextMessageContentViewModel"
+- "String"
+- !private "StringLiteralType"
+- "TernaryPrecedence"
+- "UIColor"
+- "UIFont"
+depends-member:
+- !private ["So7CGPointV", "init"]
+- !private ["So7CGPointV", "init"]
+- !private ["So6CGRectV", "height"]
+- !private ["So6CGRectV", "init"]
+- !private ["So6CGRectV", "init"]
+- !private ["So6CGRectV", "maxY"]
+- !private ["So6CGRectV", "width"]
+- ["So6CGRectV", "zero"]
+- !private ["So6CGSizeV", "width"]
+- ["s7CVarArgP", "black"]
+- ["s7CVarArgP", "clear"]
+- !private ["s7CVarArgP", "gray"]
+- !private ["s7CVarArgP", "init"]
+- !private ["s7CVarArgP", "init"]
+- ["s7CVarArgP", "lineHeight"]
+- !private ["s7CVarArgP", "size"]
+- ["s7CVarArgP", "systemFont"]
+- !private ["s7CVarArgP", "white"]
+- ["SL", "bold"]
+- ["SL", "semibold"]
+- ["s28CustomDebugStringConvertibleP", "black"]
+- ["s28CustomDebugStringConvertibleP", "clear"]
+- !private ["s28CustomDebugStringConvertibleP", "gray"]
+- !private ["s28CustomDebugStringConvertibleP", "height"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- !private ["s28CustomDebugStringConvertibleP", "init"]
+- ["s28CustomDebugStringConvertibleP", "lineHeight"]
+- !private ["s28CustomDebugStringConvertibleP", "maxY"]
+- !private ["s28CustomDebugStringConvertibleP", "size"]
+- ["s28CustomDebugStringConvertibleP", "systemFont"]
+- !private ["s28CustomDebugStringConvertibleP", "white"]
+- !private ["s28CustomDebugStringConvertibleP", "width"]
+- ["s28CustomDebugStringConvertibleP", "zero"]
+- !private ["s17CustomReflectableP", "height"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "init"]
+- !private ["s17CustomReflectableP", "maxY"]
+- !private ["s17CustomReflectableP", "width"]
+- ["s17CustomReflectableP", "zero"]
+- ["s23CustomStringConvertibleP", "black"]
+- ["s23CustomStringConvertibleP", "clear"]
+- !private ["s23CustomStringConvertibleP", "gray"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- !private ["s23CustomStringConvertibleP", "init"]
+- ["s23CustomStringConvertibleP", "lineHeight"]
+- !private ["s23CustomStringConvertibleP", "size"]
+- ["s23CustomStringConvertibleP", "systemFont"]
+- !private ["s23CustomStringConvertibleP", "white"]
+- !private ["Se", "height"]
+- !private ["Se", "init"]
+- !private ["Se", "init"]
+- !private ["Se", "maxY"]
+- !private ["Se", "width"]
+- ["Se", "zero"]
+- !private ["SE", "height"]
+- !private ["SE", "init"]
+- !private ["SE", "init"]
+- !private ["SE", "maxY"]
+- !private ["SE", "width"]
+- ["SE", "zero"]
+- ["SQ", "=="]
+- ["SQ", ""]
+- ["SQ", "_rawHashValue"]
+- ["SQ", "black"]
+- ["SQ", "bold"]
+- ["SQ", "clear"]
+- !private ["SQ", "gray"]
+- ["SQ", "hash"]
+- ["SQ", "hashValue"]
+- !private ["SQ", "height"]
+- !private ["SQ", "init"]
+- !private ["SQ", "init"]
+- ["SQ", "lineHeight"]
+- !private ["SQ", "maxY"]
+- ["SQ", "semibold"]
+- !private ["SQ", "size"]
+- ["SQ", "systemFont"]
+- !private ["SQ", "white"]
+- !private ["SQ", "width"]
+- ["SQ", "zero"]
+- ["SH", "=="]
+- ["SH", ""]
+- ["SH", "_rawHashValue"]
+- ["SH", "black"]
+- ["SH", "bold"]
+- ["SH", "clear"]
+- !private ["SH", "gray"]
+- ["SH", "hash"]
+- ["SH", "hashValue"]
+- !private ["SH", "init"]
+- !private ["SH", "init"]
+- ["SH", "lineHeight"]
+- ["SH", "semibold"]
+- !private ["SH", "size"]
+- ["SH", "systemFont"]
+- !private ["SH", "white"]
+- !private ["s6HasherV", "combine"]
+- ["7KIUIKit8KIConfigV", "primaryColor"]
+- ["7KIUIKit28KIMessageAttachmentViewModelO", "KIMessageDetailAttachmentViewModel"]
+- ["7KIUIKit28KIMessageAttachmentViewModelO", "KIMessageImageAttachmentViewModel"]
+- ["7KIUIKit28KIMessageAttachmentViewModelO", "detail"]
+- ["7KIUIKit28KIMessageAttachmentViewModelO", "image"]
+- !private ["7KIUIKit34KIMessageDetailAttachmentViewModelC", "height"]
+- !private ["7KIUIKit34KIMessageDetailAttachmentViewModelC", "updateFrames"]
+- !private ["7KIUIKit34KIMessageDetailAttachmentViewModelC", "width"]
+- !private ["7KIUIKit33KIMessageImageAttachmentViewModelC", "height"]
+- !private ["7KIUIKit33KIMessageImageAttachmentViewModelC", "updateFrames"]
+- !private ["7KIUIKit33KIMessageImageAttachmentViewModelC", "width"]
+- ["7KIUIKit15KIMessageStatusO", "=="]
+- ["7KIUIKit15KIMessageStatusO", "__derived_enum_equals"]
+- ["7KIUIKit15KIMessageStatusO", "_rawHashValue"]
+- ["7KIUIKit15KIMessageStatusO", "deinit"]
+- ["7KIUIKit15KIMessageStatusO", "hash"]
+- ["7KIUIKit15KIMessageStatusO", "hashValue"]
+- ["7KIUIKit15KIMessageStatusO", "pending"]
+- ["7KIUIKit15KIMessageStatusO", "seen"]
+- ["7KIUIKit15KIMessageStatusO", "sent"]
+- !private ["7KIUIKit23KIReplyMessageViewModelC", "height"]
+- !private ["7KIUIKit23KIReplyMessageViewModelC", "updateFrames"]
+- !private ["7KIUIKit23KIReplyMessageViewModelC", "width"]
+- ["7KIUIKit20KISizeAwareViewModelC", "CGFloat"]
+- ["7KIUIKit20KISizeAwareViewModelC", "CGRect"]
+- ["7KIUIKit20KISizeAwareViewModelC", "KIConfig"]
+- ["7KIUIKit20KISizeAwareViewModelC", "KIMessageAttachmentViewModel"]
+- ["7KIUIKit20KISizeAwareViewModelC", "KIMessageStatus"]
+- ["7KIUIKit20KISizeAwareViewModelC", "KIReplyMessageViewModel"]
+- ["7KIUIKit20KISizeAwareViewModelC", "KITextMessageContentViewModel"]
+- ["7KIUIKit20KISizeAwareViewModelC", "String"]
+- ["7KIUIKit20KISizeAwareViewModelC", "UIColor"]
+- ["7KIUIKit20KISizeAwareViewModelC", "UIFont"]
+- ["7KIUIKit20KISizeAwareViewModelC", ""]
+- ["7KIUIKit20KISizeAwareViewModelC", "attachmentModel"]
+- ["7KIUIKit20KISizeAwareViewModelC", "detailAttachmentFrame"]
+- ["7KIUIKit20KISizeAwareViewModelC", "forwardedFromText"]
+- ["7KIUIKit20KISizeAwareViewModelC", "forwardedFromTextFont"]
+- ["7KIUIKit20KISizeAwareViewModelC", "forwardedFromTextFrame"]
+- !private ["7KIUIKit20KISizeAwareViewModelC", "height"]
+- ["7KIUIKit20KISizeAwareViewModelC", "imageAttachmentFrame"]
+- ["7KIUIKit20KISizeAwareViewModelC", "init"]
+- ["7KIUIKit20KISizeAwareViewModelC", "messageStatus"]
+- ["7KIUIKit20KISizeAwareViewModelC", "messageStatusColor"]
+- ["7KIUIKit20KISizeAwareViewModelC", "messageStatusFrame"]
+- ["7KIUIKit20KISizeAwareViewModelC", "messageStatusY"]
+- ["7KIUIKit20KISizeAwareViewModelC", "nameText"]
+- ["7KIUIKit20KISizeAwareViewModelC", "nameTextColor"]
+- ["7KIUIKit20KISizeAwareViewModelC", "nameTextFont"]
+- ["7KIUIKit20KISizeAwareViewModelC", "nameTextFrame"]
+- ["7KIUIKit20KISizeAwareViewModelC", "replyFrame"]
+- ["7KIUIKit20KISizeAwareViewModelC", "replyModel"]
+- ["7KIUIKit20KISizeAwareViewModelC", "setTimeDark"]
+- ["7KIUIKit20KISizeAwareViewModelC", "setTimeLight"]
+- ["7KIUIKit20KISizeAwareViewModelC", "text"]
+- ["7KIUIKit20KISizeAwareViewModelC", "textFont"]
+- ["7KIUIKit20KISizeAwareViewModelC", "textFrame"]
+- ["7KIUIKit20KISizeAwareViewModelC", "textMarginX"]
+- ["7KIUIKit20KISizeAwareViewModelC", "timeBackgroundColor"]
+- ["7KIUIKit20KISizeAwareViewModelC", "timeFrame"]
+- ["7KIUIKit20KISizeAwareViewModelC", "timeFrameHeight"]
+- ["7KIUIKit20KISizeAwareViewModelC", "timeText"]
+- ["7KIUIKit20KISizeAwareViewModelC", "timeTextColor"]
+- ["7KIUIKit20KISizeAwareViewModelC", "timeTextFont"]
+- ["7KIUIKit20KISizeAwareViewModelC", "timeTextFrame"]
+- ["7KIUIKit20KISizeAwareViewModelC", "updateFrames"]
+- !private ["7KIUIKit20KISizeAwareViewModelC", "width"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "CGFloat"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "CGRect"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "KIConfig"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "KIMessageAttachmentViewModel"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "KIMessageStatus"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "KIReplyMessageViewModel"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "KITextMessageContentViewModel"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "String"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "UIColor"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "UIFont"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "attachmentModel"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "detailAttachmentFrame"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "forwardedFromText"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "forwardedFromTextFont"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "forwardedFromTextFrame"]
+- !private ["7KIUIKit29KITextMessageContentViewModelC", "height"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "imageAttachmentFrame"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "init"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "messageStatus"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "messageStatusColor"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "messageStatusFrame"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "messageStatusY"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "nameText"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "nameTextColor"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "nameTextFont"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "nameTextFrame"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "replyFrame"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "replyModel"]
+- !private ["7KIUIKit29KITextMessageContentViewModelC", "setTimeDark"]
+- !private ["7KIUIKit29KITextMessageContentViewModelC", "setTimeLight"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "text"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "textFont"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "textFrame"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "textMarginX"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "timeBackgroundColor"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "timeFrame"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "timeFrameHeight"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "timeText"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "timeTextColor"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "timeTextFont"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "timeTextFrame"]
+- ["7KIUIKit29KITextMessageContentViewModelC", "updateFrames"]
+- !private ["7KIUIKit29KITextMessageContentViewModelC", "width"]
+- ["So8NSCodingP", "black"]
+- ["So8NSCodingP", "clear"]
+- !private ["So8NSCodingP", "gray"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "init"]
+- !private ["So8NSCodingP", "white"]
+- ["So9NSCopyingP", "black"]
+- ["So9NSCopyingP", "clear"]
+- !private ["So9NSCopyingP", "gray"]
+- !private ["So9NSCopyingP", "init"]
+- !private ["So9NSCopyingP", "init"]
+- ["So9NSCopyingP", "lineHeight"]
+- !private ["So9NSCopyingP", "size"]
+- ["So9NSCopyingP", "systemFont"]
+- !private ["So9NSCopyingP", "white"]
+- ["So21NSItemProviderReadingP", "black"]
+- ["So21NSItemProviderReadingP", "clear"]
+- !private ["So21NSItemProviderReadingP", "gray"]
+- !private ["So21NSItemProviderReadingP", "init"]
+- !private ["So21NSItemProviderReadingP", "init"]
+- !private ["So21NSItemProviderReadingP", "white"]
+- ["So21NSItemProviderWritingP", "black"]
+- ["So21NSItemProviderWritingP", "clear"]
+- !private ["So21NSItemProviderWritingP", "gray"]
+- !private ["So21NSItemProviderWritingP", "init"]
+- !private ["So21NSItemProviderWritingP", "init"]
+- !private ["So21NSItemProviderWritingP", "white"]
+- ["So8NSObjectC", "black"]
+- ["So8NSObjectC", "clear"]
+- !private ["So8NSObjectC", "gray"]
+- !private ["So8NSObjectC", "init"]
+- !private ["So8NSObjectC", "init"]
+- ["So8NSObjectC", "lineHeight"]
+- !private ["So8NSObjectC", "size"]
+- ["So8NSObjectC", "systemFont"]
+- !private ["So8NSObjectC", "white"]
+- ["So8NSObjectP", "black"]
+- ["So8NSObjectP", "clear"]
+- !private ["So8NSObjectP", "gray"]
+- !private ["So8NSObjectP", "init"]
+- !private ["So8NSObjectP", "init"]
+- ["So8NSObjectP", "lineHeight"]
+- !private ["So8NSObjectP", "size"]
+- ["So8NSObjectP", "systemFont"]
+- !private ["So8NSObjectP", "white"]
+- ["So14NSSecureCodingP", "black"]
+- ["So14NSSecureCodingP", "clear"]
+- !private ["So14NSSecureCodingP", "gray"]
+- !private ["So14NSSecureCodingP", "init"]
+- !private ["So14NSSecureCodingP", "init"]
+- !private ["So14NSSecureCodingP", "white"]
+- ["SY", "bold"]
+- ["SY", "semibold"]
+- ["So7UIColorC", "black"]
+- ["So7UIColorC", "clear"]
+- !private ["So7UIColorC", "gray"]
+- !private ["So7UIColorC", "init"]
+- !private ["So7UIColorC", "init"]
+- !private ["So7UIColorC", "white"]
+- ["So6UIFontC", "lineHeight"]
+- !private ["So6UIFontC", "size"]
+- ["So6UIFontC", "systemFont"]
+- ["So12UIFontWeighta", "bold"]
+- ["So12UIFontWeighta", "semibold"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "height"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "init"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "init"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "maxY"]
+- !private ["s30_CustomPlaygroundQuickLookableP", "width"]
+- ["s30_CustomPlaygroundQuickLookableP", "zero"]
+- ["s26_ExpressibleByColorLiteralP", "black"]
+- ["s26_ExpressibleByColorLiteralP", "clear"]
+- !private ["s26_ExpressibleByColorLiteralP", "gray"]
+- !private ["s26_ExpressibleByColorLiteralP", "init"]
+- !private ["s26_ExpressibleByColorLiteralP", "init"]
+- !private ["s26_ExpressibleByColorLiteralP", "white"]
+- ["s35_HasCustomAnyHashableRepresentationP", "bold"]
+- ["s35_HasCustomAnyHashableRepresentationP", "semibold"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "black"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "clear"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "gray"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "init"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "lineHeight"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "size"]
+- ["10Foundation27_KeyValueCodingAndObservingP", "systemFont"]
+- !private ["10Foundation27_KeyValueCodingAndObservingP", "white"]
+- ["s21_ObjectiveCBridgeableP", "bold"]
+- !private ["s21_ObjectiveCBridgeableP", "height"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "init"]
+- !private ["s21_ObjectiveCBridgeableP", "maxY"]
+- ["s21_ObjectiveCBridgeableP", "semibold"]
+- !private ["s21_ObjectiveCBridgeableP", "width"]
+- ["s21_ObjectiveCBridgeableP", "zero"]
+- ["s20_SwiftNewtypeWrapperP", "bold"]
+- ["s20_SwiftNewtypeWrapperP", "semibold"]
+- ["5UIKit01_A23NumericRawRepresentableP", "bold"]
+- ["5UIKit01_A23NumericRawRepresentableP", "semibold"]
+depends-nominal:
+- !private "So7CGPointV"
+- "So6CGRectV"
+- !private "So6CGSizeV"
+- "s7CVarArgP"
+- "SL"
+- "s28CustomDebugStringConvertibleP"
+- "s17CustomReflectableP"
+- "s23CustomStringConvertibleP"
+- "Se"
+- "SE"
+- "SQ"
+- "SH"
+- !private "s6HasherV"
+- "7KIUIKit8KIConfigV"
+- "7KIUIKit28KIMessageAttachmentViewModelO"
+- !private "7KIUIKit34KIMessageDetailAttachmentViewModelC"
+- !private "7KIUIKit33KIMessageImageAttachmentViewModelC"
+- "7KIUIKit15KIMessageStatusO"
+- !private "7KIUIKit23KIReplyMessageViewModelC"
+- "7KIUIKit20KISizeAwareViewModelC"
+- "7KIUIKit29KITextMessageContentViewModelC"
+- "So8NSCodingP"
+- "So9NSCopyingP"
+- "So21NSItemProviderReadingP"
+- "So21NSItemProviderWritingP"
+- "So8NSObjectC"
+- "So8NSObjectP"
+- "So14NSSecureCodingP"
+- "SY"
+- "So7UIColorC"
+- "So6UIFontC"
+- "So12UIFontWeighta"
+- "s30_CustomPlaygroundQuickLookableP"
+- "s26_ExpressibleByColorLiteralP"
+- "s35_HasCustomAnyHashableRepresentationP"
+- "10Foundation27_KeyValueCodingAndObservingP"
+- "s21_ObjectiveCBridgeableP"
+- "s20_SwiftNewtypeWrapperP"
+- "5UIKit01_A23NumericRawRepresentableP"
+depends-dynamic-lookup:
+depends-external:
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/ObjectiveC.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreImage.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/QuartzCore.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Metal.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Darwin.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Foundation.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreFoundation.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/CoreGraphics.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Swift.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/UIKit.swiftmodule"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Users/kudratilloismatov/Desktop/Projects/iOS/KIUIKitTest/KIUIKit/KIUIKit.h"
+- "/Users/kudratilloismatov/Desktop/Projects/iOS/KIUIKitTest/build/KIUIKitTest.build/Debug-iphonesimulator/KIUIKit.build/unextended-module.modulemap"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/OpenGLES.framework/Headers/OpenGLES.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreImage.framework/Headers/CoreImage.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/QuartzCore.framework/Headers/QuartzCore.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator/x86_64/Dispatch.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Metal.framework/Headers/Metal.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/usr/include/Darwin.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Volumes/Drive/apps/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator12.4.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "ac5087cdc300436cb86534660fed4665"
