@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDelegate {
+    
     let q = OperationQueue()
     
     override func viewDidLoad() {
@@ -27,13 +27,28 @@ class ViewController: UIViewController {
         
     }
     
-    func testChatMessagesCollectionView() {
-        let view: KIChatMessagesCollectionView = .init(frame: self.view.frame)
+    func fetchTop(item: KIChatMessageItem, callback: @escaping ([KIChatMessageItem]) -> Void) {
+        q.addOperation {
+            let items = self.makeChatMessageItems(startDate: item.date.addingTimeInterval(-10*24*3600), length: 100)
+            callback(items)
+        }
+    }
+    
+    func fetchBottom(item: KIChatMessageItem, callback: @escaping ([KIChatMessageItem]) -> Void) {
+        q.addOperation {
+            let items = self.makeChatMessageItems(startDate: item.date, length: 100)
+            callback(items)
+        }
+    }
+    
+    func makeChatMessageItems(startDate: Date, length: Int) -> [KIChatMessageItem] {
         var items: [KIChatMessageItem] = []
         let df = DateFormatter()
         df.dateStyle = .none
         df.timeStyle = .short
-        for _ in 1...100 {
+        
+        
+        for _ in 1...length {
             let date = Date(timeIntervalSinceNow: TimeInterval(arc4random() % (10*24*3600)))
             var viewModel: KIMessageViewModel
             
@@ -52,8 +67,16 @@ class ViewController: UIViewController {
             
             items.append(.init(id: Int(date.timeIntervalSinceNow), date: date, viewModel: viewModel))
         }
+        return items
+    }
+    
+    func testChatMessagesCollectionView() {
+        let view: KIChatMessagesCollectionView = .init(frame: self.view.frame)
+        let items = makeChatMessageItems(startDate: Date(), length: 100)
+        view.set(items: items, scrollToBottom: true)
         
-        view.set(items: items)
+        view.messagesDelegate = self
+        
         self.view.addSubview(view)
     }
     

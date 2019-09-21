@@ -45,8 +45,19 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     
     private var sections: [KIChatMessagesCollectionViewSection] = []
     
+    private var isScrolling: Bool = false
+    
+    var contentHeight: CGFloat {
+        return self.collectionViewLayout.collectionViewContentSize.height
+    }
+    public weak var messagesDelegate: KIChatMessagesCollectionViewMessagesDelegate?
+    private(set) var isFetchingTop: Bool = false
+    private(set) var isFetchingBottom: Bool = false
+    
+    private let flowLayout: UICollectionViewFlowLayout = .init()
+    
     public init(frame: CGRect) {
-        let flowLayout: UICollectionViewFlowLayout = .init()
+        
         flowLayout.headerReferenceSize = .init(width: frame.width, height: 40)
         flowLayout.scrollDirection = .vertical
         flowLayout.sectionHeadersPinToVisibleBounds = true
@@ -116,34 +127,157 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         return headerView
     }
     
-}
-
-extension KIChatMessagesCollectionView {
-    public func set(items: [KIChatMessageItem]) {
-        let width = frame.width
-        q.addOperation {
-            let items = items.sorted(by: { (item1, item2) -> Bool in
-                return item1.id < item2.id
-            })
-            
-            var sections: [KIChatMessagesCollectionViewSection] = []
-            var section: KIChatMessagesCollectionViewSection = .init(width: width, date: .init(timeIntervalSince1970: 0))
-            
-            for item in items {
-                item.viewModel.width = width
-                item.viewModel.updateFrames()
-                if Calendar.current.isDate(section.date, inSameDayAs: item.date) {
-                    section.items.append(item)
-                } else {
-                    section = .init(width: width, date: item.date)
-                    sections.append(section)
-                    section.items.append(item)
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let messagesDelegate = messagesDelegate else {
+            return
+        }
+        if !isFetchingTop && scrollView.contentOffset.y < 100 {
+            if let item = sections.first?.items.first {
+                isFetchingTop = true
+                messagesDelegate.fetchTop(item: item) { (items) in
+                    self.insert(itemsToTop: items, callback: {
+                        self.isFetchingTop = false
+                    })
                 }
             }
-            self.sections = sections
-            OperationQueue.main.addOperation {
-                self.reloadData()
+        }
+        
+        if !isFetchingBottom && contentHeight - frame.height - scrollView.contentOffset.y < 100 {
+            if let item = sections.last?.items.last {
+            isFetchingBottom = true
+                messagesDelegate.fetchBottom(item: item) { (items) in
+                    self.insert(itemsToBottom: items, callback: {
+                        self.isFetchingBottom = false
+                    })
+                }
             }
         }
     }
+    
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        isScrolling = true
+    }
+    
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        isScrolling = false
+    }
+    
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            isScrolling = false
+        }
+    }
+    
+}
+
+extension KIChatMessagesCollectionView {
+    
+  
+    public func set(items: [KIChatMessageItem], scrollToBottom: Bool) {
+        
+        q.addOperation {
+            self.sections = self.makeSections(items: items)
+            
+            OperationQueue.main.addOperation {
+                self.reloadData()
+                
+                if scrollToBottom {
+                    self.scrollToBottom(animated: false)
+                }
+            }
+        }
+    }
+    
+    public func insert(itemsToTop items: [KIChatMessageItem], callback: @escaping () -> Void) {
+        q.addOperation {
+            var oldHeight: CGFloat = 0
+            DispatchQueue.main.sync {
+                oldHeight = self.contentHeight
+            }
+            
+            let sections = self.makeSections(items: items)
+            
+            if let lastSection = sections.last,
+                let firstSection = self.sections.first,
+                Calendar.current.isDate(lastSection.date, inSameDayAs: firstSection.date)
+                {
+                self.sections.insert(contentsOf: sections.prefix(upTo: sections.count - 1), at: 0)
+                firstSection.items.insert(contentsOf: lastSection.items, at: 0)
+            }
+            else {
+                self.sections.insert(contentsOf: sections, at: 0)
+            }
+            OperationQueue.main.addOperation {
+                self.reloadData()
+                
+//                if !self.isScrolling {
+                self.setContentOffset(.init(x: 0, y: self.contentHeight - oldHeight), animated: false)
+//                }
+                
+                callback()
+            }
+            
+        }
+    }
+    
+    public func insert(itemsToBottom items: [KIChatMessageItem], callback: @escaping () -> Void) {
+        q.addOperation {
+            let sections = self.makeSections(items: items)
+            
+            if let lastSection = self.sections.last,
+                let firstSection = sections.first,
+                Calendar.current.isDate(lastSection.date, inSameDayAs: firstSection.date)
+            {
+                self.sections.append(contentsOf: sections.suffix(from: 1))
+                lastSection.items.append(contentsOf: firstSection.items)
+            } else {
+                self.sections.append(contentsOf: sections)
+            }
+            OperationQueue.main.addOperation {
+                self.reloadData()
+                
+                callback()
+            }
+            
+        }
+    }
+    
+    private func makeSections(items: [KIChatMessageItem]) -> [KIChatMessagesCollectionViewSection] {
+        var width: CGFloat = 0
+        
+        DispatchQueue.main.sync {
+            width = self.frame.width
+        }
+        
+        let items = items.sorted(by: { (item1, item2) -> Bool in
+            return item1.id < item2.id
+        })
+        
+        var sections: [KIChatMessagesCollectionViewSection] = []
+        var section: KIChatMessagesCollectionViewSection = .init(width: width, date: .init(timeIntervalSince1970: 0))
+        
+        for item in items {
+            item.viewModel.width = width
+            item.viewModel.updateFrames()
+            if Calendar.current.isDate(section.date, inSameDayAs: item.date) {
+                section.items.append(item)
+            } else {
+                section = .init(width: width, date: item.date)
+                sections.append(section)
+                section.items.append(item)
+            }
+        }
+        return sections
+    }
+    
+    public func scrollToBottom(animated: Bool) {
+        if let lastSection = sections.last, lastSection.items.count != 0 {
+        self.scrollToItem(at: .init(item: lastSection.items.count - 1, section: sections.count - 1), at: .bottom, animated: animated)
+        }
+    }
+}
+
+public protocol KIChatMessagesCollectionViewMessagesDelegate: class {
+    func fetchTop(item: KIChatMessageItem, callback: @escaping (_ items: [KIChatMessageItem]) -> Void)
+    func fetchBottom(item: KIChatMessageItem, callback: @escaping (_ items: [KIChatMessageItem]) -> Void)
 }
