@@ -53,14 +53,18 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     public weak var messagesDelegate: KIChatMessagesCollectionViewMessagesDelegate?
     private(set) var isFetchingTop: Bool = false
     private(set) var isFetchingBottom: Bool = false
+    private(set) var inFetchTopZone: Bool = false
+    private(set) var inFetchBottomZone: Bool = false
     
-    private let flowLayout: UICollectionViewFlowLayout = .init()
+    
+    public var fetchThreshold: CGFloat = 400
     
     public init(frame: CGRect) {
-        
+        let flowLayout: UICollectionViewFlowLayout = .init()
         flowLayout.headerReferenceSize = .init(width: frame.width, height: 40)
         flowLayout.scrollDirection = .vertical
         flowLayout.sectionHeadersPinToVisibleBounds = true
+        flowLayout.minimumLineSpacing = 2
         
         super.init(frame: frame, collectionViewLayout: flowLayout)
         initView()
@@ -128,29 +132,24 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let messagesDelegate = messagesDelegate else {
-            return
-        }
-        if !isFetchingTop && scrollView.contentOffset.y < 100 {
-            if let item = sections.first?.items.first {
-                isFetchingTop = true
-                messagesDelegate.fetchTop(item: item) { (items) in
-                    self.insert(itemsToTop: items, callback: {
-                        self.isFetchingTop = false
-                    })
-                }
+        if scrollView.contentOffset.y < fetchThreshold {
+            if !isFetchingTop && !inFetchTopZone {
+                inFetchTopZone = true
+                fetchTop()
             }
+        }
+        else if scrollView.contentOffset.y > fetchThreshold + 400 {
+            inFetchTopZone = false
         }
         
-        if !isFetchingBottom && contentHeight - frame.height - scrollView.contentOffset.y < 100 {
-            if let item = sections.last?.items.last {
-            isFetchingBottom = true
-                messagesDelegate.fetchBottom(item: item) { (items) in
-                    self.insert(itemsToBottom: items, callback: {
-                        self.isFetchingBottom = false
-                    })
-                }
+        if contentHeight - frame.height - scrollView.contentOffset.y < fetchThreshold {
+            if !isFetchingBottom && !inFetchBottomZone {
+                inFetchBottomZone = true
+                fetchBottom()
             }
+        }
+        else if contentHeight - frame.height - scrollView.contentOffset.y > fetchThreshold + 400 {
+            inFetchBottomZone = false
         }
     }
     
@@ -172,6 +171,83 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
 
 extension KIChatMessagesCollectionView {
     
+    
+    public func replace(items: [KIChatMessageItem], updateContentOffset: Bool, callback: @escaping () -> Void) {
+        q.addOperation {
+            let sections = self.makeSections(items: items)
+            
+            guard let firstSection = sections.first, let lastSection = sections.last else {
+                callback()
+                return
+            }
+            
+            if let currentFirstSection = self.sections.first, let currentLastSection = self.sections.last {
+                if currentFirstSection.date > lastSection.date {
+                    self.sections.insert(contentsOf: sections, at: 0)
+                } else if currentLastSection.date < firstSection.date {
+                    self.sections.append(contentsOf: sections)
+                } else {
+                    
+                    var startIndex = 0
+                    if let index = self.sections.firstIndex(where: { (section) -> Bool in
+                        return section.date > firstSection.date || Calendar.current.isDate(section.date, inSameDayAs: firstSection.date)
+                    }) {
+                        
+                        let startSection = self.sections[index]
+                        
+                        if Calendar.current.isDate(startSection.date, inSameDayAs: firstSection.date) {
+                            startIndex = index
+                            if let itemIndex = startSection.items.firstIndex(where: { (messageItem) -> Bool in
+                                return messageItem.id == firstSection.items[0].id
+                            }) {
+                                firstSection.items.insert(contentsOf: startSection.items.prefix(upTo: itemIndex), at: 0)
+                            }
+                        } else {
+                            startIndex = max(index - 1, 0)
+                        }
+                        
+                        
+                    }
+                    
+                    var endIndex = self.sections.endIndex
+                    if let index = self.sections.lastIndex(where: { (section) -> Bool in
+                        return section.date < lastSection.date || Calendar.current.isDate(section.date, inSameDayAs: lastSection.date)
+                    }) {
+                        let endSection = self.sections[index]
+                        if Calendar.current.isDate(endSection.date, inSameDayAs: lastSection.date) {
+                            if let itemIndex = endSection.items.lastIndex(where: { (messageItem) -> Bool in
+                                return messageItem.id == lastSection.items[0].id
+                            }) {
+                                lastSection.items.append(contentsOf: endSection.items.suffix(from: itemIndex + 1))
+                            }
+                        }
+                        endIndex = index + 1
+                        
+                    }
+                    
+                    self.sections.replaceSubrange(startIndex..<endIndex, with: sections)
+                }
+            }
+            else {
+                self.sections = sections
+            }
+            
+            OperationQueue.main.addOperation {
+                if updateContentOffset {
+                    let offsetY = self.contentOffset.y
+                    let oldHeight = self.contentHeight
+                    self.reloadData()
+                    if updateContentOffset {
+                        self.contentOffset = .init(x: 0, y: offsetY + self.contentHeight - oldHeight)
+                    }
+                } else {
+                    self.reloadData()
+                }
+                
+                callback()
+            }
+        }
+    }
   
     public func set(items: [KIChatMessageItem], scrollToBottom: Bool) {
         
@@ -180,6 +256,9 @@ extension KIChatMessagesCollectionView {
             
             OperationQueue.main.addOperation {
                 self.reloadData()
+                if self.collectionViewLayout.collectionViewContentSize.height < self.frame.height - self.contentInset.top - self.contentInset.bottom {
+                    self.fetchTop()
+                }
                 
                 if scrollToBottom {
                     self.scrollToBottom(animated: false)
@@ -187,6 +266,7 @@ extension KIChatMessagesCollectionView {
             }
         }
     }
+  
     
     public func insert(itemsToTop items: [KIChatMessageItem], callback: @escaping () -> Void) {
         q.addOperation {
@@ -208,10 +288,11 @@ extension KIChatMessagesCollectionView {
                 self.sections.insert(contentsOf: sections, at: 0)
             }
             OperationQueue.main.addOperation {
+                let offsetY = self.contentOffset.y
                 self.reloadData()
                 
 //                if !self.isScrolling {
-                self.setContentOffset(.init(x: 0, y: self.contentHeight - oldHeight), animated: false)
+                self.contentOffset = .init(x: 0, y: offsetY + self.contentHeight - oldHeight)
 //                }
                 
                 callback()
@@ -262,7 +343,7 @@ extension KIChatMessagesCollectionView {
             if Calendar.current.isDate(section.date, inSameDayAs: item.date) {
                 section.items.append(item)
             } else {
-                section = .init(width: width, date: item.date)
+                section = .init(width: width, date: Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: item.date)) ?? item.date)
                 sections.append(section)
                 section.items.append(item)
             }
@@ -277,7 +358,38 @@ extension KIChatMessagesCollectionView {
     }
 }
 
+extension KIChatMessagesCollectionView {
+    
+    public func fetchTop() {
+        if let item = sections.first?.items.first {
+            isFetchingTop = true
+            messagesDelegate?.fetchTop(item: item, addPlaceholderItems: { (items) in
+                self.insert(itemsToTop: items, callback: {
+                })
+            }) { (items) in
+                self.replace(items: items, updateContentOffset: true, callback: {
+                    self.isFetchingTop = false
+                })
+            }
+        }
+    }
+    
+    public func fetchBottom() {
+        if let item = sections.last?.items.last {
+            isFetchingBottom = true
+            messagesDelegate?.fetchBottom(item: item, addPlaceholderItems: { (items) in
+                self.insert(itemsToBottom: items, callback: {})
+            }) { (items) in
+                self.replace(items: items, updateContentOffset: false, callback: {
+                    self.isFetchingBottom = false
+                })
+            }
+        }
+    }
+}
+
+
 public protocol KIChatMessagesCollectionViewMessagesDelegate: class {
-    func fetchTop(item: KIChatMessageItem, callback: @escaping (_ items: [KIChatMessageItem]) -> Void)
-    func fetchBottom(item: KIChatMessageItem, callback: @escaping (_ items: [KIChatMessageItem]) -> Void)
+    func fetchTop(item: KIChatMessageItem, addPlaceholderItems: @escaping (_ items: [KIChatMessageItem]) -> Void, addItems: @escaping (_ items: [KIChatMessageItem]) -> Void)
+    func fetchBottom(item: KIChatMessageItem, addPlaceholderItems: @escaping (_ items: [KIChatMessageItem]) -> Void, addItems: @escaping (_ items: [KIChatMessageItem]) -> Void)
 }

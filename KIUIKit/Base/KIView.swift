@@ -8,10 +8,12 @@
 
 import UIKit
 
-public class KIView<ViewModel>: UIView {
+public class KIView<ViewModel: KIViewModel>: UIView {
     public var viewModel: ViewModel? {
         didSet {
-           updateUI()
+            if oldValue !== viewModel || viewModel?.isEdited ?? true {
+                updateUI()
+            }
         }
     }
     

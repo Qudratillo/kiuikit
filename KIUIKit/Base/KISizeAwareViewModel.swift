@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class KISizeAwareViewModel {
+public class KISizeAwareViewModel: KIViewModel {
     public var width: CGFloat
     public var height: CGFloat
     
@@ -19,12 +19,13 @@ public class KISizeAwareViewModel {
     public init(width: CGFloat, height: CGFloat) {
         self.width = width
         self.height = height
+        super.init()
         if width != 0 || height != 0 {
             self.updateFrames()
         }
     }
     
     public func updateFrames() {
-        
+        self.isEdited = true
     }
 }

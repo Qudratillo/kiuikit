@@ -49,6 +49,7 @@ public class KIMessageImageAttachmentViewModel: KISizeAwareViewModel {
     }
     
     public override func updateFrames() {
+        super.updateFrames()
         if self.whRatio >= 1 {
             self.height = max(self.width / self.whRatio, KIMessageImageAttachmentViewModel.minHeight)
         } else {

@@ -21,6 +21,7 @@ public class KIChatMessageSectionHeaderViewModel: KISizeAwareViewModel {
     }
     
     public override func updateFrames() {
+        super.updateFrames()
         let size = KIActionMessageViewModel.textFont.size(ofSingleLineString: text)
         textFrame = .init(origin: .init(x: (width - size.width - 4)/2, y: (height - size.height - 4)/2), size: .init(width: size.width + 4, height: size.height + 4))
     }

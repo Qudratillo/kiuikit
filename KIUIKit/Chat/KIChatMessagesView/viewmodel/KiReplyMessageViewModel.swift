@@ -38,6 +38,7 @@ public class KIReplyMessageViewModel: KISizeAwareViewModel {
     }
     
     public override func updateFrames() {
+        super.updateFrames()
         self.height = KIReplyMessageViewModel.replyMessageViewHeightRecommended
         var x: CGFloat = KIReplyMessageViewModel.leftStripSpace
         if self.imageData != nil {

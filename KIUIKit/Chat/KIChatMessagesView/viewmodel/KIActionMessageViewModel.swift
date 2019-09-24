@@ -24,6 +24,7 @@ public class KIActionMessageViewModel: KISizeAwareViewModel, KIMessageViewModel 
     }
     
     public override func updateFrames() {
+        super.updateFrames()
         height = 0
         let size = KIActionMessageViewModel.textFont.size(ofString: text, constrainedToWidth: width - 32 - 16)
         textFrame = .init(origin: .init(x: (width - size.width - 16)/2, y: height), size: .init(width: size.width + 16, height: size.height + 8))

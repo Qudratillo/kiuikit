@@ -26,6 +26,7 @@
 		F259813F23360E7F007B0298 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F259813D23360E7F007B0298 /* Main.storyboard */; };
 		F259814123360E81007B0298 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F259814023360E81007B0298 /* Assets.xcassets */; };
 		F259814423360E81007B0298 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F259814223360E81007B0298 /* LaunchScreen.storyboard */; };
+		F260D719233A25AD0046E7B1 /* KIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F260D718233A25AD0046E7B1 /* KIViewModel.swift */; };
 		F2F9A315233619380089F037 /* KIUIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F2F9A313233619380089F037 /* KIUIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F2F9A318233619380089F037 /* KIUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2F9A311233619380089F037 /* KIUIKit.framework */; };
 		F2F9A319233619380089F037 /* KIUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F2F9A311233619380089F037 /* KIUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -56,6 +57,7 @@
 		F2F9A357233619490089F037 /* KIReplyMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A33D233619490089F037 /* KIReplyMessageView.swift */; };
 		F2F9A358233619490089F037 /* KIMessageImageAttachmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A33E233619490089F037 /* KIMessageImageAttachmentView.swift */; };
 		F2F9A35A23361A070089F037 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2F9A35923361A070089F037 /* Assets.xcassets */; };
+		F2F9A37D233627110089F037 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F2F9A37C233627110089F037 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,7 @@
 		F259814023360E81007B0298 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F259814323360E81007B0298 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F259814523360E81007B0298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F260D718233A25AD0046E7B1 /* KIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIViewModel.swift; sourceTree = "<group>"; };
 		F2F9A311233619380089F037 /* KIUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KIUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2F9A313233619380089F037 /* KIUIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KIUIKit.h; sourceTree = "<group>"; };
 		F2F9A314233619380089F037 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -120,6 +123,7 @@
 		F2F9A33D233619490089F037 /* KIReplyMessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIReplyMessageView.swift; sourceTree = "<group>"; };
 		F2F9A33E233619490089F037 /* KIMessageImageAttachmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIMessageImageAttachmentView.swift; sourceTree = "<group>"; };
 		F2F9A35923361A070089F037 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F2F9A37C233627110089F037 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,7 @@
 		F259812D23360E7F007B0298 = {
 			isa = PBXGroup;
 			children = (
+				F2F9A37C233627110089F037 /* .gitignore */,
 				F259813823360E7F007B0298 /* KIUIKitTest */,
 				F2F9A312233619380089F037 /* KIUIKit */,
 				F259813723360E7F007B0298 /* Products */,
@@ -194,6 +199,7 @@
 				F2F9A321233619490089F037 /* Extensions.swift */,
 				F2F9A322233619490089F037 /* TypeAliases.swift */,
 				F2F9A323233619490089F037 /* KISizeAwareViewModel.swift */,
+				F260D718233A25AD0046E7B1 /* KIViewModel.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -379,6 +385,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2F9A37D233627110089F037 /* .gitignore in Resources */,
 				F2F9A35A23361A070089F037 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -446,6 +453,7 @@
 				F2F9A347233619490089F037 /* KIAvatarImageView.swift in Sources */,
 				F2F9A356233619490089F037 /* KIMessageDetailAttachmentView.swift in Sources */,
 				F2F9A342233619490089F037 /* Extensions.swift in Sources */,
+				F260D719233A25AD0046E7B1 /* KIViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

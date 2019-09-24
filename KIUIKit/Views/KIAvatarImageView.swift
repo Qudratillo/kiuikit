@@ -131,6 +131,7 @@ public class KIAvatarImageView: KICircleImageView {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = colors
         gradientLayer.locations = [0, 1]
+        gradientLayer.isHidden = self.image != nil
         self.updateFrame(of: gradientLayer)
         self.layer.insertSublayer(gradientLayer, at: 0)
         self.gradientLayer = gradientLayer
@@ -144,6 +145,7 @@ public class KIAvatarImageView: KICircleImageView {
         label.text = text
         label.baselineAdjustment = .alignCenters
         label.textAlignment = .center
+        label.isHidden = self.image != nil
         self.updateFrame(of: label)
         self.addSubview(label)
         self.label = label

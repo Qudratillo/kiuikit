@@ -56,6 +56,7 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
     }
     
     public override func updateFrames() {
+        super.updateFrames()
         contentModel.width = min(KITextMessageViewModel.maxContainerWidth, width - KITextMessageViewModel.maxContainerOffset)
         contentModel.updateFrames()
         let containerWidth: CGFloat = contentModel.width

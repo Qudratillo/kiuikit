@@ -51,9 +51,15 @@ public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentView
     }
     
     override func updateUI(with viewModel: KIMessageDetailAttachmentViewModel) {
-        KIConfig.set(imageView: imageView, with: viewModel.imageData)
-        imageView.gradientBase = viewModel.imageGradientBase
-        imageView.initialsText = viewModel.imageInitialsText
+        if let imageData = viewModel.imageData {
+            KIConfig.set(imageView: imageView, with: imageData)
+            imageView.gradientBase = viewModel.imageGradientBase
+            imageView.initialsText = viewModel.imageInitialsText
+            imageView.isHidden = false
+        } else {
+            imageView.isHidden = true
+        }
+        
         self.updateUI(with: viewModel.action)
         
         topTextLabel.text = viewModel.topText

@@ -75,6 +75,7 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
     }
     
     public override func updateFrames() {
+        super.updateFrames()
         if case .image(let imageAttachmentViewModel)? = attachmentModel {
             imageAttachmentViewModel.width = width - 4
             imageAttachmentViewModel.height = width - 4
@@ -84,18 +85,18 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
         
         var height: CGFloat = 2
         
-        if nameText == nil {
-            nameTextFrame = .zero
-        } else {
-            nameTextFrame = .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6, width: width - KITextMessageContentViewModel.textMarginX * 2, height: KITextMessageContentViewModel.nameTextFont.lineHeight)
+        if let nameText = nameText {
+            nameTextFrame = .init(origin: .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6), size: KITextMessageContentViewModel.nameTextFont.size(ofString: nameText, constrainedToWidth: width - KITextMessageContentViewModel.textMarginX * 2))
             height = nameTextFrame.maxY
+        } else {
+            nameTextFrame = .zero
         }
         
-        if forwardedFromText == nil {
-            forwardedFromTextFrame = .zero
-        } else {
-            forwardedFromTextFrame = .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6, width: width - KITextMessageContentViewModel.textMarginX * 2, height: KITextMessageContentViewModel.forwardedFromTextFont.lineHeight)
+        if let forwardedFromText = forwardedFromText {
+            forwardedFromTextFrame = .init(origin: .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6), size: KITextMessageContentViewModel.forwardedFromTextFont.size(ofString: forwardedFromText, constrainedToWidth: width - KITextMessageContentViewModel.textMarginX * 2))
             height = forwardedFromTextFrame.maxY
+        } else {
+            forwardedFromTextFrame = .zero
         }
         
         if let replyModel = replyModel {
@@ -131,6 +132,10 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
         }
         else {
             textFrame = .zero
+        }
+        
+        if imageAttachmentFrame.width == 0 {
+            width = max(nameTextFrame.width + KITextMessageContentViewModel.textMarginX * 2, forwardedFromTextFrame.width + KITextMessageContentViewModel.textMarginX * 2, replyFrame.width + KITextMessageContentViewModel.textMarginX * 2, detailAttachmentFrame.width, textFrame.width + KITextMessageContentViewModel.textMarginX * 2, 90)
         }
         
         

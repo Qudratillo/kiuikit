@@ -17,7 +17,7 @@ public class KIMessageDetailAttachmentViewModel: KISizeAwareViewModel {
     
     
     public var action: KIMessageAttachmentAction
-    public var imageData: KIImageData
+    public var imageData: KIImageData?
     public var imageGradientBase: Int?
     public var imageInitialsText: String?
     public var topText: String?
@@ -30,7 +30,7 @@ public class KIMessageDetailAttachmentViewModel: KISizeAwareViewModel {
     public init(
         width: CGFloat = 0,
         action: KIMessageAttachmentAction,
-        imageData: KIImageData,
+        imageData: KIImageData?,
         imageGradientBase: Int?,
         imageInitialsText: String?,
         topText: String?,
@@ -49,6 +49,7 @@ public class KIMessageDetailAttachmentViewModel: KISizeAwareViewModel {
     }
     
     public override func updateFrames() {
+        super.updateFrames()
         if topText == nil {
             topTextFrame = .zero
             sliderFrame = .init(x: 48 + KIMessageDetailAttachmentViewModel.leftPadding, y: 0, width: width - 48 - KIMessageDetailAttachmentViewModel.leftPadding, height: 20)

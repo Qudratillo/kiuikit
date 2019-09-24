@@ -21,6 +21,7 @@ public class KIChatMessageCellModel<MessageData, ViewModel: KISizeAwareViewModel
     }
     
     public override func updateFrames() {
+        super.updateFrames()
         viewModel.width = width
         viewModel.updateFrames()
         height = viewModel.height

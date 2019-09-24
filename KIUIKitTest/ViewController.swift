@@ -12,6 +12,8 @@ import KIUIKit
 
 class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDelegate {
     
+    
+    
     let q = OperationQueue()
     
     override func viewDidLoad() {
@@ -29,19 +31,23 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
         
     }
     
-    func fetchTop(item: KIChatMessageItem, callback: @escaping ([KIChatMessageItem]) -> Void) {
+    func fetchTop(item: KIChatMessageItem, addPlaceholderItems: @escaping ([KIChatMessageItem]) -> Void, addItems: @escaping ([KIChatMessageItem]) -> Void) {
         q.addOperation {
-            let items = self.makeChatMessageItems(startDate: item.date.addingTimeInterval(-10*24*3600), length: 100)
-            callback(items)
+            let items = self.makeChatMessageItems(startDate: item.date.addingTimeInterval(-10*24*3600), length: 0)
+            addPlaceholderItems(items)
+            addItems([])
+            
         }
     }
     
-    func fetchBottom(item: KIChatMessageItem, callback: @escaping ([KIChatMessageItem]) -> Void) {
+    func fetchBottom(item: KIChatMessageItem, addPlaceholderItems: @escaping ([KIChatMessageItem]) -> Void, addItems: @escaping ([KIChatMessageItem]) -> Void) {
         q.addOperation {
-            let items = self.makeChatMessageItems(startDate: item.date, length: 100)
-            callback(items)
+            let items = self.makeChatMessageItems(startDate: item.date, length: 0)
+            addPlaceholderItems(items)
+            addItems([])
         }
     }
+    
     
     func makeChatMessageItems(startDate: Date, length: Int) -> [KIChatMessageItem] {
         var items: [KIChatMessageItem] = []
@@ -50,7 +56,7 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
         df.timeStyle = .short
         
         
-        for _ in 1...length {
+        for _ in 0..<length {
             let date = Date(timeIntervalSinceNow: TimeInterval(arc4random() % (10*24*3600)))
             var viewModel: KIMessageViewModel
             
@@ -64,7 +70,7 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
                 let imageAttachmentModel = arc4random()%2 == 1 ? KIMessageAttachmentViewModel.image(imageAttachmentViewModel: KIMessageImageAttachmentViewModel(whRatio: CGFloat((arc4random()%4 + 1))/CGFloat(arc4random()%4 + 1), imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), action: .download, metaText: nil)) : nil
                 let detailAttachmentModel = arc4random()%2 == 1 ? KIMessageAttachmentViewModel.detail(detailAttachmentViewModel: KIMessageDetailAttachmentViewModel(action: arc4random()%2 == 1 ? .play : .none, imageData: arc4random()%2 == 1 ? .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg") : .empty, imageGradientBase: Int(arc4random()), imageInitialsText: randomAlphanumericString(length: 10), topText: randomAlphanumericString(length: 10), bottomText: randomAlphanumericString(length: 20), sliderValue: Float((arc4random()%100)/100))) : nil
                 
-                viewModel = KITextMessageViewModel(avatarImageData: arc4random()%2 == 1 ? .empty : .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), avatarGradientBase: Int(arc4random()), avatarInitialsText: intialsText, contentModel: .init(nameText: arc4random()%2 == 1 ? "Merlyn Monro" : nil, forwardedFromText: arc4random() % 10 == 1 ? "Forwarded from Kate Bell" : nil, replyModel: replyModel, attachmentModel: arc4random()%2 == 1 ? imageAttachmentModel : detailAttachmentModel, text: arc4random() % 2 == 1 ? randomAlphanumericString(length: Int(arc4random() % 1000)) : nil, messageStatus: nil, timeText: df.string(from: date)) , containerLocation: arc4random()%2 == 1 ? .right : .left)
+                viewModel = KITextMessageViewModel(avatarImageData: arc4random()%2 == 1 ? .empty : .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), avatarGradientBase: Int(arc4random()), avatarInitialsText: intialsText, contentModel: .init(nameText: arc4random()%2 == 1 ? "Merlyn Monro" : nil, forwardedFromText: arc4random() % 10 == 1 ? "Forwarded from Kate Bell" : nil, replyModel: replyModel, attachmentModel: arc4random()%2 == 1 ? imageAttachmentModel : detailAttachmentModel, text: arc4random() % 2 == 1 ? randomAlphanumericString(length: arc4random()%2 == 1 ? Int(arc4random() % 15) : Int(arc4random() % 1000)) : nil, messageStatus: nil, timeText: df.string(from: date)) , containerLocation: arc4random()%2 == 1 ? .right : .left)
             }
             
             items.append(.init(id: Int(date.timeIntervalSinceNow), date: date, viewModel: viewModel))
