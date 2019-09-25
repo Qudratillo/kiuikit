@@ -45,8 +45,6 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     
     private var sections: [KIChatMessagesCollectionViewSection] = []
     
-    private var isScrolling: Bool = false
-    
     var contentHeight: CGFloat {
         return self.collectionViewLayout.collectionViewContentSize.height
     }
@@ -57,7 +55,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     private(set) var inFetchBottomZone: Bool = false
     
     
-    public var fetchThreshold: CGFloat = 400
+    public var fetchThreshold: CGFloat = 500
     
     public init(frame: CGRect) {
         let flowLayout: UICollectionViewFlowLayout = .init()
@@ -132,38 +130,21 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y < fetchThreshold {
-            if !isFetchingTop && !inFetchTopZone {
-                inFetchTopZone = true
-                fetchTop()
-            }
+        if !inFetchTopZone && !isFetchingTop && scrollView.contentOffset.y < fetchThreshold {
+            inFetchTopZone = true
+            fetchTop()
         }
-        else if scrollView.contentOffset.y > fetchThreshold + 400 {
+        else if inFetchTopZone && scrollView.contentOffset.y > 2 * fetchThreshold {
             inFetchTopZone = false
         }
         
-        if contentHeight - frame.height - scrollView.contentOffset.y < fetchThreshold {
-            if !isFetchingBottom && !inFetchBottomZone {
-                inFetchBottomZone = true
-                fetchBottom()
-            }
+        if !inFetchBottomZone && !isFetchingBottom && contentHeight - frame.height - scrollView.contentOffset.y < fetchThreshold {
+            inFetchBottomZone = true
+            fetchBottom()
         }
-        else if contentHeight - frame.height - scrollView.contentOffset.y > fetchThreshold + 400 {
+            
+        else if inFetchBottomZone && contentHeight - frame.height - scrollView.contentOffset.y > 2 * fetchThreshold {
             inFetchBottomZone = false
-        }
-    }
-    
-    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        isScrolling = true
-    }
-    
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        isScrolling = false
-    }
-    
-    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            isScrolling = false
         }
     }
     
@@ -187,7 +168,6 @@ extension KIChatMessagesCollectionView {
                 } else if currentLastSection.date < firstSection.date {
                     self.sections.append(contentsOf: sections)
                 } else {
-                    
                     var startIndex = 0
                     if let index = self.sections.firstIndex(where: { (section) -> Bool in
                         return section.date > firstSection.date || Calendar.current.isDate(section.date, inSameDayAs: firstSection.date)
@@ -205,8 +185,6 @@ extension KIChatMessagesCollectionView {
                         } else {
                             startIndex = max(index - 1, 0)
                         }
-                        
-                        
                     }
                     
                     var endIndex = self.sections.endIndex
@@ -222,7 +200,6 @@ extension KIChatMessagesCollectionView {
                             }
                         }
                         endIndex = index + 1
-                        
                     }
                     
                     self.sections.replaceSubrange(startIndex..<endIndex, with: sections)
@@ -256,7 +233,7 @@ extension KIChatMessagesCollectionView {
             
             OperationQueue.main.addOperation {
                 self.reloadData()
-                if self.collectionViewLayout.collectionViewContentSize.height < self.frame.height - self.contentInset.top - self.contentInset.bottom {
+                if self.contentHeight < self.frame.height - self.contentInset.top - self.contentInset.bottom {
                     self.fetchTop()
                 }
                 
