@@ -21,6 +21,10 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		15084F94233CB4E200BBFF57 /* KIChatDialoguesListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15084F93233CB4E200BBFF57 /* KIChatDialoguesListVC.swift */; };
+		15084F97233CB68100BBFF57 /* KIChatDialoguesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15084F96233CB68100BBFF57 /* KIChatDialoguesListCell.swift */; };
+		1519D624233E65910082EAEA /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1519D623233E65910082EAEA /* PaddingLabel.swift */; };
+		15AB7B8A233F3712009DFA42 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB7B89233F3712009DFA42 /* Constants.swift */; };
 		F259813A23360E7F007B0298 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259813923360E7F007B0298 /* AppDelegate.swift */; };
 		F259813C23360E7F007B0298 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259813B23360E7F007B0298 /* ViewController.swift */; };
 		F259813F23360E7F007B0298 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F259813D23360E7F007B0298 /* Main.storyboard */; };
@@ -85,6 +89,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		15084F93233CB4E200BBFF57 /* KIChatDialoguesListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIChatDialoguesListVC.swift; sourceTree = "<group>"; };
+		15084F96233CB68100BBFF57 /* KIChatDialoguesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIChatDialoguesListCell.swift; sourceTree = "<group>"; };
+		1519D623233E65910082EAEA /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		15AB7B89233F3712009DFA42 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F259813623360E7F007B0298 /* KIUIKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KIUIKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F259813923360E7F007B0298 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F259813B23360E7F007B0298 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +153,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15084F8E233CB3DC00BBFF57 /* Dialogue */ = {
+			isa = PBXGroup;
+			children = (
+				15084F95233CB5FD00BBFF57 /* Cell */,
+				15084F8F233CB3F500BBFF57 /* Controller */,
+			);
+			path = Dialogue;
+			sourceTree = "<group>";
+		};
+		15084F8F233CB3F500BBFF57 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				15084F93233CB4E200BBFF57 /* KIChatDialoguesListVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		15084F95233CB5FD00BBFF57 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				15084F96233CB68100BBFF57 /* KIChatDialoguesListCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		1519D622233E655D0082EAEA /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1519D623233E65910082EAEA /* PaddingLabel.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		F259812D23360E7F007B0298 = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +221,7 @@
 		F2F9A312233619380089F037 /* KIUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				1519D622233E655D0082EAEA /* Helpers */,
 				F2F9A35923361A070089F037 /* Assets.xcassets */,
 				F2F9A31D233619490089F037 /* Base */,
 				F2F9A328233619490089F037 /* Chat */,
@@ -200,6 +242,7 @@
 				F2F9A322233619490089F037 /* TypeAliases.swift */,
 				F2F9A323233619490089F037 /* KISizeAwareViewModel.swift */,
 				F260D718233A25AD0046E7B1 /* KIViewModel.swift */,
+				15AB7B89233F3712009DFA42 /* Constants.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -217,6 +260,7 @@
 		F2F9A328233619490089F037 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				15084F8E233CB3DC00BBFF57 /* Dialogue */,
 				F2F9A329233619490089F037 /* KIChatMessagesView */,
 			);
 			path = Chat;
@@ -434,8 +478,11 @@
 				F2F9A340233619490089F037 /* KIConfig.swift in Sources */,
 				F2F9A34D233619490089F037 /* KIChatMessageCellModel.swift in Sources */,
 				F2F9A354233619490089F037 /* KITextMessageView.swift in Sources */,
+				1519D624233E65910082EAEA /* PaddingLabel.swift in Sources */,
 				F2F9A357233619490089F037 /* KIReplyMessageView.swift in Sources */,
 				F2F9A34A233619490089F037 /* KIMessageImageAttachmentViewModel.swift in Sources */,
+				15AB7B8A233F3712009DFA42 /* Constants.swift in Sources */,
+				15084F94233CB4E200BBFF57 /* KIChatDialoguesListVC.swift in Sources */,
 				F2F9A34C233619490089F037 /* KIActionMessageViewModel.swift in Sources */,
 				F2F9A355233619490089F037 /* KIActionMessageView.swift in Sources */,
 				F2F9A34B233619490089F037 /* KIMessageDetailAttachmentViewModel.swift in Sources */,
@@ -443,6 +490,7 @@
 				F2F9A34E233619490089F037 /* KIChatMessageSectionHeaderViewModel.swift in Sources */,
 				F2F9A352233619490089F037 /* KITextMessageContentView.swift in Sources */,
 				F2F9A34F233619490089F037 /* KITextMessageContentViewModel.swift in Sources */,
+				15084F97233CB68100BBFF57 /* KIChatDialoguesListCell.swift in Sources */,
 				F2F9A341233619490089F037 /* KIImageData.swift in Sources */,
 				F2F9A349233619490089F037 /* KITextMessageViewModel.swift in Sources */,
 				F2F9A343233619490089F037 /* TypeAliases.swift in Sources */,

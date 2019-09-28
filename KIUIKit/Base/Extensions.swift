@@ -75,3 +75,9 @@ extension UIImage {
         return UIImage(named: named, in: bundle, compatibleWith: nil)
     }
 }
+
+extension UITableViewCell {
+    public static var reuseIdentifier: String {
+        return String(describing: self)
+    }
+}
