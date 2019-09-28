@@ -70,7 +70,7 @@ class KIChatDialoguesListCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 13)
-        label.text = "Anvar"
+        label.text = "jfhkajsdaj lasdjk as"
         
         label.numberOfLines = 2
         label.lineBreakMode = .byWordWrapping
@@ -122,6 +122,8 @@ class KIChatDialoguesListCell: UITableViewCell {
         
         setupViews()
     }
+    
+    private var detailedLabelWidthAnchor: NSLayoutConstraint?
     
     private func setupViews() {
         
@@ -180,6 +182,8 @@ class KIChatDialoguesListCell: UITableViewCell {
         addSubview(detailedLabel)
         detailedLabel.leftAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 12).isActive = true
         detailedLabel.topAnchor.constraint(equalTo: topStackView.bottomAnchor, constant: 4).isActive = true
+        detailedLabelWidthAnchor = detailedLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 200)
+        detailedLabelWidthAnchor?.isActive = true
         //        detailedLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -80).isActive = true
         // view model kirib kelganda widthni hisiblab constraintni update qilish kerak
         //        detailedLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
@@ -213,10 +217,13 @@ class KIChatDialoguesListCell: UITableViewCell {
                                        - Constants.avatarImageVeiwWidth
                                        - Constants.detailedLabelLeftMargin
                                        - metaBadgeCountLabel.frame.width
+                                       - Constants.dateLabelLeftMargin
                                        - Constants.detailedLabelLeftMargin
-                                       - Constants.dateLabelRightMargin
-        detailedLabel.widthAnchor.constraint(equalToConstant: detailedLabelWidth).isActive = true
-        detailedLabel.layoutIfNeeded()
+                                       - Constants.dateLabelRightMargin - 20
+        detailedLabelWidthAnchor?.isActive = false
+        detailedLabelWidthAnchor = detailedLabel.widthAnchor.constraint(equalToConstant: detailedLabelWidth)
+        detailedLabelWidthAnchor?.isActive = true
+        self.layoutIfNeeded()
         
     }
     
