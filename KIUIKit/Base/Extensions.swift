@@ -70,7 +70,7 @@ extension Array {
 }
 
 extension UIImage {
-    static func resourceImage<T: AnyObject>(for object: T, named: String) -> UIImage? {
+    static func resourceImage(for object: AnyObject, named: String) -> UIImage? {
         let bundle = Bundle(for: type(of: object))
         return UIImage(named: named, in: bundle, compatibleWith: nil)
     }

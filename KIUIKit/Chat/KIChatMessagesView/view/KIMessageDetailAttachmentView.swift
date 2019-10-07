@@ -77,24 +77,16 @@ public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentView
     
     public func updateUI(with action: KIMessageAttachmentAction) {
         switch action {
-        case .download:
-            actionImageView.image = UIImage.resourceImage(for: self, named: "action_download")
-            actionImageView.isHidden = false
-            loadingIndicator.stopAnimating()
-        case .play:
-            actionImageView.image = UIImage.resourceImage(for: self, named: "action_play")
-            actionImageView.isHidden = false
-            loadingIndicator.stopAnimating()
-        case .action(let image):
-            actionImageView.image = image
-            actionImageView.isHidden = false
-            loadingIndicator.stopAnimating()
         case .loading:
             actionImageView.isHidden = true
             loadingIndicator.startAnimating()
-            
         case .none:
             actionWrap.isHidden = true
+        default:
+            actionImageView.image = action.image(for: self)
+            actionImageView.isHidden = false
+            loadingIndicator.stopAnimating()
+            
         }
     }
     
