@@ -8,17 +8,18 @@
 
 import UIKit
 
-public class KIChatMessageCell<View: KIView<ViewModel>, ViewModel: KISizeAwareViewModel>: UICollectionViewCell {
+class KIChatMessageCell<View: KIView<ViewModel>, ViewModel: KISizeAwareViewModel>: UICollectionViewCell, KIUpdateable {
+
+    weak var item: KIChatMessageItem?
     
     private let view: View = .init()
-    public var viewModel: ViewModel? {
+    weak var viewModel: ViewModel? {
         didSet {
-            view.viewModel = viewModel
-            view.frame = .init(origin: .zero, size: viewModel?.size ?? .zero)
+            self.updateUI()
         }
     }
     
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         initView()
     }
@@ -26,14 +27,18 @@ public class KIChatMessageCell<View: KIView<ViewModel>, ViewModel: KISizeAwareVi
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     
     func initView() {
         contentView.addSubview(view)
     }
+
+    func updateUI() {
+        view.viewModel = viewModel
+        view.frame = .init(origin: .zero, size: viewModel?.size ?? .zero)
+    }
     
-    public override func prepareForReuse() {
+    override func prepareForReuse() {
         super.prepareForReuse()
-        view.updateUI()
     }
 }

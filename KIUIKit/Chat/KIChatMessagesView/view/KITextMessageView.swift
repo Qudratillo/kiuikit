@@ -13,8 +13,6 @@ public class KITextMessageView: KIView<KITextMessageViewModel> {
     private let containerView: UIView = .init()
     private let contentView: KITextMessageContentView = .init()
     
-    
-    
     override func initView() {
         addSubview(avatar)
         
@@ -48,7 +46,94 @@ public class KITextMessageView: KIView<KITextMessageViewModel> {
         contentView.frame = .init(origin: .init(x: 0, y: 0), size: viewModel.contentModel.size)
         
         
+        avatar.isUserInteractionEnabled = true
+        avatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapAvatar)))
+        
     }
     
+    @objc func didTapAvatar() {
+        self.viewModel?.tapAvatar?()
+    }
     
+}
+
+
+public protocol KIMessageViewModel: KISizeAwareViewModel {
+    
+}
+
+public enum KIMessageContainerLocation {
+    case right
+    case left
+}
+
+public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
+    
+    public static var maxContainerOffset: CGFloat = 100
+    public static var maxContainerWidth: CGFloat = 400
+    
+    
+    public static var leftMessageContainerColor: UIColor = .white
+    public static var rightMessageContainerColor: UIColor = #colorLiteral(red: 0.9002717783, green: 0.9960784314, blue: 0.8971452887, alpha: 1)
+    
+    
+    public var avatarImageData: KIImageData?
+    public var avatarGradientBase: Int?
+    public var avatarInitialsText: String?
+    private(set) var avatarFrame: CGRect = .zero
+    public var contentModel: KITextMessageContentViewModel
+    public var containerLocation: KIMessageContainerLocation
+    
+    private(set) var containerFrame: CGRect = .zero
+    private(set) var containerBackgroundColor: UIColor = .white
+    
+    fileprivate var tapAvatar: (() -> Void)?
+    
+    public init(
+        width: CGFloat = 0,
+        avatarImageData: KIImageData?,
+        avatarGradientBase: Int?,
+        avatarInitialsText: String?,
+        contentModel: KITextMessageContentViewModel,
+        containerLocation: KIMessageContainerLocation
+        ) {
+        self.avatarImageData = avatarImageData
+        self.avatarGradientBase = avatarGradientBase
+        self.avatarInitialsText = avatarInitialsText
+        self.contentModel = contentModel
+        self.containerLocation = containerLocation
+        super.init(width: width, height: 0)
+    }
+    
+    public override func updateFrames() {
+        super.updateFrames()
+        contentModel.width = min(KITextMessageViewModel.maxContainerWidth, width - KITextMessageViewModel.maxContainerOffset)
+        contentModel.updateFrames()
+        let containerWidth: CGFloat = contentModel.width
+        let containerHeight: CGFloat = contentModel.height
+        
+        
+        var xOffset: CGFloat = 0
+        
+        if avatarImageData != nil {
+            xOffset = 44
+        }
+        
+        self.height = max(containerHeight, 40) + 2
+        
+        switch containerLocation {
+        case .right:
+            containerFrame = .init(x: width - containerWidth - 12 - xOffset, y: self.height - containerHeight - 1, width: containerWidth, height: containerHeight)
+            containerBackgroundColor = KITextMessageViewModel.rightMessageContainerColor
+            avatarFrame = .init(x: width - 8 - 40, y: self.height - 40 - 1, width: 40, height: 40)
+        case .left:
+            containerFrame = .init(x: 12 + xOffset, y: self.height - containerHeight - 1, width: containerWidth, height: containerHeight)
+            avatarFrame = .init(x: 8, y: self.height - 40 - 1, width: 40, height: 40)
+            containerBackgroundColor = KITextMessageViewModel.leftMessageContainerColor
+        }
+    }
+    
+    func onTapAvatar(_ tap: @escaping () -> Void) {
+        self.tapAvatar = tap
+    }
 }

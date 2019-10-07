@@ -11,7 +11,7 @@ import UIKit
 public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentViewModel>  {
     private let imageView: KIAvatarImageView = .init()
     private let actionWrap: UIView = .init()
-    private let actionImageView: UIImageView = .init()
+    let actionImageView: UIImageView = .init()
     private let loadingIndicator: UIActivityIndicatorView = .init(activityIndicatorStyle: .white)
     private let topTextLabel: UILabel = .init()
     private let bottomTextLabel: UILabel = .init()
@@ -27,8 +27,11 @@ public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentView
         actionWrap.layer.cornerRadius = 20
         actionWrap.frame = .init(x: KIMessageDetailAttachmentViewModel.leftPadding, y: 0, width: 40, height: 40)
         
-        actionImageView.frame = .init(x: 8, y: 8, width: 24, height: 24)
+        actionImageView.frame = .init(x: 0, y: 0, width: 40, height: 40)
+        actionImageView.contentMode = .center
         actionImageView.clipsToBounds = true
+        actionImageView.isUserInteractionEnabled = true
+        actionImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapAction)))
         actionWrap.addSubview(actionImageView)
         
         loadingIndicator.frame = .init(x: 0, y: 0, width: 40, height: 40)
@@ -93,6 +96,63 @@ public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentView
         case .none:
             actionWrap.isHidden = true
         }
-        
     }
+    
+    @objc func didTapAction() {
+        self.viewModel?.tapAction?()
+    }
+}
+
+// MARK: ViewModel
+public class KIMessageDetailAttachmentViewModel: KIMessageAttachmentViewModel {
+    public static var leftPadding: CGFloat = 10
+    public static var topTextFont: UIFont = .systemFont(ofSize: 15, weight: .semibold)
+    public static var bottomTextFont: UIFont = .systemFont(ofSize: 13)
+    
+    
+    public var imageData: KIImageData?
+    public var imageGradientBase: Int?
+    public var imageInitialsText: String?
+    public var topText: String?
+    private(set) var topTextFrame: CGRect = .zero
+    public var bottomText: String?
+    private(set) var bottomeTextFrame: CGRect = .zero
+    public var sliderValue: Float
+    private(set) var sliderFrame: CGRect = .zero
+    
+    
+    public init(
+        width: CGFloat = 0,
+        action: KIMessageAttachmentAction,
+        imageData: KIImageData?,
+        imageGradientBase: Int?,
+        imageInitialsText: String?,
+        topText: String?,
+        bottomText: String?,
+        sliderValue: Float
+        ) {
+        self.imageData = imageData
+        self.imageGradientBase = imageGradientBase
+        self.imageInitialsText = imageInitialsText
+        self.topText = topText
+        self.bottomText = bottomText
+        self.sliderValue = sliderValue
+        
+        super.init(width: width, height: 0, action: action)
+    }
+    
+    public override func updateFrames() {
+        super.updateFrames()
+        if topText == nil {
+            topTextFrame = .zero
+            sliderFrame = .init(x: 48 + KIMessageDetailAttachmentViewModel.leftPadding, y: 0, width: width - 48 - KIMessageDetailAttachmentViewModel.leftPadding, height: 20)
+        } else {
+            topTextFrame = .init(x: 48 + KIMessageDetailAttachmentViewModel.leftPadding, y: 0, width: width - 48 - KIMessageDetailAttachmentViewModel.leftPadding, height: 20)
+            sliderFrame = .zero
+        }
+        
+        bottomeTextFrame = .init(x: 48 + KIMessageDetailAttachmentViewModel.leftPadding, y: 20, width: width - 48 - KIMessageDetailAttachmentViewModel.leftPadding, height: 20)
+        height = 40
+    }
+    
 }

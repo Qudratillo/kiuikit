@@ -8,26 +8,54 @@
 
 import UIKit
 
-public typealias KIChatTextMessageCellModel<MessageData> = KIChatMessageCellModel<MessageData, KITextMessageViewModel>
-public typealias KIChatActionMessageCellModel<MessageData> = KIChatMessageCellModel<MessageData, KIActionMessageViewModel>
 
 public class KIChatMessageItem {
     public var id: Int
     public var date: Date
     public var viewModel: KIMessageViewModel
+    weak var view: (UIView & KIUpdateable)? {
+        didSet {
+            if shouldFlash {
+                self.flashBackground()
+            }
+        }
+    }
+    var shouldFlash: Bool = false
+    public var replyId: Int?
+    public var bag: Any?
     
-    public init(id: Int, date: Date, viewModel: KIMessageViewModel) {
+
+    public init(id: Int, date: Date, viewModel: KIMessageViewModel, replyId: Int? = nil, bag: Any? = nil) {
         self.id = id
         self.date = date
         self.viewModel = viewModel
+        self.replyId = replyId
+        self.bag = bag
+    }
+
+    public func updateView() {
+        view?.updateUI()
     }
     
+    func flash() {
+        self.shouldFlash = true
+        self.flashBackground()
+    }
+    private func flashBackground() {
+        if let view = view {
+            self.shouldFlash = false
+            view.backgroundColor = KIConfig.accentColor.withAlphaComponent(0.25)
+            UIView.animate(withDuration: 1, delay: 0.5, options: [.curveEaseIn], animations: {
+                view.backgroundColor = nil
+            })
+        }
+    }
 }
 
 
 private class KIChatMessagesCollectionViewSection {
     public var date: Date
-    public var viewModel: KIChatMessageSectionHeaderViewModel;
+    public var viewModel: KIChatMessageSectionHeaderViewModel
     public var items: [KIChatMessageItem] = []
     
     public init(width: CGFloat, date: Date) {
@@ -41,7 +69,8 @@ private class KIChatMessagesCollectionViewSection {
 
 public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    private var q: OperationQueue = .init()
+    private let q: OperationQueue = .init()
+    private let replyQ: OperationQueue = .init()
     
     private var sections: [KIChatMessagesCollectionViewSection] = []
     
@@ -81,7 +110,6 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         self.register(KIChatMessageSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header-view")
         self.alwaysBounceVertical = true
         
-        
     }
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -99,13 +127,19 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         
         if let viewModel = item.viewModel as? KITextMessageViewModel {
             let cell: KIChatMessageCell<KITextMessageView, KITextMessageViewModel> = collectionView.dequeueReusableCell(withReuseIdentifier: "text-message-cell", for: indexPath) as? KIChatMessageCell<KITextMessageView, KITextMessageViewModel> ?? .init()
+            cell.item?.view = nil
+            cell.item = item
             cell.viewModel = viewModel
+            item.view = cell
 //            dump(viewModel)
             return cell
         }
         else if let viewModel = item.viewModel as? KIActionMessageViewModel {
             let cell: KIChatMessageCell<KIActionMessageView, KIActionMessageViewModel> = collectionView.dequeueReusableCell(withReuseIdentifier: "action-message-cell", for: indexPath) as? KIChatMessageCell<KIActionMessageView, KIActionMessageViewModel> ?? .init()
+            cell.item?.view = nil
+            cell.item = item
             cell.viewModel = viewModel
+            item.view = cell
 //            dump(viewModel)
             return cell
         }
@@ -127,6 +161,20 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header-view", for: indexPath) as! KIChatMessageSectionHeaderView
         headerView.viewModel = section.viewModel
         return headerView
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let messagesDelegate = messagesDelegate,
+            let item = self.sections.element(at: indexPath.section)?.items.element(at: indexPath.item) {
+            messagesDelegate.chatMessagesCollectionView(willDisplayItem: item)
+        }
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let messagesDelegate = messagesDelegate,
+            let item = self.sections.element(at: indexPath.section)?.items.element(at: indexPath.item) {
+            messagesDelegate.chatMessagesCollectionView(didEndDisplayingItem: item)
+        }
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -226,7 +274,7 @@ extension KIChatMessagesCollectionView {
         }
     }
   
-    public func set(items: [KIChatMessageItem], scrollToBottom: Bool) {
+    public func set(items: [KIChatMessageItem], scrollToBottom: Bool, callback: (() -> Void)? = nil) {
         
         q.addOperation {
             self.sections = self.makeSections(items: items)
@@ -240,6 +288,8 @@ extension KIChatMessagesCollectionView {
                 if scrollToBottom {
                     self.scrollToBottom(animated: false)
                 }
+                
+                callback?()
             }
         }
     }
@@ -248,7 +298,7 @@ extension KIChatMessagesCollectionView {
     public func insert(itemsToTop items: [KIChatMessageItem], callback: @escaping () -> Void) {
         q.addOperation {
             var oldHeight: CGFloat = 0
-            DispatchQueue.main.sync {
+            DispatchQueue.syncMain {
                 oldHeight = self.contentHeight
             }
             
@@ -303,7 +353,7 @@ extension KIChatMessagesCollectionView {
     private func makeSections(items: [KIChatMessageItem]) -> [KIChatMessagesCollectionViewSection] {
         var width: CGFloat = 0
         
-        DispatchQueue.main.sync {
+        DispatchQueue.syncMain {
             width = self.frame.width
         }
         
@@ -317,6 +367,44 @@ extension KIChatMessagesCollectionView {
         for item in items {
             item.viewModel.width = width
             item.viewModel.updateFrames()
+            if let viewModel = item.viewModel as? KITextMessageViewModel {
+                viewModel.onTapAvatar { [weak self, weak item] in
+                    if let item = item {
+                        self?.messagesDelegate?.chatMessagesCollectionView(didTapSenderOnItem: item)
+                    }
+                }
+                
+                viewModel.contentModel.onTapName { [weak self, weak item] in
+                    if let item = item {
+                        self?.messagesDelegate?.chatMessagesCollectionView(didTapSenderOnItem: item)
+                    }
+                }
+
+                viewModel.contentModel.onTapAttachment { [weak self, weak item] in
+                    if let item = item {
+                        self?.messagesDelegate?.chatMessagesCollectionView(didTapAttachmentOnItem: item)
+                    }
+                }
+                
+                viewModel.contentModel.onTapForwarder { [weak self, weak item] in
+                    if let item = item {
+                        self?.messagesDelegate?.chatMessagesCollectionView(didTapForwarderOnItem: item)
+                    }
+                }
+                
+                viewModel.contentModel.attachmentModel?.onTapAction { [weak self, weak item] in
+                    if let item = item {
+                        self?.messagesDelegate?.chatMessagesCollectionView(didTapActionOnItem: item)
+                    }
+                }
+                
+                viewModel.contentModel.onTapReply { [weak self, weak item] in
+                    if let item = item {
+                        self?.didTapReply(on: item)
+                    }
+                }
+                
+            }
             if Calendar.current.isDate(section.date, inSameDayAs: item.date) {
                 section.items.append(item)
             } else {
@@ -333,6 +421,51 @@ extension KIChatMessagesCollectionView {
         self.scrollToItem(at: .init(item: lastSection.items.count - 1, section: sections.count - 1), at: .bottom, animated: animated)
         }
     }
+    
+    private func didTapReply(on item: KIChatMessageItem) {
+        guard let replyId = item.replyId else {
+            return
+        }
+        
+        replyQ.cancelAllOperations()
+        replyQ.addOperation {
+            if self.scroll(toItemWithId: replyId) {
+                return
+            }
+            var didScroll = false
+            self.messagesDelegate?.fetch(middleItemId: replyId, addPlaceholderItems: { (items) in
+                if !items.isEmpty {
+                    self.set(items: items, scrollToBottom: false) {
+                        didScroll = true
+                        self.scroll(toItemWithId: replyId)
+                    }
+                }
+            }, addItems: { (items) in
+                self.replace(items: items, updateContentOffset: false, callback: {
+                    if !didScroll {
+                        self.scroll(toItemWithId: replyId)
+                    }
+                })
+            })
+        }
+    }
+    
+    @discardableResult
+    public func scroll(toItemWithId itemId: Int) -> Bool {
+        for (sectionIndex, section) in self.sections.enumerated() {
+            for (itemIndex, sectionItem) in section.items.enumerated() {
+                if sectionItem.id == itemId {
+                    OperationQueue.main.addOperation {
+                        self.scrollToItem(at: .init(item: itemIndex, section: sectionIndex), at: .centeredVertically, animated: true)
+                        sectionItem.flash()
+                    }
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
 }
 
 extension KIChatMessagesCollectionView {
@@ -367,6 +500,17 @@ extension KIChatMessagesCollectionView {
 
 
 public protocol KIChatMessagesCollectionViewMessagesDelegate: class {
-    func fetchTop(item: KIChatMessageItem, addPlaceholderItems: @escaping (_ items: [KIChatMessageItem]) -> Void, addItems: @escaping (_ items: [KIChatMessageItem]) -> Void)
-    func fetchBottom(item: KIChatMessageItem, addPlaceholderItems: @escaping (_ items: [KIChatMessageItem]) -> Void, addItems: @escaping (_ items: [KIChatMessageItem]) -> Void)
+}
+
+public extension KIChatMessagesCollectionViewMessagesDelegate {
+    func fetchTop(item: KIChatMessageItem, addPlaceholderItems: @escaping (_ items: [KIChatMessageItem]) -> Void, addItems: @escaping (_ items: [KIChatMessageItem]) -> Void) {}
+    func fetchBottom(item: KIChatMessageItem, addPlaceholderItems: @escaping (_ items: [KIChatMessageItem]) -> Void, addItems: @escaping (_ items: [KIChatMessageItem]) -> Void) {}
+    func fetch(middleItemId: Int, addPlaceholderItems: @escaping (_ items: [KIChatMessageItem]) -> Void, addItems: @escaping (_ items: [KIChatMessageItem]) -> Void) {}
+    
+    func chatMessagesCollectionView(willDisplayItem item: KIChatMessageItem) {}
+    func chatMessagesCollectionView(didEndDisplayingItem item: KIChatMessageItem) {}
+    func chatMessagesCollectionView(didTapActionOnItem item: KIChatMessageItem) {}
+    func chatMessagesCollectionView(didTapAttachmentOnItem item: KIChatMessageItem) {}
+    func chatMessagesCollectionView(didTapSenderOnItem item: KIChatMessageItem) {}
+    func chatMessagesCollectionView(didTapForwarderOnItem item: KIChatMessageItem) {}
 }

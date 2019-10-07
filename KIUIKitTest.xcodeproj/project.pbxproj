@@ -21,11 +21,13 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		8E6BA7F8641E6D2AE6C2EBA8 /* KIUpdateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6BADE270CDB7D2C019D0A4 /* KIUpdateable.swift */; };
 		F259813A23360E7F007B0298 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259813923360E7F007B0298 /* AppDelegate.swift */; };
 		F259813C23360E7F007B0298 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259813B23360E7F007B0298 /* ViewController.swift */; };
 		F259813F23360E7F007B0298 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F259813D23360E7F007B0298 /* Main.storyboard */; };
 		F259814123360E81007B0298 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F259814023360E81007B0298 /* Assets.xcassets */; };
 		F259814423360E81007B0298 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F259814223360E81007B0298 /* LaunchScreen.storyboard */; };
+		F25BFC712348A5CA009E99B3 /* KIMessageAttachmentAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25BFC702348A5CA009E99B3 /* KIMessageAttachmentAction.swift */; };
 		F260D719233A25AD0046E7B1 /* KIViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F260D718233A25AD0046E7B1 /* KIViewModel.swift */; };
 		F2F9A315233619380089F037 /* KIUIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F2F9A313233619380089F037 /* KIUIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F2F9A318233619380089F037 /* KIUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2F9A311233619380089F037 /* KIUIKit.framework */; };
@@ -39,14 +41,6 @@
 		F2F9A345233619490089F037 /* KIPaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A325233619490089F037 /* KIPaddingLabel.swift */; };
 		F2F9A346233619490089F037 /* KICircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A326233619490089F037 /* KICircleImageView.swift */; };
 		F2F9A347233619490089F037 /* KIAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A327233619490089F037 /* KIAvatarImageView.swift */; };
-		F2F9A348233619490089F037 /* KiReplyMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A32B233619490089F037 /* KiReplyMessageViewModel.swift */; };
-		F2F9A349233619490089F037 /* KITextMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A32C233619490089F037 /* KITextMessageViewModel.swift */; };
-		F2F9A34A233619490089F037 /* KIMessageImageAttachmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A32D233619490089F037 /* KIMessageImageAttachmentViewModel.swift */; };
-		F2F9A34B233619490089F037 /* KIMessageDetailAttachmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A32E233619490089F037 /* KIMessageDetailAttachmentViewModel.swift */; };
-		F2F9A34C233619490089F037 /* KIActionMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A32F233619490089F037 /* KIActionMessageViewModel.swift */; };
-		F2F9A34D233619490089F037 /* KIChatMessageCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A330233619490089F037 /* KIChatMessageCellModel.swift */; };
-		F2F9A34E233619490089F037 /* KIChatMessageSectionHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A331233619490089F037 /* KIChatMessageSectionHeaderViewModel.swift */; };
-		F2F9A34F233619490089F037 /* KITextMessageContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A332233619490089F037 /* KITextMessageContentViewModel.swift */; };
 		F2F9A350233619490089F037 /* KIChatMessagesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A334233619490089F037 /* KIChatMessagesCollectionView.swift */; };
 		F2F9A351233619490089F037 /* KIChatMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A336233619490089F037 /* KIChatMessageCell.swift */; };
 		F2F9A352233619490089F037 /* KITextMessageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A338233619490089F037 /* KITextMessageContentView.swift */; };
@@ -85,6 +79,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8E6BADE270CDB7D2C019D0A4 /* KIUpdateable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIUpdateable.swift; sourceTree = "<group>"; };
 		F259813623360E7F007B0298 /* KIUIKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KIUIKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F259813923360E7F007B0298 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F259813B23360E7F007B0298 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +87,7 @@
 		F259814023360E81007B0298 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F259814323360E81007B0298 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F259814523360E81007B0298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F25BFC702348A5CA009E99B3 /* KIMessageAttachmentAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIMessageAttachmentAction.swift; sourceTree = "<group>"; };
 		F260D718233A25AD0046E7B1 /* KIViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIViewModel.swift; sourceTree = "<group>"; };
 		F2F9A311233619380089F037 /* KIUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KIUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2F9A313233619380089F037 /* KIUIKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KIUIKit.h; sourceTree = "<group>"; };
@@ -105,14 +101,6 @@
 		F2F9A325233619490089F037 /* KIPaddingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIPaddingLabel.swift; sourceTree = "<group>"; };
 		F2F9A326233619490089F037 /* KICircleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KICircleImageView.swift; sourceTree = "<group>"; };
 		F2F9A327233619490089F037 /* KIAvatarImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIAvatarImageView.swift; sourceTree = "<group>"; };
-		F2F9A32B233619490089F037 /* KiReplyMessageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KiReplyMessageViewModel.swift; sourceTree = "<group>"; };
-		F2F9A32C233619490089F037 /* KITextMessageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KITextMessageViewModel.swift; sourceTree = "<group>"; };
-		F2F9A32D233619490089F037 /* KIMessageImageAttachmentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIMessageImageAttachmentViewModel.swift; sourceTree = "<group>"; };
-		F2F9A32E233619490089F037 /* KIMessageDetailAttachmentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIMessageDetailAttachmentViewModel.swift; sourceTree = "<group>"; };
-		F2F9A32F233619490089F037 /* KIActionMessageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIActionMessageViewModel.swift; sourceTree = "<group>"; };
-		F2F9A330233619490089F037 /* KIChatMessageCellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIChatMessageCellModel.swift; sourceTree = "<group>"; };
-		F2F9A331233619490089F037 /* KIChatMessageSectionHeaderViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIChatMessageSectionHeaderViewModel.swift; sourceTree = "<group>"; };
-		F2F9A332233619490089F037 /* KITextMessageContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KITextMessageContentViewModel.swift; sourceTree = "<group>"; };
 		F2F9A334233619490089F037 /* KIChatMessagesCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIChatMessagesCollectionView.swift; sourceTree = "<group>"; };
 		F2F9A336233619490089F037 /* KIChatMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIChatMessageCell.swift; sourceTree = "<group>"; };
 		F2F9A338233619490089F037 /* KITextMessageContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KITextMessageContentView.swift; sourceTree = "<group>"; };
@@ -177,6 +165,14 @@
 			path = KIUIKitTest;
 			sourceTree = "<group>";
 		};
+		F25BFC6F2348A5BD009E99B3 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				F25BFC702348A5CA009E99B3 /* KIMessageAttachmentAction.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		F2F9A312233619380089F037 /* KIUIKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +196,7 @@
 				F2F9A322233619490089F037 /* TypeAliases.swift */,
 				F2F9A323233619490089F037 /* KISizeAwareViewModel.swift */,
 				F260D718233A25AD0046E7B1 /* KIViewModel.swift */,
+				8E6BADE270CDB7D2C019D0A4 /* KIUpdateable.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -225,27 +222,12 @@
 		F2F9A329233619490089F037 /* KIChatMessagesView */ = {
 			isa = PBXGroup;
 			children = (
-				F2F9A32A233619490089F037 /* viewmodel */,
+				F25BFC6F2348A5BD009E99B3 /* model */,
 				F2F9A333233619490089F037 /* collectionview */,
 				F2F9A335233619490089F037 /* cell */,
 				F2F9A337233619490089F037 /* view */,
 			);
 			path = KIChatMessagesView;
-			sourceTree = "<group>";
-		};
-		F2F9A32A233619490089F037 /* viewmodel */ = {
-			isa = PBXGroup;
-			children = (
-				F2F9A32B233619490089F037 /* KiReplyMessageViewModel.swift */,
-				F2F9A32C233619490089F037 /* KITextMessageViewModel.swift */,
-				F2F9A32D233619490089F037 /* KIMessageImageAttachmentViewModel.swift */,
-				F2F9A32E233619490089F037 /* KIMessageDetailAttachmentViewModel.swift */,
-				F2F9A32F233619490089F037 /* KIActionMessageViewModel.swift */,
-				F2F9A330233619490089F037 /* KIChatMessageCellModel.swift */,
-				F2F9A331233619490089F037 /* KIChatMessageSectionHeaderViewModel.swift */,
-				F2F9A332233619490089F037 /* KITextMessageContentViewModel.swift */,
-			);
-			path = viewmodel;
 			sourceTree = "<group>";
 		};
 		F2F9A333233619490089F037 /* collectionview */ = {
@@ -267,13 +249,13 @@
 		F2F9A337233619490089F037 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				F2F9A338233619490089F037 /* KITextMessageContentView.swift */,
 				F2F9A339233619490089F037 /* KIChatMessageSectionHeaderView.swift */,
 				F2F9A33A233619490089F037 /* KITextMessageView.swift */,
 				F2F9A33B233619490089F037 /* KIActionMessageView.swift */,
+				F2F9A338233619490089F037 /* KITextMessageContentView.swift */,
+				F2F9A33E233619490089F037 /* KIMessageImageAttachmentView.swift */,
 				F2F9A33C233619490089F037 /* KIMessageDetailAttachmentView.swift */,
 				F2F9A33D233619490089F037 /* KIReplyMessageView.swift */,
-				F2F9A33E233619490089F037 /* KIMessageImageAttachmentView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -335,6 +317,7 @@
 		F259812E23360E7F007B0298 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = KI;
 				LastSwiftUpdateCheck = 1030;
 				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = "Kudratillo Ismatov";
@@ -432,29 +415,23 @@
 				F2F9A33F233619490089F037 /* KIView.swift in Sources */,
 				F2F9A345233619490089F037 /* KIPaddingLabel.swift in Sources */,
 				F2F9A340233619490089F037 /* KIConfig.swift in Sources */,
-				F2F9A34D233619490089F037 /* KIChatMessageCellModel.swift in Sources */,
 				F2F9A354233619490089F037 /* KITextMessageView.swift in Sources */,
 				F2F9A357233619490089F037 /* KIReplyMessageView.swift in Sources */,
-				F2F9A34A233619490089F037 /* KIMessageImageAttachmentViewModel.swift in Sources */,
-				F2F9A34C233619490089F037 /* KIActionMessageViewModel.swift in Sources */,
 				F2F9A355233619490089F037 /* KIActionMessageView.swift in Sources */,
-				F2F9A34B233619490089F037 /* KIMessageDetailAttachmentViewModel.swift in Sources */,
 				F2F9A358233619490089F037 /* KIMessageImageAttachmentView.swift in Sources */,
-				F2F9A34E233619490089F037 /* KIChatMessageSectionHeaderViewModel.swift in Sources */,
 				F2F9A352233619490089F037 /* KITextMessageContentView.swift in Sources */,
-				F2F9A34F233619490089F037 /* KITextMessageContentViewModel.swift in Sources */,
 				F2F9A341233619490089F037 /* KIImageData.swift in Sources */,
-				F2F9A349233619490089F037 /* KITextMessageViewModel.swift in Sources */,
 				F2F9A343233619490089F037 /* TypeAliases.swift in Sources */,
 				F2F9A353233619490089F037 /* KIChatMessageSectionHeaderView.swift in Sources */,
-				F2F9A348233619490089F037 /* KiReplyMessageViewModel.swift in Sources */,
 				F2F9A344233619490089F037 /* KISizeAwareViewModel.swift in Sources */,
 				F2F9A346233619490089F037 /* KICircleImageView.swift in Sources */,
 				F2F9A351233619490089F037 /* KIChatMessageCell.swift in Sources */,
 				F2F9A347233619490089F037 /* KIAvatarImageView.swift in Sources */,
 				F2F9A356233619490089F037 /* KIMessageDetailAttachmentView.swift in Sources */,
+				F25BFC712348A5CA009E99B3 /* KIMessageAttachmentAction.swift in Sources */,
 				F2F9A342233619490089F037 /* Extensions.swift in Sources */,
 				F260D719233A25AD0046E7B1 /* KIViewModel.swift in Sources */,
+				8E6BA7F8641E6D2AE6C2EBA8 /* KIUpdateable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,7 +596,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = ki.KIUIKitTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -639,7 +616,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = ki.KIUIKitTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

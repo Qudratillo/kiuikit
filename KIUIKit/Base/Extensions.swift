@@ -75,3 +75,16 @@ extension UIImage {
         return UIImage(named: named, in: bundle, compatibleWith: nil)
     }
 }
+
+extension DispatchQueue {
+    static func syncMain(_ task: @escaping () -> Void) {
+        if Thread.isMainThread {
+            task()
+        } else {
+            DispatchQueue.main.sync {
+                task()
+            }
+        }
+        
+    }
+}

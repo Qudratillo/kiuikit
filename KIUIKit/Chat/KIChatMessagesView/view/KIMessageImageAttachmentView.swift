@@ -12,7 +12,7 @@ public class KIMessageImageAttachmentView: KIView<KIMessageImageAttachmentViewMo
     
     private let imageView: UIImageView = .init()
     private let actionWrap: UIView = .init()
-    private let actionImageView: UIImageView = .init()
+    let actionImageView: UIImageView = .init()
     private let loadingIndicator: UIActivityIndicatorView = .init(activityIndicatorStyle: .white)
     private let metaTextContainer: UIView = .init()
     private let metaTextLabel: KIPaddingLabel = .init()
@@ -31,8 +31,14 @@ public class KIMessageImageAttachmentView: KIView<KIMessageImageAttachmentViewMo
         actionWrap.clipsToBounds = true
         
         actionImageView.clipsToBounds = true
+        actionImageView.frame = .init(x: 0, y: 0, width: KIMessageImageAttachmentViewModel.actionSize, height: KIMessageImageAttachmentViewModel.actionSize)
+        actionImageView.contentMode = .center
+        actionImageView.isUserInteractionEnabled = true
+        actionImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapAction)))
         actionWrap.addSubview(actionImageView)
         
+        
+        loadingIndicator.frame = .init(x: 0, y: 0, width: KIMessageImageAttachmentViewModel.actionSize, height: KIMessageImageAttachmentViewModel.actionSize)
         actionWrap.addSubview(loadingIndicator)
 
         addSubview(actionWrap)
@@ -57,9 +63,7 @@ public class KIMessageImageAttachmentView: KIView<KIMessageImageAttachmentViewMo
            
             actionWrap.frame = viewModel.actionWrapFrame
             actionWrap.layer.cornerRadius = viewModel.actionWrapFrame.width/2
-            
-            actionImageView.frame = viewModel.actionFrame
-            loadingIndicator.frame = viewModel.actionFrame
+        
             self.updateUI(with: viewModel.action)
         
             metaTextLabel.text = viewModel.metaText
@@ -87,7 +91,84 @@ public class KIMessageImageAttachmentView: KIView<KIMessageImageAttachmentViewMo
         case .none:
             actionWrap.isHidden = true
         }
-        
     }
+    
+    @objc func didTapAction() {
+        self.viewModel?.tapAction?()
+    }
+    
+}
+
+public class KIMessageAttachmentViewModel: KISizeAwareViewModel {
+    
+    public var action: KIMessageAttachmentAction
+    
+    
+    private(set) var tapAction: (() -> Void)?
+    
+    public init(width: CGFloat,
+                height: CGFloat,
+                action: KIMessageAttachmentAction
+        ) {
+        self.action = action
+        
+        super.init(width: width, height: height)
+    }
+    
+    func onTapAction(_ tap: @escaping () -> Void) {
+        self.tapAction = tap
+    }
+}
+
+
+public class KIMessageImageAttachmentViewModel: KIMessageAttachmentViewModel {
+    
+    public static var minWidth: CGFloat = 100
+    public static var minHeight: CGFloat = 100
+    
+    
+    public var imageData: KIImageData
+    public static var actionSize: CGFloat = 40
+    public static var metaTextFont: UIFont = .systemFont(ofSize: 12)
+    
+    private(set) var actionWrapFrame: CGRect = .zero
+    
+    public var whRatio: CGFloat
+    public var metaText: String?
+    private(set) var metaTextFrame: CGRect = .zero
+    
+    public init(width: CGFloat = 0,
+                height: CGFloat = 0,
+                whRatio: CGFloat,
+                imageData: KIImageData,
+                action: KIMessageAttachmentAction,
+                metaText: String?
+        ) {
+        self.whRatio = whRatio
+        self.imageData = imageData
+        self.metaText = metaText
+        
+        super.init(width: width, height: height, action: action)
+    }
+    
+    public override func updateFrames() {
+        super.updateFrames()
+        if self.whRatio >= 1 {
+            self.height = max(self.width / self.whRatio, KIMessageImageAttachmentViewModel.minHeight)
+        } else {
+            self.width = max(self.height * self.whRatio, KIMessageImageAttachmentViewModel.minWidth)
+        }
+        
+        actionWrapFrame = .init(x: (width - KIMessageImageAttachmentViewModel.actionSize)/2, y: (height - KIMessageImageAttachmentViewModel.actionSize)/2, width: KIMessageImageAttachmentViewModel.actionSize, height: KIMessageImageAttachmentViewModel.actionSize)
+        if let metaText = metaText {
+            let h = KIMessageImageAttachmentViewModel.metaTextFont.lineHeight
+            let w = KIMessageImageAttachmentViewModel.metaTextFont.size(ofString: metaText, constrainedToHeight: h).width + 12
+            metaTextFrame = .init(x: 6, y: 4, width: min(w, width - 20) , height: h + 8)
+        } else {
+            metaTextFrame = .zero
+        }
+    }
+    
+    
     
 }
