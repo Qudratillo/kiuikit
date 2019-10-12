@@ -28,6 +28,7 @@ public class KITextMessageContentView: KIView<KITextMessageContentViewModel> {
         forwardedFromTextLabel.font = KITextMessageContentViewModel.forwardedFromTextFont
         forwardedFromTextLabel.textColor = KIConfig.primaryColor
         forwardedFromTextLabel.isUserInteractionEnabled = true
+        forwardedFromTextLabel.numberOfLines = 0
         forwardedFromTextLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapForwarder)))
         addSubview(forwardedFromTextLabel)
         
