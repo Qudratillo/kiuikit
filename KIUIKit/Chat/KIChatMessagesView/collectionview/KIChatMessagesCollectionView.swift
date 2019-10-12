@@ -15,21 +15,24 @@ public class KIChatMessageItem {
     public var viewModel: KIMessageViewModel
     weak var view: (UIView & KIUpdateable)? {
         didSet {
-            if shouldFlash {
+            if needsFlash {
                 self.flashBackground()
             }
         }
     }
-    var shouldFlash: Bool = false
+    var needsFlash: Bool = false
     public var replyId: Int?
+    public var attachmentDownloadData: KIMessageAttachmentDownloadData?
     public var bag: Any?
     
 
-    public init(id: Int, date: Date, viewModel: KIMessageViewModel, replyId: Int? = nil, bag: Any? = nil) {
+    public init(id: Int, date: Date, viewModel: KIMessageViewModel, replyId: Int? = nil,
+                attachmentDownloadData: KIMessageAttachmentDownloadData? = nil, bag: Any? = nil) {
         self.id = id
         self.date = date
         self.viewModel = viewModel
         self.replyId = replyId
+        self.attachmentDownloadData = attachmentDownloadData
         self.bag = bag
     }
 
@@ -38,12 +41,12 @@ public class KIChatMessageItem {
     }
     
     func flash() {
-        self.shouldFlash = true
+        self.needsFlash = true
         self.flashBackground()
     }
     private func flashBackground() {
         if let view = view {
-            self.shouldFlash = false
+            self.needsFlash = false
             view.backgroundColor = KIConfig.accentColor.withAlphaComponent(0.25)
             UIView.animate(withDuration: 1, delay: 0.5, options: [.curveEaseIn], animations: {
                 view.backgroundColor = nil
@@ -167,6 +170,12 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         if let messagesDelegate = messagesDelegate,
             let item = self.sections.element(at: indexPath.section)?.items.element(at: indexPath.item) {
             messagesDelegate.chatMessagesCollectionView(willDisplayItem: item)
+            if  item.attachmentDownloadData?.downloadWhenDisplay ?? false,
+                let viewModel = item.viewModel as? KITextMessageViewModel,
+                case .download = viewModel.contentModel.attachmentModel?.action
+            {
+                messagesDelegate.chatMessagesCollectionView(downloadItem: item)
+            }
         }
     }
     
@@ -392,9 +401,13 @@ extension KIChatMessagesCollectionView {
                     }
                 }
                 
-                viewModel.contentModel.attachmentModel?.onTapAction { [weak self, weak item] in
-                    if let item = item {
-                        self?.messagesDelegate?.chatMessagesCollectionView(didTapActionOnItem: item)
+                viewModel.contentModel.attachmentModel?.onTapAction { [weak self, weak item] (action) in
+                    if let item = item, let messagesDelegate = self?.messagesDelegate {
+                        if case .download = action {
+                            messagesDelegate.chatMessagesCollectionView(downloadItem: item)
+                        } else {
+                            messagesDelegate.chatMessagesCollectionView(didTap: action, on: item)
+                        }
                     }
                 }
                 
@@ -500,6 +513,17 @@ extension KIChatMessagesCollectionView {
 
 
 public protocol KIChatMessagesCollectionViewMessagesDelegate: class {
+    func fetchTop(item: KIChatMessageItem, addPlaceholderItems: @escaping (_ items: [KIChatMessageItem]) -> Void, addItems: @escaping (_ items: [KIChatMessageItem]) -> Void)
+    func fetchBottom(item: KIChatMessageItem, addPlaceholderItems: @escaping (_ items: [KIChatMessageItem]) -> Void, addItems: @escaping (_ items: [KIChatMessageItem]) -> Void)
+    func fetch(middleItemId: Int, addPlaceholderItems: @escaping (_ items: [KIChatMessageItem]) -> Void, addItems: @escaping (_ items: [KIChatMessageItem]) -> Void)
+    
+    func chatMessagesCollectionView(willDisplayItem item: KIChatMessageItem)
+    func chatMessagesCollectionView(didEndDisplayingItem item: KIChatMessageItem)
+    func chatMessagesCollectionView(didTap action: KIMessageAttachmentAction, on item: KIChatMessageItem)
+    func chatMessagesCollectionView(didTapAttachmentOnItem item: KIChatMessageItem)
+    func chatMessagesCollectionView(didTapSenderOnItem item: KIChatMessageItem)
+    func chatMessagesCollectionView(didTapForwarderOnItem item: KIChatMessageItem)
+    func chatMessagesCollectionView(downloadItem item: KIChatMessageItem)
 }
 
 public extension KIChatMessagesCollectionViewMessagesDelegate {
@@ -509,8 +533,9 @@ public extension KIChatMessagesCollectionViewMessagesDelegate {
     
     func chatMessagesCollectionView(willDisplayItem item: KIChatMessageItem) {}
     func chatMessagesCollectionView(didEndDisplayingItem item: KIChatMessageItem) {}
-    func chatMessagesCollectionView(didTapActionOnItem item: KIChatMessageItem) {}
+    func chatMessagesCollectionView(didTap action: KIMessageAttachmentAction, on item: KIChatMessageItem) {}
     func chatMessagesCollectionView(didTapAttachmentOnItem item: KIChatMessageItem) {}
     func chatMessagesCollectionView(didTapSenderOnItem item: KIChatMessageItem) {}
     func chatMessagesCollectionView(didTapForwarderOnItem item: KIChatMessageItem) {}
+    func chatMessagesCollectionView(downloadItem item: KIChatMessageItem) {}
 }

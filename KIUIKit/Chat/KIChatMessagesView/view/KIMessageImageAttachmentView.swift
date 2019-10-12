@@ -88,7 +88,9 @@ public class KIMessageImageAttachmentView: KIView<KIMessageImageAttachmentViewMo
     }
     
     @objc func didTapAction() {
-        self.viewModel?.tapAction?()
+        if let viewModel = viewModel {
+            viewModel.tapAction?(viewModel.action)
+        }
     }
     
 }
@@ -98,7 +100,7 @@ public class KIMessageAttachmentViewModel: KISizeAwareViewModel {
     public var action: KIMessageAttachmentAction
     
     
-    private(set) var tapAction: (() -> Void)?
+    private(set) var tapAction: ((KIMessageAttachmentAction) -> Void)?
     
     public init(width: CGFloat,
                 height: CGFloat,
@@ -109,7 +111,7 @@ public class KIMessageAttachmentViewModel: KISizeAwareViewModel {
         super.init(width: width, height: height)
     }
     
-    func onTapAction(_ tap: @escaping () -> Void) {
+    func onTapAction(_ tap: @escaping (KIMessageAttachmentAction) -> Void) {
         self.tapAction = tap
     }
 }

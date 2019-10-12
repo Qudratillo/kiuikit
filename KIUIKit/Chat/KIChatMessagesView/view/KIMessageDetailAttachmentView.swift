@@ -91,7 +91,9 @@ public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentView
     }
     
     @objc func didTapAction() {
-        self.viewModel?.tapAction?()
+        if let viewModel = viewModel {
+            viewModel.tapAction?(viewModel.action)
+        }
     }
 }
 

@@ -52,6 +52,7 @@
 		F2F9A358233619490089F037 /* KIMessageImageAttachmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9A33E233619490089F037 /* KIMessageImageAttachmentView.swift */; };
 		F2F9A35A23361A070089F037 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2F9A35923361A070089F037 /* Assets.xcassets */; };
 		F2F9A37D233627110089F037 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F2F9A37C233627110089F037 /* .gitignore */; };
+		FA41C5DA2351D4EF0035575B /* KIMessageAttachmentDownloadData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA41C5D92351D4EF0035575B /* KIMessageAttachmentDownloadData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		F2F9A33E233619490089F037 /* KIMessageImageAttachmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIMessageImageAttachmentView.swift; sourceTree = "<group>"; };
 		F2F9A35923361A070089F037 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F2F9A37C233627110089F037 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		FA41C5D92351D4EF0035575B /* KIMessageAttachmentDownloadData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIMessageAttachmentDownloadData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				F25BFC702348A5CA009E99B3 /* KIMessageAttachmentAction.swift */,
+				FA41C5D92351D4EF0035575B /* KIMessageAttachmentDownloadData.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA41C5DA2351D4EF0035575B /* KIMessageAttachmentDownloadData.swift in Sources */,
 				F2F9A350233619490089F037 /* KIChatMessagesCollectionView.swift in Sources */,
 				F2F9A33F233619490089F037 /* KIView.swift in Sources */,
 				F2F9A345233619490089F037 /* KIPaddingLabel.swift in Sources */,
