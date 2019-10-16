@@ -98,15 +98,18 @@ public class KIMessageImageAttachmentView: KIView<KIMessageImageAttachmentViewMo
 public class KIMessageAttachmentViewModel: KISizeAwareViewModel {
     
     public var action: KIMessageAttachmentAction
+    public var metaText: String?
     
     
     private(set) var tapAction: ((KIMessageAttachmentAction) -> Void)?
     
     public init(width: CGFloat,
                 height: CGFloat,
-                action: KIMessageAttachmentAction
+                action: KIMessageAttachmentAction,
+                metaText: String?
         ) {
         self.action = action
+        self.metaText = metaText
         
         super.init(width: width, height: height)
     }
@@ -130,7 +133,6 @@ public class KIMessageImageAttachmentViewModel: KIMessageAttachmentViewModel {
     private(set) var actionWrapFrame: CGRect = .zero
     
     public var whRatio: CGFloat
-    public var metaText: String?
     private(set) var metaTextFrame: CGRect = .zero
     
     public init(width: CGFloat = 0,
@@ -142,9 +144,8 @@ public class KIMessageImageAttachmentViewModel: KIMessageAttachmentViewModel {
         ) {
         self.whRatio = whRatio
         self.imageData = imageData
-        self.metaText = metaText
         
-        super.init(width: width, height: height, action: action)
+        super.init(width: width, height: height, action: action, metaText: metaText)
     }
     
     public override func updateFrames() {

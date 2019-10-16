@@ -33,7 +33,7 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
     
     func fetchTop(item: KIChatMessageItem, addPlaceholderItems: @escaping ([KIChatMessageItem]) -> Void, addItems: @escaping ([KIChatMessageItem]) -> Void) {
         q.addOperation {
-            let items = self.makeChatMessageItems(startDate: item.date.addingTimeInterval(-10*24*3600), length: 0)
+            let items = self.makeChatMessageItems(startDate: item.date.addingTimeInterval(-10*24*3600), length: 100)
             addPlaceholderItems(items)
             addItems([])
             
@@ -75,7 +75,7 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
                 }
                 
                 let imageAttachmentModel = arc4random()%2 == 1 ?  KIMessageImageAttachmentViewModel(whRatio: CGFloat((arc4random()%4 + 1))/CGFloat(arc4random()%4 + 1), imageData: .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), action: .download, metaText: nil) : nil
-                let detailAttachmentModel = arc4random()%2 == 1 ?  KIMessageDetailAttachmentViewModel(action: arc4random()%2 == 1 ? .play : .none, imageData: arc4random()%2 == 1 ? .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg") : .empty, imageGradientBase: Int(arc4random()), imageInitialsText: randomAlphanumericString(length: 10), topText: randomAlphanumericString(length: 10), bottomText: randomAlphanumericString(length: 20), sliderValue: Float((arc4random()%100)/100)) : nil
+                let detailAttachmentModel = arc4random()%2 == 1 ?  KIMessageDetailAttachmentViewModel(action: arc4random()%2 == 1 ? .play : .none, imageData: arc4random()%2 == 1 ? .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg") : .empty, imageGradientBase: Int(arc4random()), imageInitialsText: randomAlphanumericString(length: 10), topText: randomAlphanumericString(length: 10), metaText: randomAlphanumericString(length: 20), sliderValue: Float((arc4random()%100)/100)) : nil
                 
                 viewModel = KITextMessageViewModel(avatarImageData: arc4random()%2 == 1 ? .empty : .urlString(urlString: "https://www.templatebeats.com/files/images/profile_user.jpg"), avatarGradientBase: Int(arc4random()), avatarInitialsText: intialsText, contentModel: .init(nameText: arc4random()%2 == 1 ? "Merlyn Monro" : nil, forwardedFromText: arc4random() % 10 == 1 ? "Forwarded message\nFrom Kate Bell" : nil, replyModel: replyModel, attachmentModel: arc4random()%2 == 1 ? imageAttachmentModel : detailAttachmentModel, text: arc4random() % 2 == 1 ? randomAlphanumericString(length: arc4random()%2 == 1 ? Int(arc4random() % 15) : Int(arc4random() % 1000)) : nil, messageStatus: nil, timeText: df.string(from: date)) , containerLocation: arc4random()%2 == 1 ? .right : .left)
             }
@@ -87,7 +87,7 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
     
     func testChatMessagesCollectionView() {
         let view: KIChatMessagesCollectionView = .init(frame: self.view.frame)
-        let items = makeChatMessageItems(startDate: Date(), length: 100)
+        let items = makeChatMessageItems(startDate: Date(), length: 10)
         view.set(items: items, scrollToBottom: true)
         
         view.messagesDelegate = self
@@ -131,7 +131,7 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
     
     func testTextMessageView() {
         let replyModel = KIReplyMessageViewModel(width: 300, imageData: nil, topText: "Benjamin Jery", bottomText: "Hey ladies")
-        let detailAttachmentModel = KIMessageDetailAttachmentViewModel(width: 300, action: .download, imageData: .empty, imageGradientBase: nil, imageInitialsText: nil, topText: "Johnny Dertiy - Hey ladies.mp3", bottomText: "04:21, 1.2 MB", sliderValue: 0)
+        let detailAttachmentModel = KIMessageDetailAttachmentViewModel(width: 300, action: .download, imageData: .empty, imageGradientBase: nil, imageInitialsText: nil, topText: "Johnny Dertiy - Hey ladies.mp3", metaText: "04:21, 1.2 MB", sliderValue: 0)
         
         let contentModel = KITextMessageContentViewModel(width: 300, nameText: "Benjamin Fankley", forwardedFromText: "Forwarded from me", replyModel: replyModel, attachmentModel: detailAttachmentModel, text: "Hi ladies and gentlemens, tonight we gonna keep"
             //asking you to play this amazing game. Let me explain the game. It is so easy to play. You just need to sit down and then stand up. Person who did the most is the winner."
@@ -188,7 +188,7 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
     
     func testTextMessageContentView() {
         let replyModel = KIReplyMessageViewModel(width: 300, imageData: nil, topText: "Benjamin Jery", bottomText: "Hey ladies")
-        let detailAttachmentModel = KIMessageDetailAttachmentViewModel(width: 300, action: .download, imageData: .empty, imageGradientBase: nil, imageInitialsText: nil, topText: "Johnny Dertiy - Hey ladies.mp3", bottomText: "04:21, 1.2 MB", sliderValue: 0)
+        let detailAttachmentModel = KIMessageDetailAttachmentViewModel(width: 300, action: .download, imageData: .empty, imageGradientBase: nil, imageInitialsText: nil, topText: "Johnny Dertiy - Hey ladies.mp3", metaText: "04:21, 1.2 MB", sliderValue: 0)
         
         let model = KITextMessageContentViewModel(width: 300, nameText: "Benjamin Fankley",forwardedFromText: "Forwarded from me", replyModel: replyModel, attachmentModel: detailAttachmentModel, text: "Hey come over", messageStatus: nil, timeText: "12:05 AM")
         let view = KITextMessageContentView(frame: .init(x: 20, y: 100, width: model.width, height: model.height), viewModel: model)
@@ -243,7 +243,7 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
     }
     
     func testMessageDetailAttachmentView() {
-        let model = KIMessageDetailAttachmentViewModel(width: 200, action: .download, imageData: .empty, imageGradientBase: nil, imageInitialsText: nil, topText: "Johnny Dertiy - Hey ladies.mp3", bottomText: "04:21, 1.2 MB", sliderValue: 0)
+        let model = KIMessageDetailAttachmentViewModel(width: 200, action: .download, imageData: .empty, imageGradientBase: nil, imageInitialsText: nil, topText: "Johnny Dertiy - Hey ladies.mp3", metaText: "04:21, 1.2 MB", sliderValue: 0)
         let view = KIMessageDetailAttachmentView(frame: .init(x: 20, y: 100, width: model.width, height: model.height), viewModel: model)
         
         self.view.addSubview(view)
@@ -273,7 +273,7 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
             }
             sleep(1)
             model.topText = "Henry Coughman"
-            model.bottomText = "+1 293 8329 233"
+            model.metaText = "+1 293 8329 233"
             model.action = .none
             model.imageGradientBase = 120
             model.imageInitialsText = "Henry Coughman"

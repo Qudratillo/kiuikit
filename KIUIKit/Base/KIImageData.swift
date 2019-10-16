@@ -9,7 +9,7 @@
 import UIKit
 
 public enum KIImageData {
-    case image(image: UIImage)
+    case image(image: UIImage?)
     case url(url: URL)
     case urlString(urlString: String)
     case other(object: Any)

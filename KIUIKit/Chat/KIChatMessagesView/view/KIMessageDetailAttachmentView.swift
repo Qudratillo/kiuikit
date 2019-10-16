@@ -68,8 +68,8 @@ public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentView
         topTextLabel.text = viewModel.topText
         topTextLabel.frame = viewModel.topTextFrame
         
-        bottomTextLabel.text = viewModel.bottomText
-        bottomTextLabel.frame = viewModel.bottomeTextFrame
+        bottomTextLabel.text = viewModel.metaText
+        bottomTextLabel.frame = viewModel.metaTextFrame
         
         slider.frame = viewModel.sliderFrame
         slider.value = viewModel.sliderValue
@@ -80,12 +80,15 @@ public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentView
         case .loading:
             actionImageView.isHidden = true
             loadingIndicator.startAnimating()
+            imageView.isHidden = true
         case .none:
             actionWrap.isHidden = true
+            imageView.isHidden = false
         default:
             actionImageView.image = action.image(for: self)
             actionImageView.isHidden = false
             loadingIndicator.stopAnimating()
+            imageView.isHidden = true
             
         }
     }
@@ -100,6 +103,7 @@ public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentView
 // MARK: ViewModel
 public class KIMessageDetailAttachmentViewModel: KIMessageAttachmentViewModel {
     public static var leftPadding: CGFloat = 10
+    public static var rightPadding: CGFloat = 15
     public static var topTextFont: UIFont = .systemFont(ofSize: 15, weight: .semibold)
     public static var bottomTextFont: UIFont = .systemFont(ofSize: 13)
     
@@ -109,8 +113,7 @@ public class KIMessageDetailAttachmentViewModel: KIMessageAttachmentViewModel {
     public var imageInitialsText: String?
     public var topText: String?
     private(set) var topTextFrame: CGRect = .zero
-    public var bottomText: String?
-    private(set) var bottomeTextFrame: CGRect = .zero
+    private(set) var metaTextFrame: CGRect = .zero
     public var sliderValue: Float
     private(set) var sliderFrame: CGRect = .zero
     
@@ -122,30 +125,29 @@ public class KIMessageDetailAttachmentViewModel: KIMessageAttachmentViewModel {
         imageGradientBase: Int?,
         imageInitialsText: String?,
         topText: String?,
-        bottomText: String?,
+        metaText: String?,
         sliderValue: Float
         ) {
         self.imageData = imageData
         self.imageGradientBase = imageGradientBase
         self.imageInitialsText = imageInitialsText
         self.topText = topText
-        self.bottomText = bottomText
         self.sliderValue = sliderValue
         
-        super.init(width: width, height: 0, action: action)
+        super.init(width: width, height: 0, action: action, metaText: metaText)
     }
     
     public override func updateFrames() {
         super.updateFrames()
         if topText == nil {
             topTextFrame = .zero
-            sliderFrame = .init(x: 48 + KIMessageDetailAttachmentViewModel.leftPadding, y: 0, width: width - 48 - KIMessageDetailAttachmentViewModel.leftPadding, height: 20)
+            sliderFrame = .init(x: 48 + KIMessageDetailAttachmentViewModel.leftPadding, y: 0, width: width - 48 - KIMessageDetailAttachmentViewModel.leftPadding - KIMessageDetailAttachmentViewModel.rightPadding, height: 20)
         } else {
-            topTextFrame = .init(x: 48 + KIMessageDetailAttachmentViewModel.leftPadding, y: 0, width: width - 48 - KIMessageDetailAttachmentViewModel.leftPadding, height: 20)
+            topTextFrame = .init(x: 48 + KIMessageDetailAttachmentViewModel.leftPadding, y: 0, width: width - 48 - KIMessageDetailAttachmentViewModel.leftPadding - KIMessageDetailAttachmentViewModel.rightPadding, height: 20)
             sliderFrame = .zero
         }
         
-        bottomeTextFrame = .init(x: 48 + KIMessageDetailAttachmentViewModel.leftPadding, y: 20, width: width - 48 - KIMessageDetailAttachmentViewModel.leftPadding, height: 20)
+        metaTextFrame = .init(x: 48 + KIMessageDetailAttachmentViewModel.leftPadding, y: 20, width: width - 48 - KIMessageDetailAttachmentViewModel.leftPadding - KIMessageDetailAttachmentViewModel.rightPadding, height: 20)
         height = 40
     }
     

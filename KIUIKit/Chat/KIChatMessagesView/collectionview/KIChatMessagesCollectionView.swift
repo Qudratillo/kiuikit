@@ -170,10 +170,13 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         if let messagesDelegate = messagesDelegate,
             let item = self.sections.element(at: indexPath.section)?.items.element(at: indexPath.item) {
             messagesDelegate.chatMessagesCollectionView(willDisplayItem: item)
-            if  item.attachmentDownloadData?.downloadWhenDisplay ?? false,
+            if let attachmentDownloadData = item.attachmentDownloadData,
+                attachmentDownloadData.downloadWhenDisplay,
                 let viewModel = item.viewModel as? KITextMessageViewModel,
-                case .download = viewModel.contentModel.attachmentModel?.action
+                let attachmentModel = viewModel.contentModel.attachmentModel
             {
+                attachmentDownloadData.downloadWhenDisplay = false
+                attachmentModel.action = .loading
                 messagesDelegate.chatMessagesCollectionView(downloadItem: item)
             }
         }
@@ -189,6 +192,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if !inFetchTopZone && !isFetchingTop && scrollView.contentOffset.y < fetchThreshold {
             inFetchTopZone = true
+            inFetchBottomZone = false
             fetchTop()
         }
         else if inFetchTopZone && scrollView.contentOffset.y > 2 * fetchThreshold {
@@ -197,6 +201,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         
         if !inFetchBottomZone && !isFetchingBottom && contentHeight - frame.height - scrollView.contentOffset.y < fetchThreshold {
             inFetchBottomZone = true
+            inFetchTopZone = false
             fetchBottom()
         }
             
