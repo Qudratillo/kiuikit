@@ -130,20 +130,23 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         
         if let viewModel = item.viewModel as? KITextMessageViewModel {
             let cell: KIChatMessageCell<KITextMessageView, KITextMessageViewModel> = collectionView.dequeueReusableCell(withReuseIdentifier: "text-message-cell", for: indexPath) as? KIChatMessageCell<KITextMessageView, KITextMessageViewModel> ?? .init()
-            cell.item?.view = nil
+            if let item = cell.item, item.view == cell {
+                item.view = nil
+            }
+            
             cell.item = item
             cell.viewModel = viewModel
             item.view = cell
-//            dump(viewModel)
             return cell
         }
         else if let viewModel = item.viewModel as? KIActionMessageViewModel {
             let cell: KIChatMessageCell<KIActionMessageView, KIActionMessageViewModel> = collectionView.dequeueReusableCell(withReuseIdentifier: "action-message-cell", for: indexPath) as? KIChatMessageCell<KIActionMessageView, KIActionMessageViewModel> ?? .init()
-            cell.item?.view = nil
+            if let item = cell.item, item.view == cell {
+                item.view = nil
+            }
             cell.item = item
             cell.viewModel = viewModel
             item.view = cell
-//            dump(viewModel)
             return cell
         }
         
@@ -256,7 +259,7 @@ extension KIChatMessagesCollectionView {
                         let endSection = self.sections[index]
                         if Calendar.current.isDate(endSection.date, inSameDayAs: lastSection.date) {
                             if let itemIndex = endSection.items.lastIndex(where: { (messageItem) -> Bool in
-                                return messageItem.id == lastSection.items[0].id
+                                return messageItem.id == lastSection.items.last?.id
                             }) {
                                 lastSection.items.append(contentsOf: endSection.items.suffix(from: itemIndex + 1))
                             }
@@ -474,8 +477,8 @@ extension KIChatMessagesCollectionView {
             for (itemIndex, sectionItem) in section.items.enumerated() {
                 if sectionItem.id == itemId {
                     OperationQueue.main.addOperation {
-                        self.scrollToItem(at: .init(item: itemIndex, section: sectionIndex), at: .centeredVertically, animated: true)
                         sectionItem.flash()
+                        self.scrollToItem(at: .init(item: itemIndex, section: sectionIndex), at: .centeredVertically, animated: true)
                     }
                     return true
                 }

@@ -78,6 +78,7 @@ public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentView
     public func updateUI(with action: KIMessageAttachmentAction) {
         switch action {
         case .loading:
+            actionWrap.isHidden = false
             actionImageView.isHidden = true
             loadingIndicator.startAnimating()
             imageView.isHidden = true
@@ -85,6 +86,7 @@ public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentView
             actionWrap.isHidden = true
             imageView.isHidden = false
         default:
+            actionWrap.isHidden = false
             actionImageView.image = action.image(for: self)
             actionImageView.isHidden = false
             loadingIndicator.stopAnimating()

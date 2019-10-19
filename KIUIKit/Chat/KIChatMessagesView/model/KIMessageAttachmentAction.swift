@@ -13,7 +13,7 @@ public enum KIMessageAttachmentAction {
     case play
     case pause
     case cancel
-    case action(image: UIImage)
+    case action(image: UIImage?)
     case loading
     case none
 }
