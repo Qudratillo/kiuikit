@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		2FE575352362C407005C8651 /* KIAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE575342362C407005C8651 /* KIAudioPlayer.swift */; };
 		8E6BA7F8641E6D2AE6C2EBA8 /* KIUpdateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6BADE270CDB7D2C019D0A4 /* KIUpdateable.swift */; };
 		F259813A23360E7F007B0298 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259813923360E7F007B0298 /* AppDelegate.swift */; };
 		F259813C23360E7F007B0298 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259813B23360E7F007B0298 /* ViewController.swift */; };
@@ -80,6 +81,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2FE575342362C407005C8651 /* KIAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIAudioPlayer.swift; sourceTree = "<group>"; };
 		8E6BADE270CDB7D2C019D0A4 /* KIUpdateable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIUpdateable.swift; sourceTree = "<group>"; };
 		F259813623360E7F007B0298 /* KIUIKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KIUIKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F259813923360E7F007B0298 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +137,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2FE575332362C3D5005C8651 /* AudioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				2FE575342362C407005C8651 /* KIAudioPlayer.swift */,
+			);
+			path = AudioPlayer;
+			sourceTree = "<group>";
+		};
 		F259812D23360E7F007B0298 = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +192,7 @@
 				F2F9A35923361A070089F037 /* Assets.xcassets */,
 				F2F9A31D233619490089F037 /* Base */,
 				F2F9A328233619490089F037 /* Chat */,
+				2FE575332362C3D5005C8651 /* AudioPlayer */,
 				F2F9A324233619490089F037 /* Views */,
 				F2F9A313233619380089F037 /* KIUIKit.h */,
 				F2F9A314233619380089F037 /* Info.plist */,
@@ -434,6 +445,7 @@
 				F2F9A356233619490089F037 /* KIMessageDetailAttachmentView.swift in Sources */,
 				F25BFC712348A5CA009E99B3 /* KIMessageAttachmentAction.swift in Sources */,
 				F2F9A342233619490089F037 /* Extensions.swift in Sources */,
+				2FE575352362C407005C8651 /* KIAudioPlayer.swift in Sources */,
 				F260D719233A25AD0046E7B1 /* KIViewModel.swift in Sources */,
 				8E6BA7F8641E6D2AE6C2EBA8 /* KIUpdateable.swift in Sources */,
 			);
