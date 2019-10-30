@@ -117,6 +117,7 @@ public class KITextMessageContentView: KIView<KITextMessageContentViewModel> {
     @objc func didTapForwarder() {
         self.viewModel?.tapForwarder?()
     }
+ 
     @objc func didTapReply() {
         self.viewModel?.tapReply?()
     }

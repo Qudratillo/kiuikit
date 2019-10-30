@@ -80,7 +80,7 @@ public class KIAudioPlayer {
     }
     
     public func seek(time: Double) {
-        player.seek(to: .init(seconds: time, preferredTimescale: 1))
+        player.seek(to: CMTimeMakeWithSeconds(time, 100))
     }
     
     private func play(url: URL) {

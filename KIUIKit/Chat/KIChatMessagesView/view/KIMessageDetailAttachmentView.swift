@@ -50,6 +50,11 @@ public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentView
         
         slider.clipsToBounds = true
         slider.setThumbImage(UIImage.resourceImage(for: self, named: "slider_thumb"), for: .normal)
+        slider.addTarget(self, action: #selector(didChangeSliderValue(sender:event:)), for: .valueChanged)
+        slider.addTarget(self, action: #selector(didTouchDownSlider(sender:event:)), for: .touchDown)
+        slider.addTarget(self, action: #selector(didTouchUpSlider(sender:event:)), for: .touchUpInside)
+        slider.addTarget(self, action: #selector(didTouchUpSlider(sender:event:)), for: .touchUpOutside)
+        slider.isContinuous = true
         addSubview(slider)
     }
     
@@ -71,8 +76,12 @@ public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentView
         bottomTextLabel.text = viewModel.metaText
         bottomTextLabel.frame = viewModel.metaTextFrame
         
-        slider.frame = viewModel.sliderFrame
-        slider.value = viewModel.sliderValue
+        
+        if !viewModel.isDraggingSlider {
+            slider.frame = viewModel.sliderFrame
+            slider.value = viewModel.sliderValue
+        }
+        slider.isUserInteractionEnabled = viewModel.isSliderEnabled
     }
     
     public func updateUI(with action: KIMessageAttachmentAction) {
@@ -100,6 +109,32 @@ public class KIMessageDetailAttachmentView: KIView<KIMessageDetailAttachmentView
             viewModel.tapAction?(viewModel.action)
         }
     }
+    
+    @objc func didChangeSliderValue(sender: UISlider, event: UIEvent) {
+        if let touchEvent = event.allTouches?.first {
+            switch touchEvent.phase {
+            case .began:
+                viewModel?.isDraggingSlider = true
+            case .cancelled:
+                viewModel?.isDraggingSlider = false
+            case .ended:
+                viewModel?.isDraggingSlider = false
+            default:
+                break
+            }
+            
+            self.viewModel?.changeSliderValue?(sender.value, touchEvent.phase)
+        }
+        
+    }
+    
+    @objc func didTouchDownSlider(sender: UISlider, event: UIEvent) {
+        self.viewModel?.changeSliderValue?(sender.value, UITouch.Phase.began)
+    }
+    @objc func didTouchUpSlider(sender: UISlider, event: UIEvent) {
+        self.viewModel?.changeSliderValue?(sender.value, UITouch.Phase.ended)
+    }
+    
 }
 
 // MARK: ViewModel
@@ -117,8 +152,9 @@ public class KIMessageDetailAttachmentViewModel: KIMessageAttachmentViewModel {
     private(set) var topTextFrame: CGRect = .zero
     private(set) var metaTextFrame: CGRect = .zero
     public var sliderValue: Float
+    public var isSliderEnabled: Bool
     private(set) var sliderFrame: CGRect = .zero
-    
+    public fileprivate(set) var isDraggingSlider: Bool = false
     
     public init(
         width: CGFloat = 0,
@@ -128,13 +164,15 @@ public class KIMessageDetailAttachmentViewModel: KIMessageAttachmentViewModel {
         imageInitialsText: String?,
         topText: String?,
         metaText: String?,
-        sliderValue: Float
+        sliderValue: Float,
+        isSliderEnabled: Bool = false
         ) {
         self.imageData = imageData
         self.imageGradientBase = imageGradientBase
         self.imageInitialsText = imageInitialsText
         self.topText = topText
         self.sliderValue = sliderValue
+        self.isSliderEnabled = isSliderEnabled
         
         super.init(width: width, height: 0, action: action, metaText: metaText)
     }

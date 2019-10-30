@@ -425,6 +425,12 @@ extension KIChatMessagesCollectionView {
                     }
                 }
                 
+                viewModel.contentModel.attachmentModel?.onSliderValueChanged({ [weak self, weak item] (value, event) in
+                    if let item = item {
+                        self?.messagesDelegate?.chatMessagesCollectionView(didChangeSliderValue: value, on: item, phase: event)
+                    }
+                })
+                
             }
             if Calendar.current.isDate(section.date, inSameDayAs: item.date) {
                 section.items.append(item)
@@ -531,6 +537,7 @@ public protocol KIChatMessagesCollectionViewMessagesDelegate: class {
     func chatMessagesCollectionView(didTapAttachmentOnItem item: KIChatMessageItem)
     func chatMessagesCollectionView(didTapSenderOnItem item: KIChatMessageItem)
     func chatMessagesCollectionView(didTapForwarderOnItem item: KIChatMessageItem)
+    func chatMessagesCollectionView(didChangeSliderValue value: Float, on item: KIChatMessageItem, phase: UITouch.Phase)
     func chatMessagesCollectionView(downloadItem item: KIChatMessageItem)
 }
 
@@ -545,5 +552,6 @@ public extension KIChatMessagesCollectionViewMessagesDelegate {
     func chatMessagesCollectionView(didTapAttachmentOnItem item: KIChatMessageItem) {}
     func chatMessagesCollectionView(didTapSenderOnItem item: KIChatMessageItem) {}
     func chatMessagesCollectionView(didTapForwarderOnItem item: KIChatMessageItem) {}
+    func chatMessagesCollectionView(didChangeSliderValue value: Float, on item: KIChatMessageItem, phase: UITouch.Phase) {}
     func chatMessagesCollectionView(downloadItem item: KIChatMessageItem) {}
 }

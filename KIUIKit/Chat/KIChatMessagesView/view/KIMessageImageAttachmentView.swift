@@ -104,6 +104,7 @@ public class KIMessageAttachmentViewModel: KISizeAwareViewModel {
     
     
     private(set) var tapAction: ((KIMessageAttachmentAction) -> Void)?
+    private(set) var changeSliderValue: ((Float, UITouch.Phase) -> Void)?
     
     public init(width: CGFloat,
                 height: CGFloat,
@@ -118,6 +119,10 @@ public class KIMessageAttachmentViewModel: KISizeAwareViewModel {
     
     func onTapAction(_ tap: @escaping (KIMessageAttachmentAction) -> Void) {
         self.tapAction = tap
+    }
+    
+    func onSliderValueChanged(_ change: @escaping (Float, UITouch.Phase) -> Void) {
+        self.changeSliderValue = change
     }
 }
 
