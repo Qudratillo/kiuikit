@@ -15,11 +15,14 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
     
     
     let q = OperationQueue()
+    let audioFileUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("audio").appendingPathExtension("m4a")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        testChatMessagesCollectionView()
+        
+        testAudioPlayer(url: URL(string: "https://api.pager.uz:9010/raw/files/5c7a5342-7540-4d2f-ae6d-8a017c196a18/Voice%20-%205c7a5342-7.mp3")!)
+//        testChatMessagesCollectionView()
         //        testActionMessageView()
         //        testTextMessageView()
         //        testTextMessageContentView()
@@ -29,6 +32,35 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
         //        testAvatarImageView()
         
         
+    }
+    
+    func testAudioPlayer(url: URL) {
+        
+        if url.isFileURL {
+            KIAudioPlayer.shared.play(audioUrl: url, audioId: 0, timeDidChange: { (time) in
+                print(time)
+            }) {
+                print("completed")
+            }
+        } else {
+            print("downloading...")
+            URLSession.shared.downloadTask(with: url) { (tempUrl, response, error) in
+                if let tempUrl = tempUrl {
+                    print("downloaded")
+                    
+                    try! FileManager.default.moveItem(at: tempUrl, to: self.audioFileUrl)
+                    
+                    KIAudioPlayer.shared.play(audioUrl: self.audioFileUrl, audioId: 0, timeDidChange: { (time) in
+                        print(time)
+                    }) {
+                        print("completed")
+                    }
+                } else {
+                    print("error download")
+                }
+            }
+        .resume()
+        }
     }
     
     func fetchTop(item: KIChatMessageItem, addPlaceholderItems: @escaping ([KIChatMessageItem]) -> Void, addItems: @escaping ([KIChatMessageItem]) -> Void) {

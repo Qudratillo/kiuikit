@@ -38,3 +38,50 @@ extension KIMessageAttachmentAction {
         }
     }
 }
+
+extension KIMessageAttachmentAction: Equatable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        var lhv: Int
+        switch lhs {
+        case .download:
+            lhv = 1
+        case .play:
+            lhv = 2
+        case .pause:
+            lhv = 3
+        case .cancel:
+            lhv = 4
+        case .action(let image):
+            if case let .action(rImage) = rhs, image == rImage {
+                return true
+            } else {
+                return false
+            }
+        case .loading:
+            lhv = 5
+        case .none:
+            lhv = 0
+        }
+        
+        switch rhs {
+        case .download:
+            return lhv == 1
+        case .play:
+            return lhv == 2
+        case .pause:
+            return lhv == 3
+        case .cancel:
+            return lhv == 4
+        case .action(let image):
+            if case let .action(rImage) = rhs, image == rImage {
+                return true
+            } else {
+                return false
+            }
+        case .loading:
+            return lhv == 5
+        case .none:
+            return lhv == 0
+        }
+    }
+}
