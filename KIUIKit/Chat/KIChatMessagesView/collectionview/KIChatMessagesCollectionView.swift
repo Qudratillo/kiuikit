@@ -25,7 +25,7 @@ public class KIChatMessageItem {
     public var attachmentDownloadData: KIMessageAttachmentDownloadData?
     public var bag: Any?
     
-
+    
     public init(id: Int, date: Date, viewModel: KIMessageViewModel, replyId: Int? = nil,
                 attachmentDownloadData: KIMessageAttachmentDownloadData? = nil, bag: Any? = nil) {
         self.id = id
@@ -35,7 +35,7 @@ public class KIChatMessageItem {
         self.attachmentDownloadData = attachmentDownloadData
         self.bag = bag
     }
-
+    
     public func updateView() {
         view?.updateUI()
     }
@@ -110,6 +110,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         self.delegate = self
         self.register(KIChatMessageCell<KITextMessageView, KITextMessageViewModel>.self, forCellWithReuseIdentifier: "text-message-cell")
         self.register(KIChatMessageCell<KIActionMessageView, KIActionMessageViewModel>.self, forCellWithReuseIdentifier: "action-message-cell")
+        self.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "empty-cell")
         self.register(KIChatMessageSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header-view")
         self.alwaysBounceVertical = true
         
@@ -125,7 +126,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let item = sections.element(at: indexPath.section)?.items.element(at: indexPath.row) else {
-            return .init()
+            return collectionView.dequeueReusableCell(withReuseIdentifier: "empty-cell", for: indexPath)
         }
         
         if let viewModel = item.viewModel as? KITextMessageViewModel {
@@ -150,7 +151,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
             return cell
         }
         
-        return .init()
+        return collectionView.dequeueReusableCell(withReuseIdentifier: "empty-cell", for: indexPath)
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -217,7 +218,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
 
 extension KIChatMessagesCollectionView {
     
-    
+    // MARK: replace
     public func replace(items: [KIChatMessageItem], updateContentOffset: Bool, callback: @escaping () -> Void) {
         q.addOperation {
             let sections = self.makeSections(items: items)
@@ -290,7 +291,8 @@ extension KIChatMessagesCollectionView {
             }
         }
     }
-  
+    
+    // MARK: set
     public func set(items: [KIChatMessageItem], scrollToBottom: Bool, callback: (() -> Void)? = nil) {
         
         q.addOperation {
@@ -310,8 +312,8 @@ extension KIChatMessagesCollectionView {
             }
         }
     }
-  
     
+    // MARK: insert to top
     public func insert(itemsToTop items: [KIChatMessageItem], callback: @escaping () -> Void) {
         q.addOperation {
             var oldHeight: CGFloat = 0
@@ -324,7 +326,7 @@ extension KIChatMessagesCollectionView {
             if let lastSection = sections.last,
                 let firstSection = self.sections.first,
                 Calendar.current.isDate(lastSection.date, inSameDayAs: firstSection.date)
-                {
+            {
                 self.sections.insert(contentsOf: sections.prefix(upTo: sections.count - 1), at: 0)
                 firstSection.items.insert(contentsOf: lastSection.items, at: 0)
             }
@@ -335,17 +337,17 @@ extension KIChatMessagesCollectionView {
                 let offsetY = self.contentOffset.y
                 self.reloadData()
                 
-//                if !self.isScrolling {
+                //                if !self.isScrolling {
                 self.contentOffset = .init(x: 0, y: offsetY + self.contentHeight - oldHeight)
-//                }
+                //                }
                 
                 callback()
             }
             
         }
     }
-    
-    public func insert(itemsToBottom items: [KIChatMessageItem], callback: @escaping () -> Void) {
+    // MARK: insert to bottom
+    public func insert(itemsToBottom items: [KIChatMessageItem], scrollToBottom: Bool = false, callback: @escaping () -> Void) {
         q.addOperation {
             let sections = self.makeSections(items: items)
             
@@ -360,6 +362,11 @@ extension KIChatMessagesCollectionView {
             }
             OperationQueue.main.addOperation {
                 self.reloadData()
+                
+                if scrollToBottom {
+                    let d = self.contentHeight - (self.contentOffset.y + self.frame.height + self.contentInset.top + self.contentInset.bottom)
+                    self.scrollToBottom(animated: d < 1000)
+                }
                 
                 callback()
             }
@@ -396,7 +403,7 @@ extension KIChatMessagesCollectionView {
                         self?.messagesDelegate?.chatMessagesCollectionView(didTapSenderOnItem: item)
                     }
                 }
-
+                
                 viewModel.contentModel.onTapAttachment { [weak self, weak item] in
                     if let item = item {
                         self?.messagesDelegate?.chatMessagesCollectionView(didTapAttachmentOnItem: item)
@@ -445,7 +452,7 @@ extension KIChatMessagesCollectionView {
     
     public func scrollToBottom(animated: Bool) {
         if let lastSection = sections.last, lastSection.items.count != 0 {
-        self.scrollToItem(at: .init(item: lastSection.items.count - 1, section: sections.count - 1), at: .bottom, animated: animated)
+            self.scrollToItem(at: .init(item: lastSection.items.count - 1, section: sections.count - 1), at: .bottom, animated: animated)
         }
     }
     

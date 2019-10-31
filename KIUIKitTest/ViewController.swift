@@ -20,8 +20,8 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        testAudioPlayer(url: URL(string: "https://api.pager.uz:9010/raw/files/5c7a5342-7540-4d2f-ae6d-8a017c196a18/Voice%20-%205c7a5342-7.mp3")!)
+        testChatMessagesCollectionViewAppend()
+//        testAudioPlayer(url: URL(string: "https://api.pager.uz:9010/raw/files/5c7a5342-7540-4d2f-ae6d-8a017c196a18/Voice%20-%205c7a5342-7.mp3")!)
 //        testChatMessagesCollectionView()
         //        testActionMessageView()
         //        testTextMessageView()
@@ -32,6 +32,25 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
         //        testAvatarImageView()
         
         
+    }
+    
+    func testChatMessagesCollectionViewAppend() {
+        let view: KIChatMessagesCollectionView = .init(frame: self.view.frame)
+        let items = makeChatMessageItems(startDate: Date(), length: 100)
+        view.set(items: items, scrollToBottom: false)
+        
+        view.messagesDelegate = self
+        
+        self.view.addSubview(view)
+        var lastItemDate = items.last?.date ?? Date()
+        q.addOperation {
+            for i in 1...10 {
+                sleep(1)
+                let items = self.makeChatMessageItems(startDate: lastItemDate, length: i)
+                lastItemDate = items.last?.date ?? lastItemDate
+                view.insert(itemsToBottom: items, scrollToBottom: true, callback: {})
+            }
+        }
     }
     
     func testAudioPlayer(url: URL) {
