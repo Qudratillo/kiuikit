@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
+		2F5B067E2369D4620001D45C /* UniversalFrameworkProd */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 2F5B06802369D4620001D45C /* Build configuration list for PBXAggregateTarget "UniversalFrameworkProd" */;
+			buildPhases = (
+				2F5B067F2369D4620001D45C /* Run Script */,
+			);
+			dependencies = (
+			);
+			name = UniversalFrameworkProd;
+			productName = UniversalFramework;
+		};
 		F2F9A371233621FA0089F037 /* UniversalFramework */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F2F9A372233621FA0089F037 /* Build configuration list for PBXAggregateTarget "UniversalFramework" */;
@@ -364,6 +375,7 @@
 				F259813523360E7F007B0298 /* KIUIKitTest */,
 				F2F9A310233619380089F037 /* KIUIKit */,
 				F2F9A371233621FA0089F037 /* UniversalFramework */,
+				2F5B067E2369D4620001D45C /* UniversalFrameworkProd */,
 			);
 		};
 /* End PBXProject section */
@@ -391,6 +403,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2F5B067F2369D4620001D45C /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n\n# make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"KIUIKit\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\nxcodebuild -target \"KIUIKit\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/KIUIKit.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory\n# SIMULATOR_SWIFT_MODULES_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/KIUIKit.framework/Modules/KIUIKit.swiftmodule/.\"\n# if [ -d \"${SIMULATOR_SWIFT_MODULES_DIR}\" ]; then\n# cp -R \"${SIMULATOR_SWIFT_MODULES_DIR}\" \"${UNIVERSAL_OUTPUTFOLDER}/KIUIKit.framework/Modules/KIUIKit.swiftmodule\"\n# fi\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/KIUIKit.framework/KIUIKit\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/KIUIKit.framework/KIUIKit\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/KIUIKit.framework/KIUIKit\"\n\n# Step 5. Convenience step to copy the framework to the project's directory\ncp -R \"${UNIVERSAL_OUTPUTFOLDER}/KIUIKit.framework\" \"${PROJECT_DIR}\"\n\n# Step 6. Convenience step to open the project's directory in Finder\nopen \"${PROJECT_DIR}\"\n";
+		};
 		F2F9A375233622010089F037 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -481,6 +511,22 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2F5B06812369D4620001D45C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2F5B06822369D4620001D45C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		F259814623360E81007B0298 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -716,6 +762,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2F5B06802369D4620001D45C /* Build configuration list for PBXAggregateTarget "UniversalFrameworkProd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2F5B06812369D4620001D45C /* Debug */,
+				2F5B06822369D4620001D45C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F259813123360E7F007B0298 /* Build configuration list for PBXProject "KIUIKitTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
