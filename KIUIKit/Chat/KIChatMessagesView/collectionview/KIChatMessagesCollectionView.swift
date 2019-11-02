@@ -516,25 +516,35 @@ extension KIChatMessagesCollectionView {
         
         replyQ.cancelAllOperations()
         replyQ.addOperation {
-            if self.scroll(toItemWithId: replyId) {
-                return
-            }
-            var didScroll = false
-            self.messagesDelegate?.fetch(middleItemId: replyId, addPlaceholderItems: { (items) in
-                if !items.isEmpty {
-                    self.set(items: items, scrollToBottom: false) {
-                        didScroll = true
-                        self.scroll(toItemWithId: replyId)
-                    }
-                }
-            }, addItems: { (items) in
-                self.replace(items: items, updateContentOffset: false, callback: {
-                    if !didScroll {
-                        self.scroll(toItemWithId: replyId)
-                    }
-                })
-            })
+            self._show(itemWithId: replyId)
         }
+    }
+    
+    public func show(itemWithId id: Int) {
+        q.addOperation {
+            self._show(itemWithId: id)
+        }
+    }
+    
+    private func _show(itemWithId id: Int) {
+        if self.scroll(toItemWithId: id) {
+            return
+        }
+        var didScroll = false
+        self.messagesDelegate?.fetch(middleItemId: id, addPlaceholderItems: { (items) in
+            if !items.isEmpty {
+                self.set(items: items, scrollToBottom: false) {
+                    didScroll = true
+                    self.scroll(toItemWithId: id)
+                }
+            }
+        }, addItems: { (items) in
+            self.replace(items: items, updateContentOffset: false, callback: {
+                if !didScroll {
+                    self.scroll(toItemWithId: id)
+                }
+            })
+        })
     }
     
     @discardableResult
@@ -566,7 +576,13 @@ extension KIChatMessagesCollectionView {
 extension KIChatMessagesCollectionView {
     
     public func fetchTop() {
-        if let item = sections.first?.items.first {
+        if let item = sections.first(where: { (section) -> Bool in
+            return section.items.contains { (item) -> Bool in
+                return item.id > 0
+            }
+        })?.items.first(where: { (item) -> Bool in
+            return item.id > 0
+        })  {
             isFetchingTop = true
             messagesDelegate?.fetchTop(item: item, addPlaceholderItems: { (items) in
                 self.insert(itemsToTop: items, callback: {
@@ -580,7 +596,13 @@ extension KIChatMessagesCollectionView {
     }
     
     public func fetchBottom() {
-        if let item = sections.last?.items.last {
+        if let item = sections.last(where: { (section) -> Bool in
+            return section.items.contains { (item) -> Bool in
+                return item.id > 0
+            }
+        })?.items.last(where: { (item) -> Bool in
+            return item.id > 0
+        }) {
             isFetchingBottom = true
             messagesDelegate?.fetchBottom(item: item, addPlaceholderItems: { (items) in
                 self.insert(itemsToBottom: items, callback: {})
