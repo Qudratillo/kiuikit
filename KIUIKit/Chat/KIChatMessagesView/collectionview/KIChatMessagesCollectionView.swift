@@ -235,15 +235,19 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
             inFetchTopZone = false
         }
         
-        if !inFetchBottomZone && !isFetchingBottom && contentHeight - frame.height - scrollView.contentOffset.y < fetchThreshold {
+        if !inFetchBottomZone && !isFetchingBottom && bottomY < fetchThreshold {
             inFetchBottomZone = true
             inFetchTopZone = false
             fetchBottom()
         }
             
-        else if inFetchBottomZone && contentHeight - frame.height - scrollView.contentOffset.y > 2 * fetchThreshold {
+        else if inFetchBottomZone && bottomY > 2 * fetchThreshold {
             inFetchBottomZone = false
         }
+    }
+    
+    var bottomY: CGFloat {
+        return contentHeight - frame.height - contentOffset.y
     }
     
 }
@@ -549,6 +553,14 @@ extension KIChatMessagesCollectionView {
         return false
     }
     
+    public func update(bottomInset: CGFloat) {
+        let oldBottom = contentInset.bottom
+        contentInset = .init(top: contentInset.top, left: contentInset.left, bottom: bottomInset, right: contentInset.right)
+        if bottomY > oldBottom - bottomInset {
+            self.contentOffset = .init(x: 0, y: contentOffset.y - oldBottom + bottomInset)
+        }
+        
+    }
 }
 
 extension KIChatMessagesCollectionView {
