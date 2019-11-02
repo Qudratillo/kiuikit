@@ -226,12 +226,18 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     }
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if !inFetchTopZone && !isFetchingTop && scrollView.contentOffset.y < fetchThreshold {
+        
+        let y = contentOffset.y
+        let bottomY = self.bottomY
+        
+        self.messagesDelegate?.chatMessagesCollectionView(didScroll: self, y: y, bottomY: bottomY)
+        
+        if !inFetchTopZone && !isFetchingTop &&  y < fetchThreshold {
             inFetchTopZone = true
             inFetchBottomZone = false
             fetchTop()
         }
-        else if inFetchTopZone && scrollView.contentOffset.y > 2 * fetchThreshold {
+        else if inFetchTopZone && y > 2 * fetchThreshold {
             inFetchTopZone = false
         }
         
@@ -629,6 +635,7 @@ public protocol KIChatMessagesCollectionViewMessagesDelegate: class {
     func chatMessagesCollectionView(didTapForwarderOnItem item: KIChatMessageItem)
     func chatMessagesCollectionView(didChangeSliderValue value: Float, on item: KIChatMessageItem, phase: UITouch.Phase)
     func chatMessagesCollectionView(downloadItem item: KIChatMessageItem)
+    func chatMessagesCollectionView(didScroll collectionView: KIChatMessagesCollectionView, y: CGFloat, bottomY: CGFloat)
 }
 
 public extension KIChatMessagesCollectionViewMessagesDelegate {
@@ -644,4 +651,6 @@ public extension KIChatMessagesCollectionViewMessagesDelegate {
     func chatMessagesCollectionView(didTapForwarderOnItem item: KIChatMessageItem) {}
     func chatMessagesCollectionView(didChangeSliderValue value: Float, on item: KIChatMessageItem, phase: UITouch.Phase) {}
     func chatMessagesCollectionView(downloadItem item: KIChatMessageItem) {}
+    
+    func chatMessagesCollectionView(didScroll collectionView: KIChatMessagesCollectionView, y: CGFloat, bottomY: CGFloat) {}
 }
