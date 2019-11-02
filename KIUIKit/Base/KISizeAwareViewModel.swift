@@ -16,7 +16,7 @@ public class KISizeAwareViewModel: KIViewModel {
         return .init(width: width, height: height)
     }
     
-    public init(width: CGFloat, height: CGFloat) {
+    public init(width: CGFloat = 0, height: CGFloat = 0) {
         self.width = width
         self.height = height
         super.init()

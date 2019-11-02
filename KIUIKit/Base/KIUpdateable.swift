@@ -7,4 +7,5 @@ import UIKit
 
 public protocol KIUpdateable {
     func updateUI()
+    func update(model: Any?)
 }

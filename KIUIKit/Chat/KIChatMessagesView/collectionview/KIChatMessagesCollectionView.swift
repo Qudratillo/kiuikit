@@ -8,6 +8,9 @@
 
 import UIKit
 
+public class KIEmptyMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
+    
+}
 
 public class KIChatMessageItem {
     public var id: Int
@@ -36,8 +39,37 @@ public class KIChatMessageItem {
         self.bag = bag
     }
     
+    public init() {
+        self.id = 0
+        self.date = Date()
+        self.viewModel = KIEmptyMessageViewModel()
+    }
+    
+    public init(contentsOf item: KIChatMessageItem) {
+        self.id = item.id
+        self.date = item.date
+        self.viewModel = item.viewModel
+        self.replyId = item.replyId
+        self.attachmentDownloadData = item.attachmentDownloadData
+        self.bag = item.bag
+    }
+        
+    
+    public func set(contentsOf item: KIChatMessageItem) {
+        self.id = item.id
+        self.date = item.date
+        self.viewModel = item.viewModel
+        self.replyId = item.replyId
+        self.attachmentDownloadData = item.attachmentDownloadData
+        self.bag = item.bag
+    }
+    
     public func updateView() {
         view?.updateUI()
+    }
+    
+    public func updateViewModel() {
+        view?.update(model: self.viewModel)
     }
     
     func flash() {
@@ -374,6 +406,72 @@ extension KIChatMessagesCollectionView {
         }
     }
     
+    public func reload(item: KIChatMessageItem) {
+        q.addOperation {
+            var width: CGFloat = 0
+            DispatchQueue.syncMain {
+                width = self.frame.width
+            }
+            self.setup(item: item, width: width)
+            OperationQueue.main.addOperation {
+                self.reloadData()
+            }
+        }
+    }
+    
+    private func setup(item: KIChatMessageItem, width: CGFloat) {
+        item.viewModel.width = width
+        item.viewModel.updateFrames()
+        if let viewModel = item.viewModel as? KITextMessageViewModel {
+            viewModel.onTapAvatar { [weak self, weak item] in
+                if let item = item {
+                    self?.messagesDelegate?.chatMessagesCollectionView(didTapSenderOnItem: item)
+                }
+            }
+            
+            viewModel.contentModel.onTapName { [weak self, weak item] in
+                if let item = item {
+                    self?.messagesDelegate?.chatMessagesCollectionView(didTapSenderOnItem: item)
+                }
+            }
+            
+            viewModel.contentModel.onTapAttachment { [weak self, weak item] in
+                if let item = item {
+                    self?.messagesDelegate?.chatMessagesCollectionView(didTapAttachmentOnItem: item)
+                }
+            }
+            
+            viewModel.contentModel.onTapForwarder { [weak self, weak item] in
+                if let item = item {
+                    self?.messagesDelegate?.chatMessagesCollectionView(didTapForwarderOnItem: item)
+                }
+            }
+            
+            viewModel.contentModel.attachmentModel?.onTapAction { [weak self, weak item] (action) in
+                if let item = item, let messagesDelegate = self?.messagesDelegate {
+                    if case .download = action {
+                        messagesDelegate.chatMessagesCollectionView(downloadItem: item)
+                    } else {
+                        messagesDelegate.chatMessagesCollectionView(didTap: action, on: item)
+                    }
+                }
+            }
+            
+            viewModel.contentModel.onTapReply { [weak self, weak item] in
+                if let item = item {
+                    self?.didTapReply(on: item)
+                }
+            }
+            
+            viewModel.contentModel.attachmentModel?.onSliderValueChanged({ [weak self, weak item] (value, event) in
+                if let item = item {
+                    self?.messagesDelegate?.chatMessagesCollectionView(didChangeSliderValue: value, on: item, phase: event)
+                }
+            })
+            
+        }
+    }
+    
     private func makeSections(items: [KIChatMessageItem]) -> [KIChatMessagesCollectionViewSection] {
         var width: CGFloat = 0
         
@@ -389,56 +487,7 @@ extension KIChatMessagesCollectionView {
         var section: KIChatMessagesCollectionViewSection = .init(width: width, date: .init(timeIntervalSince1970: 0))
         
         for item in items {
-            item.viewModel.width = width
-            item.viewModel.updateFrames()
-            if let viewModel = item.viewModel as? KITextMessageViewModel {
-                viewModel.onTapAvatar { [weak self, weak item] in
-                    if let item = item {
-                        self?.messagesDelegate?.chatMessagesCollectionView(didTapSenderOnItem: item)
-                    }
-                }
-                
-                viewModel.contentModel.onTapName { [weak self, weak item] in
-                    if let item = item {
-                        self?.messagesDelegate?.chatMessagesCollectionView(didTapSenderOnItem: item)
-                    }
-                }
-                
-                viewModel.contentModel.onTapAttachment { [weak self, weak item] in
-                    if let item = item {
-                        self?.messagesDelegate?.chatMessagesCollectionView(didTapAttachmentOnItem: item)
-                    }
-                }
-                
-                viewModel.contentModel.onTapForwarder { [weak self, weak item] in
-                    if let item = item {
-                        self?.messagesDelegate?.chatMessagesCollectionView(didTapForwarderOnItem: item)
-                    }
-                }
-                
-                viewModel.contentModel.attachmentModel?.onTapAction { [weak self, weak item] (action) in
-                    if let item = item, let messagesDelegate = self?.messagesDelegate {
-                        if case .download = action {
-                            messagesDelegate.chatMessagesCollectionView(downloadItem: item)
-                        } else {
-                            messagesDelegate.chatMessagesCollectionView(didTap: action, on: item)
-                        }
-                    }
-                }
-                
-                viewModel.contentModel.onTapReply { [weak self, weak item] in
-                    if let item = item {
-                        self?.didTapReply(on: item)
-                    }
-                }
-                
-                viewModel.contentModel.attachmentModel?.onSliderValueChanged({ [weak self, weak item] (value, event) in
-                    if let item = item {
-                        self?.messagesDelegate?.chatMessagesCollectionView(didChangeSliderValue: value, on: item, phase: event)
-                    }
-                })
-                
-            }
+            setup(item: item, width: width)
             if Calendar.current.isDate(section.date, inSameDayAs: item.date) {
                 section.items.append(item)
             } else {

@@ -52,6 +52,7 @@ public class KITextMessageContentView: KIView<KITextMessageContentViewModel> {
         timeView.layer.cornerRadius = 4
         addSubview(timeView)
         
+        messageStatusImageView.contentMode = .scaleAspectFit
         timeView.addSubview(messageStatusImageView)
         timeTextLabel.font = KITextMessageContentViewModel.timeTextFont
         timeView.addSubview(timeTextLabel)
@@ -92,7 +93,7 @@ public class KITextMessageContentView: KIView<KITextMessageContentViewModel> {
             case .sent:
                 messageStatusImageView.image = UIImage.resourceImage(for: self, named: "icon_sent")?.withRenderingMode(.alwaysTemplate)
             case .pending:
-                messageStatusImageView.image = nil
+                messageStatusImageView.image = UIImage.resourceImage(for: self, named: "icon_pending")?.withRenderingMode(.alwaysTemplate)
             }
         }
         else {
@@ -257,7 +258,7 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
         
         
         if messageStatus != nil {
-            messageStatusFrame = .init(x: 8, y: KITextMessageContentViewModel.messageStatusY, width: 14, height: 10)
+            messageStatusFrame = .init(x: 8, y: KITextMessageContentViewModel.messageStatusY, width: 12, height: 12)
             timeTextFrame = .init(x: 22, y: 2, width: KITextMessageContentViewModel.timeTextFont.size(ofString: timeText, constrainedToHeight: KITextMessageContentViewModel.timeTextFont.lineHeight).width, height: KITextMessageContentViewModel.timeTextFont.lineHeight)
         } else {
             messageStatusFrame = .zero

@@ -9,11 +9,10 @@
 import UIKit
 
 class KIChatMessageCell<View: KIView<ViewModel>, ViewModel: KISizeAwareViewModel>: UICollectionViewCell, KIUpdateable {
-
     weak var item: KIChatMessageItem?
     
     private let view: View = .init()
-    weak var viewModel: ViewModel? {
+    public weak var viewModel: ViewModel? {
         didSet {
             self.updateUI()
         }
@@ -35,7 +34,18 @@ class KIChatMessageCell<View: KIView<ViewModel>, ViewModel: KISizeAwareViewModel
 
     func updateUI() {
         view.viewModel = viewModel
+//        print("ki updateui", viewModel ?? "nil")
         view.frame = .init(origin: .zero, size: viewModel?.size ?? .zero)
+    }
+    
+    func update(model: Any?) {
+//        print("ki updatemodel", model ?? "nil")
+        if model == nil {
+            self.viewModel = nil
+        }
+        else if let model = model as? ViewModel {
+            self.viewModel = model
+        }
     }
     
     override func prepareForReuse() {

@@ -44,6 +44,7 @@ public class KIView<ViewModel: KIViewModel>: UIView, KIUpdateable {
         if let viewModel = viewModel {
             self.isHidden = false
             self.updateUI(with: viewModel)
+            viewModel.isEdited = false
         }
         else {
             self.isHidden = true
@@ -53,6 +54,13 @@ public class KIView<ViewModel: KIViewModel>: UIView, KIUpdateable {
     func updateUI(with viewModel: ViewModel) {
         
     }
-    
+    public func update(model: Any?) {
+        if model == nil {
+            self.viewModel = nil
+        }
+        else if let model = model as? ViewModel {
+            self.viewModel = model
+        }
+    }
     
 }
