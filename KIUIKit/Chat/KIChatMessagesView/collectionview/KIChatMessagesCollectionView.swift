@@ -252,7 +252,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         }
     }
     
-    var bottomY: CGFloat {
+    public var bottomY: CGFloat {
         return contentHeight - frame.height - contentOffset.y
     }
     
@@ -430,6 +430,7 @@ extension KIChatMessagesCollectionView {
     }
     
     private func setup(item: KIChatMessageItem, width: CGFloat) {
+//        print("kiuikit setup item ", item.id)
         item.viewModel.width = width
         item.viewModel.updateFrames()
         if let viewModel = item.viewModel as? KITextMessageViewModel {

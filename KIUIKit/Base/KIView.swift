@@ -41,6 +41,7 @@ public class KIView<ViewModel: KIViewModel>: UIView, KIUpdateable {
     }
     
     public func updateUI() {
+//        print("kiuikit updateUI", self)
         if let viewModel = viewModel {
             self.isHidden = false
             self.updateUI(with: viewModel)
