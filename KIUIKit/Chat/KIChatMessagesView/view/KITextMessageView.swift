@@ -83,6 +83,15 @@ public enum KIMessageContainerLocation {
 
 public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
     
+    public override var isEdited: Bool {
+        set {
+            super.isEdited = newValue
+        }
+        get {
+            return super.isEdited || contentModel.isEdited
+        }
+    }
+    
     public static var maxContainerOffset: CGFloat = 100
     public static var maxContainerWidth: CGFloat = 400
     

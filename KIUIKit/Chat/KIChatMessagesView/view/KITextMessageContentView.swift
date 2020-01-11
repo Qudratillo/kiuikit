@@ -138,6 +138,15 @@ public enum KIMessageStatus {
 
 public class KITextMessageContentViewModel: KISizeAwareViewModel {
     
+    public override var isEdited: Bool {
+        set {
+            super.isEdited = newValue
+        }
+        get {
+            return super.isEdited || attachmentModel?.isEdited ?? false || replyModel?.isEdited ?? false
+        }
+    }
+    
     public static var nameTextFont: UIFont = UIFont.systemFont(ofSize: 15, weight: .bold)
     public static var forwardedFromTextFont: UIFont = .systemFont(ofSize: 15, weight: .semibold)
     public static var textFont: UIFont = .systemFont(ofSize: 15)
