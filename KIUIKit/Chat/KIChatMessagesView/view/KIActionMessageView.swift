@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class KIActionMessageView: KIView<KIActionMessageViewModel> {
+public class KIActionMessageView: KIMessageView<KIActionMessageViewModel> {
     
     private let textLabel: KIPaddingLabel = .init()
     private let imageView: KICircleImageView = .init()

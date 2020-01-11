@@ -8,7 +8,11 @@
 
 import UIKit
 
-public class KITextMessageView: KIView<KITextMessageViewModel> {
+public class KIMessageView<ViewModel: KIMessageViewModel>: KIView<ViewModel> {
+    func updateContainerFrame() {}
+}
+
+public class KITextMessageView: KIMessageView<KITextMessageViewModel> {
     private let avatar: KIAvatarImageView = .init()
     private let containerView: UIView = .init()
     private let contentView: KITextMessageContentView = .init()
@@ -23,6 +27,12 @@ public class KITextMessageView: KIView<KITextMessageViewModel> {
         addSubview(containerView)
         
         containerView.addSubview(contentView)
+    }
+    
+    override func updateContainerFrame() {
+        if let viewModel = self.viewModel {
+            containerView.frame = viewModel.containerFrame
+        }
     }
     
     override func updateUI(with viewModel: KITextMessageViewModel) {
@@ -59,7 +69,11 @@ public class KITextMessageView: KIView<KITextMessageViewModel> {
 
 
 public protocol KIMessageViewModel: KISizeAwareViewModel {
-    
+    func updateContainerFrame()
+}
+
+public extension KIMessageViewModel {
+    func updateContainerFrame() {}
 }
 
 public enum KIMessageContainerLocation {
@@ -105,21 +119,14 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
         super.init(width: width, height: 0)
     }
     
-    public override func updateFrames() {
-        super.updateFrames()
-        contentModel.width = min(KITextMessageViewModel.maxContainerWidth, width - KITextMessageViewModel.maxContainerOffset)
-        contentModel.updateFrames()
+    public func updateContainerFrame() {
         let containerWidth: CGFloat = contentModel.width
         let containerHeight: CGFloat = contentModel.height
-        
-        
         var xOffset: CGFloat = 0
         
         if avatarImageData != nil {
             xOffset = 44
         }
-        
-        self.height = max(containerHeight, 40) + 2
         
         switch containerLocation {
         case .right:
@@ -131,6 +138,15 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
             avatarFrame = .init(x: 8, y: self.height - 40 - 1, width: 40, height: 40)
             containerBackgroundColor = KITextMessageViewModel.leftMessageContainerColor
         }
+    }
+    
+    public override func updateFrames() {
+        super.updateFrames()
+        contentModel.width = min(KITextMessageViewModel.maxContainerWidth, width - KITextMessageViewModel.maxContainerOffset)
+        contentModel.updateFrames()
+        
+        self.height = max(contentModel.height, 40) + 2
+        self.updateContainerFrame()
     }
     
     func onTapAvatar(_ tap: @escaping () -> Void) {

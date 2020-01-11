@@ -80,7 +80,7 @@ public class KIChatMessageItem {
         if let view = view {
             self.needsFlash = false
             view.backgroundColor = KIConfig.accentColor.withAlphaComponent(0.25)
-            UIView.animate(withDuration: 1, delay: 0.5, options: [.curveEaseIn], animations: {
+            UIView.animate(withDuration: 1, delay: 1.5, options: [.curveEaseIn], animations: {
                 view.backgroundColor = nil
             })
         }

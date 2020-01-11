@@ -8,13 +8,20 @@
 
 import UIKit
 
-class KIChatMessageCell<View: KIView<ViewModel>, ViewModel: KISizeAwareViewModel>: UICollectionViewCell, KIUpdateable {
+class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageViewModel>: UICollectionViewCell, KIUpdateable {
     weak var item: KIChatMessageItem?
     
     private let view: View = .init()
-    public weak var viewModel: ViewModel? {
+    private let selectionView: UIImageView = .init()
+    weak var viewModel: ViewModel? {
         didSet {
             self.updateUI()
+        }
+    }
+    
+    var isEditing: Bool = false {
+        didSet {
+            
         }
     }
     
@@ -30,6 +37,13 @@ class KIChatMessageCell<View: KIView<ViewModel>, ViewModel: KISizeAwareViewModel
     
     func initView() {
         contentView.addSubview(view)
+        
+        selectionView.contentMode = .center
+        selectionView.layer.cornerRadius = 15
+        selectionView.clipsToBounds = true
+        selectionView.layer.borderWidth = 2
+        selectionView.layer.borderColor = UIColor.lightGray.cgColor
+        contentView.addSubview(selectionView)
     }
 
     func updateUI() {
