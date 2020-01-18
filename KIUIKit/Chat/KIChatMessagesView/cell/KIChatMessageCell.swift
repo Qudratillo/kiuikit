@@ -8,16 +8,10 @@
 
 import UIKit
 
-class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageViewModel>: UICollectionViewCell, KIUpdateable {
+class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageViewModel>: KICollectionViewCell<View, ViewModel> {
     weak var item: KIChatMessageItem?
     
-    private let view: View = .init()
     private let selectionView: UIImageView = .init()
-    weak var viewModel: ViewModel? {
-        didSet {
-            self.updateUI()
-        }
-    }
     
     var isEditing: Bool = false {
         didSet {
@@ -36,33 +30,11 @@ class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageView
 
     
     func initView() {
-        contentView.addSubview(view)
-        
         selectionView.contentMode = .center
         selectionView.layer.cornerRadius = 15
         selectionView.clipsToBounds = true
         selectionView.layer.borderWidth = 2
         selectionView.layer.borderColor = UIColor.lightGray.cgColor
         contentView.addSubview(selectionView)
-    }
-
-    func updateUI() {
-        view.viewModel = viewModel
-//        print("ki updateui", viewModel ?? "nil")
-        view.frame = .init(origin: .zero, size: viewModel?.size ?? .zero)
-    }
-    
-    func update(model: Any?) {
-//        print("ki updatemodel", model ?? "nil")
-        if model == nil {
-            self.viewModel = nil
-        }
-        else if let model = model as? ViewModel {
-            self.viewModel = model
-        }
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
     }
 }

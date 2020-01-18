@@ -29,3 +29,8 @@ public class KISizeAwareViewModel: KIViewModel {
         self.isEdited = true
     }
 }
+
+
+public class KIEmptyViewModel: KISizeAwareViewModel {
+    
+}
