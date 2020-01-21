@@ -16,9 +16,8 @@ public class KITextMessageView: KIMessageView<KITextMessageViewModel> {
     private let avatar: KIAvatarImageView = .init()
     private let containerView: UIView = .init()
     private let contentView: KITextMessageContentView = .init()
+    let selectionVeiw: UIView = .init()
     let checkBox: CheckBox = .init()
-    
-    var selectionActionHandler: UITapGestureRecognizer? = nil
     
     override func initView() {
         addSubview(checkBox)
@@ -32,6 +31,9 @@ public class KITextMessageView: KIMessageView<KITextMessageViewModel> {
         addSubview(containerView)
         
         containerView.addSubview(contentView)
+        
+        selectionVeiw.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectMessage)))
+        addSubview(selectionVeiw)
     }
     
     override func updateContainerFrame() {
@@ -63,10 +65,8 @@ public class KITextMessageView: KIMessageView<KITextMessageViewModel> {
         avatar.isUserInteractionEnabled = true
         avatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapAvatar)))
         
-        checkBox.frame = viewModel.selectionViewFrame
-        self.selectionActionHandler = viewModel.isEditing ? UITapGestureRecognizer(target: self, action: #selector(selectMessage)) : nil
-        guard let tapGestureRecognizer = self.selectionActionHandler else { return }
-        addGestureRecognizer(tapGestureRecognizer)
+        checkBox.frame = viewModel.checkBoxFrame
+        self.selectionVeiw.frame = viewModel.selectionViewFrame
     }
     
     @objc func selectMessage() {
@@ -106,11 +106,12 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
     
     public var isEditing: Bool = false {
         didSet {
-            selectionViewWidth = isEditing ? 40 : 0
+            checkBoxWidth = isEditing ? 40 : 0
             
         }
     }
-    private(set) var selectionViewWidth: CGFloat = 0
+    private(set) var checkBoxWidth: CGFloat = 0
+    private(set) var checkBoxFrame: CGRect = .zero
     private(set) var selectionViewFrame: CGRect = .zero
     
     public static var maxContainerOffset: CGFloat = 100
@@ -159,9 +160,9 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
         
         switch containerLocation {
         case .right:
-            containerFrame = .init(x: width - containerWidth - 12 - xOffset + selectionViewWidth,
+            containerFrame = .init(x: width - containerWidth - 12 - xOffset + checkBoxWidth,
                                    y: self.height - containerHeight - 1,
-                                   width: containerWidth - selectionViewWidth,
+                                   width: containerWidth - checkBoxWidth,
                                    height: containerHeight)
             avatarFrame = .init(x: width - 8 - 40,
                                 y: self.height - 40 - 1,
@@ -169,17 +170,18 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
                                 height: 40)
             containerBackgroundColor = KITextMessageViewModel.rightMessageContainerColor
         case .left:
-            containerFrame = .init(x: 12 + xOffset + selectionViewWidth,
+            containerFrame = .init(x: 12 + xOffset + checkBoxWidth,
                                    y: self.height - containerHeight - 1,
-                                   width: containerWidth - selectionViewWidth,
+                                   width: containerWidth - checkBoxWidth,
                                    height: containerHeight)
-            avatarFrame = .init(x: 8 + selectionViewWidth,
+            avatarFrame = .init(x: 8 + checkBoxWidth,
                                 y: self.height - 40 - 1,
                                 width: 40,
                                 height: 40)
             containerBackgroundColor = KITextMessageViewModel.leftMessageContainerColor
         }
-        selectionViewFrame = isEditing ? CGRect(x: 8, y: (self.height - 26)/2, width: 26, height: 26) : .zero
+        checkBoxFrame = isEditing ? CGRect(x: 8, y: (self.height - 26)/2, width: 26, height: 26) : .zero
+        selectionViewFrame = isEditing ? CGRect(x: 0, y: 0, width: width, height: height) : .zero
     }
     
     public override func updateFrames() {
