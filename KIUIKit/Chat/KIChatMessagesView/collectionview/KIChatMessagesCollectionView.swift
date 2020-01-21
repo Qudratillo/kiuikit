@@ -170,15 +170,15 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
             let cell: KIChatMessageCell<KITextMessageView, KITextMessageViewModel> = collectionView.dequeueReusableCell(withReuseIdentifier: "text-message-cell", for: indexPath) as? KIChatMessageCell<KITextMessageView, KITextMessageViewModel> ?? .init()
             if let item = cell.item, item.view == cell {
                 item.view = nil
-                if isSelectionMode {
-                    cell.checkView(isChecked: self.selectedMessageIds.contains(item.id))
-                }
             }
             
             cell.item = item
             cell.viewModel = viewModel
             item.view = cell
             cell.selectedItemAction = selectedItemAction
+            if isSelectionMode {
+                cell.checkView(isChecked: self.selectedMessageIds.contains(item.id))
+            }
             
             return cell
         }
@@ -186,13 +186,13 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
             let cell: KIChatMessageCell<KIActionMessageView, KIActionMessageViewModel> = collectionView.dequeueReusableCell(withReuseIdentifier: "action-message-cell", for: indexPath) as? KIChatMessageCell<KIActionMessageView, KIActionMessageViewModel> ?? .init()
             if let item = cell.item, item.view == cell {
                 item.view = nil
-                if isSelectionMode {
-                    cell.checkView(isChecked: self.selectedMessageIds.contains(item.id))
-                }
             }
             cell.item = item
             cell.viewModel = viewModel
             item.view = cell
+            if isSelectionMode {
+                cell.checkView(isChecked: self.selectedMessageIds.contains(item.id))
+            }
             return cell
         }
         

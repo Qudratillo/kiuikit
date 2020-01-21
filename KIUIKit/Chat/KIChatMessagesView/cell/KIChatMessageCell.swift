@@ -16,6 +16,7 @@ class KIChatMessageCell<View: KIMessageView<ViewModel>,
     weak var item: KIChatMessageItem?
     
     var selectedItemAction: ((_ messageId: Int, _ isChecked: Bool) -> Void)?
+//    var tapGestureRecognizer: UITapGestureRecognizer? = nil
     
     private let view: View = .init()
     private let selectionView: UIImageView = .init()
@@ -74,6 +75,7 @@ class KIChatMessageCell<View: KIMessageView<ViewModel>,
     func checkView(isChecked: Bool) {
         if let v = self.view as? KITextMessageView {
             v.checkBox.isChecked = isChecked
+            backgroundColor = isChecked ? #colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1).withAlphaComponent(0.25): UIColor.clear
         }
     }
     
@@ -84,6 +86,9 @@ class KIChatMessageCell<View: KIMessageView<ViewModel>,
     func checkBoxClicked(isChecked: Bool) {
         if let id = item?.id {
             selectedItemAction?(id, isChecked)
+            UIView.animate(withDuration: 0.5) {
+                 self.backgroundColor = isChecked ? #colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1).withAlphaComponent(0.25): UIColor.clear
+            }
         }
     }
 }

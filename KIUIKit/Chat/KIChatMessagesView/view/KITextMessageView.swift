@@ -18,6 +18,8 @@ public class KITextMessageView: KIMessageView<KITextMessageViewModel> {
     private let contentView: KITextMessageContentView = .init()
     let checkBox: CheckBox = .init()
     
+    var selectionActionHandler: UITapGestureRecognizer? = nil
+    
     override func initView() {
         addSubview(checkBox)
         
@@ -62,6 +64,13 @@ public class KITextMessageView: KIMessageView<KITextMessageViewModel> {
         avatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapAvatar)))
         
         checkBox.frame = viewModel.selectionViewFrame
+        self.selectionActionHandler = viewModel.isEditing ? UITapGestureRecognizer(target: self, action: #selector(selectMessage)) : nil
+        guard let tapGestureRecognizer = self.selectionActionHandler else { return }
+        addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func selectMessage() {
+        checkBox.checkMarkClicked()
     }
     
     @objc func didTapAvatar() {
@@ -98,6 +107,7 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
     public var isEditing: Bool = false {
         didSet {
             selectionViewWidth = isEditing ? 40 : 0
+            
         }
     }
     private(set) var selectionViewWidth: CGFloat = 0

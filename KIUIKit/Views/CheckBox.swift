@@ -21,7 +21,7 @@ class CheckBox: UIView {
     
     var isChecked: Bool = false {
         didSet {
-            UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseIn], animations: {
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseIn], animations: {
                 self.backgroundColor = self.isChecked ? self.checkmarkColor : self.checkboxBackgroundColor
             }, completion: nil)
             
