@@ -8,8 +8,14 @@
 
 import UIKit
 
-class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageViewModel>: UICollectionViewCell, KIUpdateable {
+class KIChatMessageCell<View: KIMessageView<ViewModel>,
+                        ViewModel: KIMessageViewModel>: UICollectionViewCell,
+                                                        KIUpdateable,
+                                                        CheckBoxDelegate {
+    
     weak var item: KIChatMessageItem?
+    
+    var selectedItemAction: ((_ messageId: Int, _ isChecked: Bool) -> Void)?
     
     private let view: View = .init()
     private let selectionView: UIImageView = .init()
@@ -37,6 +43,9 @@ class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageView
     
     func initView() {
         contentView.addSubview(view)
+        if let v = self.view as? KITextMessageView {
+            v.checkBox.delegate = self
+        }
         
         selectionView.contentMode = .center
         selectionView.layer.cornerRadius = 15
@@ -62,7 +71,19 @@ class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageView
         }
     }
     
+    func checkView(isChecked: Bool) {
+        if let v = self.view as? KITextMessageView {
+            v.checkBox.isChecked = isChecked
+        }
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
+    }
+    
+    func checkBoxClicked(isChecked: Bool) {
+        if let id = item?.id {
+            selectedItemAction?(id, isChecked)
+        }
     }
 }

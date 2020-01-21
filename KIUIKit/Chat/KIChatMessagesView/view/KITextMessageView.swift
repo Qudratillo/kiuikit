@@ -16,8 +16,11 @@ public class KITextMessageView: KIMessageView<KITextMessageViewModel> {
     private let avatar: KIAvatarImageView = .init()
     private let containerView: UIView = .init()
     private let contentView: KITextMessageContentView = .init()
+    let checkBox: CheckBox = .init()
     
     override func initView() {
+        addSubview(checkBox)
+        
         addSubview(avatar)
         
         containerView.clipsToBounds = true
@@ -55,10 +58,10 @@ public class KITextMessageView: KIMessageView<KITextMessageViewModel> {
         contentView.viewModel = viewModel.contentModel
         contentView.frame = .init(origin: .init(x: 0, y: 0), size: viewModel.contentModel.size)
         
-        
         avatar.isUserInteractionEnabled = true
         avatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapAvatar)))
         
+        checkBox.frame = viewModel.selectionViewFrame
     }
     
     @objc func didTapAvatar() {
@@ -97,7 +100,8 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
             selectionViewWidth = isEditing ? 40 : 0
         }
     }
-    private var selectionViewWidth: CGFloat = 0
+    private(set) var selectionViewWidth: CGFloat = 0
+    private(set) var selectionViewFrame: CGRect = .zero
     
     public static var maxContainerOffset: CGFloat = 100
     public static var maxContainerWidth: CGFloat = 400
@@ -165,6 +169,7 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
                                 height: 40)
             containerBackgroundColor = KITextMessageViewModel.leftMessageContainerColor
         }
+        selectionViewFrame = isEditing ? CGRect(x: 8, y: (self.height - 26)/2, width: 26, height: 26) : .zero
     }
     
     public override func updateFrames() {

@@ -53,7 +53,7 @@ public class KIChatMessageItem {
         self.attachmentDownloadData = item.attachmentDownloadData
         self.bag = item.bag
     }
-        
+    
     
     public func set(contentsOf item: KIChatMessageItem) {
         self.id = item.id
@@ -170,17 +170,25 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
             let cell: KIChatMessageCell<KITextMessageView, KITextMessageViewModel> = collectionView.dequeueReusableCell(withReuseIdentifier: "text-message-cell", for: indexPath) as? KIChatMessageCell<KITextMessageView, KITextMessageViewModel> ?? .init()
             if let item = cell.item, item.view == cell {
                 item.view = nil
+                if isSelectionMode {
+                    cell.checkView(isChecked: self.selectedMessageIds.contains(item.id))
+                }
             }
             
             cell.item = item
             cell.viewModel = viewModel
             item.view = cell
+            cell.selectedItemAction = selectedItemAction
+            
             return cell
         }
         else if let viewModel = item.viewModel as? KIActionMessageViewModel {
             let cell: KIChatMessageCell<KIActionMessageView, KIActionMessageViewModel> = collectionView.dequeueReusableCell(withReuseIdentifier: "action-message-cell", for: indexPath) as? KIChatMessageCell<KIActionMessageView, KIActionMessageViewModel> ?? .init()
             if let item = cell.item, item.view == cell {
                 item.view = nil
+                if isSelectionMode {
+                    cell.checkView(isChecked: self.selectedMessageIds.contains(item.id))
+                }
             }
             cell.item = item
             cell.viewModel = viewModel
@@ -435,7 +443,7 @@ extension KIChatMessagesCollectionView {
     }
     
     private func setup(item: KIChatMessageItem, width: CGFloat) {
-//        print("kiuikit setup item ", item.id)
+        //        print("kiuikit setup item ", item.id)
         item.viewModel.width = width
         item.viewModel.updateFrames()
         if let viewModel = item.viewModel as? KITextMessageViewModel {
@@ -564,16 +572,39 @@ extension KIChatMessagesCollectionView {
     
     @objc private func switchEditingMode() {
         if !isSelectionMode {
+            isSelectionMode = true
+            selectionModeUpdate()
+        }
+    }
+    
+    func selectedItemAction(_ messageId: Int, _ isChecked: Bool) {
+        if isChecked {
+            selectedMessageIds.insert(messageId)
+        } else {
+            selectedMessageIds.remove(messageId)
+        }
+        
+        if selectedMessageIds.isEmpty {
+            self.isSelectionMode = false
+            self.selectionModeUpdate()
+        }
+    }
+    
+    private func selectionModeUpdate() {
+        let width = self.frame.width
+        q.addOperation {
             self.sections.forEach { (sections) in
                 sections.items.forEach { (item) in
                     if let viewModel = item.viewModel as? KITextMessageViewModel {
-                        viewModel.isEditing = true
-                        self.reload(item: item)
+                        viewModel.isEditing = self.isSelectionMode
+                        self.setup(item: item, width: width)
                     }
                 }
             }
+            OperationQueue.main.addOperation {
+                self.reloadData()
+            }
         }
-        isSelectionMode = true
     }
     
     @discardableResult

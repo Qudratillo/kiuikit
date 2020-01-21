@@ -9,19 +9,34 @@
 import Foundation
 import UIKit
 
-public class CheckBox: UIView {
+protocol CheckBoxDelegate {
+    func checkBoxClicked(isChecked: Bool)
+}
+
+class CheckBox: UIView {
     public var borderWidth: CGFloat = 1.75
-    
-    public var checkmarkSize: CGFloat = 0.5
     
     var checkboxBackgroundColor: UIColor! = .white
     var checkmarkColor: UIColor =  #colorLiteral(red: 0, green: 0.3285208941, blue: 0.5748849511, alpha: 1)
     
-    private(set) var isChecked: Bool = false {
+    var isChecked: Bool = false {
         didSet {
+            UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseIn], animations: {
+                self.backgroundColor = self.isChecked ? self.checkmarkColor : self.checkboxBackgroundColor
+            }, completion: nil)
             
         }
     }
+    
+    var checkBoxCallBack: ((_ isChecked: Bool) -> Void)?
+    
+    var delegate: CheckBoxDelegate?
+    
+    private var imageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "icons8-checkmark")?.withRenderingMode(.alwaysTemplate))
+        imageView.tintColor = UIColor.white
+        return imageView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,62 +44,25 @@ public class CheckBox: UIView {
         backgroundColor = .clear
         layer.borderWidth = borderWidth
         layer.borderColor = checkmarkColor.cgColor
-        layer.cornerRadius = frame.width / 2
+        layer.cornerRadius = 13
+        
+        addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        imageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(checkMarkClicked)))
+    }
+    
+    @objc func checkMarkClicked() {
+        isChecked = !isChecked
+        delegate?.checkBoxClicked(isChecked: isChecked)
+        checkBoxCallBack?(isChecked)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    override public func draw(_ rect: CGRect) {
-        let newRect = rect.insetBy(dx: borderWidth / 2, dy: borderWidth / 2)
-        let shapePath = UIBezierPath.init(ovalIn: newRect)
-        let layer = CAShapeLayer()
-        layer.anchorPoint = CGPoint.zero
-        layer.path = shapePath.cgPath
-        layer.bounds = (layer.path?.boundingBox)!
-        layer.fillColor = checkboxBackgroundColor.cgColor
-        layer.addSublayer(layer)
-        drawCheckMark(frame: newRect)
-    }
-    
-    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first
-        isChecked = !isChecked
-        guard let point = touch?.location(in: self) else { return }
-        guard let sublayers = self.layer.sublayers as? [CAShapeLayer] else { return }
-
-        for layer in sublayers {
-            if let path = layer.path, path.contains(point) {
-                layer.fillColor = isChecked ? UIColor.clear.cgColor : checkboxBackgroundColor.cgColor
-            }
-        }
-    }
-    
-    private func drawCheckMark(frame: CGRect) {
-        
-        let bezierPath = UIBezierPath()
-        bezierPath.move(to: CGPoint(x: frame.minX + 0.26000 * frame.width,
-                                    y: frame.minY + 0.50000 * frame.height))
-        
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.42000 * frame.width,
-                                        y: frame.minY + 0.62000 * frame.height),
-                            controlPoint1: CGPoint(x: frame.minX + 0.38000 * frame.width,
-                                                   y: frame.minY + 0.60000 * frame.height),
-                            controlPoint2: CGPoint(x: frame.minX + 0.42000 * frame.width,
-                                                   y: frame.minY + 0.62000 * frame.height))
-        
-        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.70000 * frame.width, y: frame.minY + 0.24000 * frame.height))
-        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.78000 * frame.width, y: frame.minY + 0.30000 * frame.height))
-        bezierPath.addLine(to: CGPoint(x: frame.minX + 0.44000 * frame.width, y: frame.minY + 0.76000 * frame.height))
-        
-        bezierPath.addCurve(to: CGPoint(x: frame.minX + 0.20000 * frame.width, y: frame.minY + 0.58000 * frame.height),
-                            controlPoint1: CGPoint(x: frame.minX + 0.44000 * frame.width,
-                                                   y: frame.minY + 0.76000 * frame.height),
-                            controlPoint2: CGPoint(x: frame.minX + 0.26000 * frame.width,
-                                                   y: frame.minY + 0.62000 * frame.height))
-        checkmarkColor.setFill()
-        bezierPath.fill()
-    }
-    
 }
