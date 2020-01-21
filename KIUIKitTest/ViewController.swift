@@ -20,9 +20,9 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        testChatMessagesCollectionViewAppend()
+//        testChatMessagesCollectionViewAppend()
 //        testAudioPlayer(url: URL(string: "https://api.pager.uz:9010/raw/files/5c7a5342-7540-4d2f-ae6d-8a017c196a18/Voice%20-%205c7a5342-7.mp3")!)
-//        testChatMessagesCollectionView()
+        testChatMessagesCollectionView()
         //        testActionMessageView()
         //        testTextMessageView()
         //        testTextMessageContentView()

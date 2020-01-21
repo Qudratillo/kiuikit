@@ -108,6 +108,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     private let replyQ: OperationQueue = .init()
     
     private var sections: [KIChatMessagesCollectionViewSection] = []
+    public var selectedMessageIds: Set<Int> = Set()
     
     var contentHeight: CGFloat {
         return self.collectionViewLayout.collectionViewContentSize.height
@@ -117,6 +118,8 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     private(set) var isFetchingBottom: Bool = false
     private(set) var inFetchTopZone: Bool = false
     private(set) var inFetchBottomZone: Bool = false
+    
+    private(set) var isSelectionMode:Bool = false
     
     
     public var fetchThreshold: CGFloat = 500
@@ -130,6 +133,8 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         
         super.init(frame: frame, collectionViewLayout: flowLayout)
         initView()
+        
+        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(switchEditingMode)))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -498,6 +503,9 @@ extension KIChatMessagesCollectionView {
         var section: KIChatMessagesCollectionViewSection = .init(width: width, date: .init(timeIntervalSince1970: 0))
         
         for item in items {
+            if let model = item.viewModel as? KITextMessageViewModel {
+                model.isEditing = self.isSelectionMode
+            }
             setup(item: item, width: width)
             if Calendar.current.isDate(section.date, inSameDayAs: item.date) {
                 section.items.append(item)
@@ -552,6 +560,20 @@ extension KIChatMessagesCollectionView {
                 }
             })
         })
+    }
+    
+    @objc private func switchEditingMode() {
+        if !isSelectionMode {
+            self.sections.forEach { (sections) in
+                sections.items.forEach { (item) in
+                    if let viewModel = item.viewModel as? KITextMessageViewModel {
+                        viewModel.isEditing = true
+                        self.reload(item: item)
+                    }
+                }
+            }
+        }
+        isSelectionMode = true
     }
     
     @discardableResult

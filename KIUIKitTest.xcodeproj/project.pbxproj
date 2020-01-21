@@ -32,6 +32,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		151146D423D3156F009A92C3 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151146D323D3156F009A92C3 /* CheckBox.swift */; };
 		2FE575352362C407005C8651 /* KIAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE575342362C407005C8651 /* KIAudioPlayer.swift */; };
 		8E6BA7F8641E6D2AE6C2EBA8 /* KIUpdateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6BADE270CDB7D2C019D0A4 /* KIUpdateable.swift */; };
 		F259813A23360E7F007B0298 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259813923360E7F007B0298 /* AppDelegate.swift */; };
@@ -92,6 +93,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		151146D323D3156F009A92C3 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		2FE575342362C407005C8651 /* KIAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIAudioPlayer.swift; sourceTree = "<group>"; };
 		8E6BADE270CDB7D2C019D0A4 /* KIUpdateable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIUpdateable.swift; sourceTree = "<group>"; };
 		F259813623360E7F007B0298 /* KIUIKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KIUIKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -232,6 +234,7 @@
 				F2F9A325233619490089F037 /* KIPaddingLabel.swift */,
 				F2F9A326233619490089F037 /* KICircleImageView.swift */,
 				F2F9A327233619490089F037 /* KIAvatarImageView.swift */,
+				151146D323D3156F009A92C3 /* CheckBox.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				F2F9A354233619490089F037 /* KITextMessageView.swift in Sources */,
 				F2F9A357233619490089F037 /* KIReplyMessageView.swift in Sources */,
 				F2F9A355233619490089F037 /* KIActionMessageView.swift in Sources */,
+				151146D423D3156F009A92C3 /* CheckBox.swift in Sources */,
 				F2F9A358233619490089F037 /* KIMessageImageAttachmentView.swift in Sources */,
 				F2F9A352233619490089F037 /* KITextMessageContentView.swift in Sources */,
 				F2F9A341233619490089F037 /* KIImageData.swift in Sources */,

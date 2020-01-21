@@ -92,9 +92,15 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
         }
     }
     
+    public var isEditing: Bool = false {
+        didSet {
+            selectionViewWidth = isEditing ? 40 : 0
+        }
+    }
+    private var selectionViewWidth: CGFloat = 0
+    
     public static var maxContainerOffset: CGFloat = 100
     public static var maxContainerWidth: CGFloat = 400
-    
     
     public static var leftMessageContainerColor: UIColor = .white
     public static var rightMessageContainerColor: UIColor = #colorLiteral(red: 0.9002717783, green: 0.9960784314, blue: 0.8971452887, alpha: 1)
@@ -139,12 +145,24 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
         
         switch containerLocation {
         case .right:
-            containerFrame = .init(x: width - containerWidth - 12 - xOffset, y: self.height - containerHeight - 1, width: containerWidth, height: containerHeight)
+            containerFrame = .init(x: width - containerWidth - 12 - xOffset + selectionViewWidth,
+                                   y: self.height - containerHeight - 1,
+                                   width: containerWidth - selectionViewWidth,
+                                   height: containerHeight)
+            avatarFrame = .init(x: width - 8 - 40,
+                                y: self.height - 40 - 1,
+                                width: 40,
+                                height: 40)
             containerBackgroundColor = KITextMessageViewModel.rightMessageContainerColor
-            avatarFrame = .init(x: width - 8 - 40, y: self.height - 40 - 1, width: 40, height: 40)
         case .left:
-            containerFrame = .init(x: 12 + xOffset, y: self.height - containerHeight - 1, width: containerWidth, height: containerHeight)
-            avatarFrame = .init(x: 8, y: self.height - 40 - 1, width: 40, height: 40)
+            containerFrame = .init(x: 12 + xOffset + selectionViewWidth,
+                                   y: self.height - containerHeight - 1,
+                                   width: containerWidth - selectionViewWidth,
+                                   height: containerHeight)
+            avatarFrame = .init(x: 8 + selectionViewWidth,
+                                y: self.height - 40 - 1,
+                                width: 40,
+                                height: 40)
             containerBackgroundColor = KITextMessageViewModel.leftMessageContainerColor
         }
     }
