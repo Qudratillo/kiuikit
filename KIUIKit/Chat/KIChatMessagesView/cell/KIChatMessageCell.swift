@@ -8,11 +8,7 @@
 
 import UIKit
 
-class KIChatMessageCell<View: KIMessageView<ViewModel>,
-                        ViewModel: KIMessageViewModel>: UICollectionViewCell,
-                                                        KIUpdateable,
-                                                        CheckBoxDelegate {
-    
+class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageViewModel>: KICollectionViewCell<View, ViewModel>, CheckBoxDelegate {
     weak var item: KIChatMessageItem?
     
     var selectedItemAction: ((_ messageId: Int, _ isChecked: Bool) -> Void)?
@@ -20,11 +16,6 @@ class KIChatMessageCell<View: KIMessageView<ViewModel>,
     
     private let view: View = .init()
     private let selectionView: UIImageView = .init()
-    weak var viewModel: ViewModel? {
-        didSet {
-            self.updateUI()
-        }
-    }
     
     var isEditing: Bool = false {
         didSet {
