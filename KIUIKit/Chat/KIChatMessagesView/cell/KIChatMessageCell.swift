@@ -47,13 +47,13 @@ class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageView
         contentView.addSubview(selectionView)
     }
 
-    func updateUI() {
+    override func updateUI() {
         view.viewModel = viewModel
 //        print("ki updateui", viewModel ?? "nil")
         view.frame = .init(origin: .zero, size: viewModel?.size ?? .zero)
     }
     
-    func update(model: Any?) {
+    override func update(model: Any?) {
 //        print("ki updatemodel", model ?? "nil")
         if model == nil {
             self.viewModel = nil
