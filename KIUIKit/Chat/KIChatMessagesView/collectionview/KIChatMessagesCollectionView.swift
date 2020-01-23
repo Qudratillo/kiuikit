@@ -595,10 +595,8 @@ extension KIChatMessagesCollectionView {
         q.addOperation {
             self.sections.forEach { (sections) in
                 sections.items.forEach { (item) in
-                    if let viewModel = item.viewModel as? KITextMessageViewModel {
-                        viewModel.isEditing = self.isSelectionMode
-                        self.setup(item: item, width: width)
-                    }
+                    item.viewModel.isEditing = self.isSelectionMode
+                    self.setup(item: item, width: width)
                 }
             }
             OperationQueue.main.addOperation {

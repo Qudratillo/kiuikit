@@ -12,6 +12,13 @@ public class KISizeAwareViewModel: KIViewModel {
     public var width: CGFloat
     public var height: CGFloat
     
+    public override var isEditing: Bool {
+        didSet {
+            checkBoxWidth = isEditing ? 40 : 0
+        }
+    }
+    private(set) var checkBoxWidth: CGFloat = 0
+    
     public var size: CGSize {
         return .init(width: width, height: height)
     }
