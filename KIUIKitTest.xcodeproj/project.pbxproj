@@ -34,6 +34,8 @@
 /* Begin PBXBuildFile section */
 		151146D423D3156F009A92C3 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151146D323D3156F009A92C3 /* CheckBox.swift */; };
 		2FE575352362C407005C8651 /* KIAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE575342362C407005C8651 /* KIAudioPlayer.swift */; };
+		2FF407D723D300CC00AF7723 /* KICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF407D623D300CC00AF7723 /* KICollectionViewCell.swift */; };
+		2FF407D923D30D3500AF7723 /* KICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF407D823D30D3500AF7723 /* KICollectionView.swift */; };
 		8E6BA7F8641E6D2AE6C2EBA8 /* KIUpdateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6BADE270CDB7D2C019D0A4 /* KIUpdateable.swift */; };
 		F259813A23360E7F007B0298 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259813923360E7F007B0298 /* AppDelegate.swift */; };
 		F259813C23360E7F007B0298 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F259813B23360E7F007B0298 /* ViewController.swift */; };
@@ -95,6 +97,8 @@
 /* Begin PBXFileReference section */
 		151146D323D3156F009A92C3 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		2FE575342362C407005C8651 /* KIAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIAudioPlayer.swift; sourceTree = "<group>"; };
+		2FF407D623D300CC00AF7723 /* KICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KICollectionViewCell.swift; sourceTree = "<group>"; };
+		2FF407D823D30D3500AF7723 /* KICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KICollectionView.swift; sourceTree = "<group>"; };
 		8E6BADE270CDB7D2C019D0A4 /* KIUpdateable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KIUpdateable.swift; sourceTree = "<group>"; };
 		F259813623360E7F007B0298 /* KIUIKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KIUIKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F259813923360E7F007B0298 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +154,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2FD787A623D18BB200717B32 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				2FD787A723D18BCB00717B32 /* KIContactsListView */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		2FD787A723D18BCB00717B32 /* KIContactsListView */ = {
+			isa = PBXGroup;
+			children = (
+				2FD787A823D18DAF00717B32 /* cell */,
+			);
+			path = KIContactsListView;
+			sourceTree = "<group>";
+		};
+		2FD787A823D18DAF00717B32 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
 		2FE575332362C3D5005C8651 /* AudioPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +232,7 @@
 				F2F9A35923361A070089F037 /* Assets.xcassets */,
 				F2F9A31D233619490089F037 /* Base */,
 				F2F9A328233619490089F037 /* Chat */,
+				2FD787A623D18BB200717B32 /* List */,
 				2FE575332362C3D5005C8651 /* AudioPlayer */,
 				F2F9A324233619490089F037 /* Views */,
 				F2F9A313233619380089F037 /* KIUIKit.h */,
@@ -224,6 +252,8 @@
 				F2F9A323233619490089F037 /* KISizeAwareViewModel.swift */,
 				F260D718233A25AD0046E7B1 /* KIViewModel.swift */,
 				8E6BADE270CDB7D2C019D0A4 /* KIUpdateable.swift */,
+				2FF407D623D300CC00AF7723 /* KICollectionViewCell.swift */,
+				2FF407D823D30D3500AF7723 /* KICollectionView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -463,9 +493,11 @@
 				F2F9A33F233619490089F037 /* KIView.swift in Sources */,
 				F2F9A345233619490089F037 /* KIPaddingLabel.swift in Sources */,
 				F2F9A340233619490089F037 /* KIConfig.swift in Sources */,
+				2FF407D923D30D3500AF7723 /* KICollectionView.swift in Sources */,
 				F2F9A354233619490089F037 /* KITextMessageView.swift in Sources */,
 				F2F9A357233619490089F037 /* KIReplyMessageView.swift in Sources */,
 				F2F9A355233619490089F037 /* KIActionMessageView.swift in Sources */,
+				2FF407D723D300CC00AF7723 /* KICollectionViewCell.swift in Sources */,
 				151146D423D3156F009A92C3 /* CheckBox.swift in Sources */,
 				F2F9A358233619490089F037 /* KIMessageImageAttachmentView.swift in Sources */,
 				F2F9A352233619490089F037 /* KITextMessageContentView.swift in Sources */,

@@ -8,11 +8,7 @@
 
 import UIKit
 
-class KIChatMessageCell<View: KIMessageView<ViewModel>,
-                        ViewModel: KIMessageViewModel>: UICollectionViewCell,
-                                                        KIUpdateable,
-                                                        CheckBoxDelegate {
-    
+class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageViewModel>: KICollectionViewCell<View, ViewModel>, CheckBoxDelegate {
     weak var item: KIChatMessageItem?
     
     var selectedItemAction: ((_ messageId: Int, _ isChecked: Bool) -> Void)?
@@ -20,11 +16,6 @@ class KIChatMessageCell<View: KIMessageView<ViewModel>,
     
     private let view: View = .init()
     private let selectionView: UIImageView = .init()
-    weak var viewModel: ViewModel? {
-        didSet {
-            self.updateUI()
-        }
-    }
     
     var isEditing: Bool = false {
         didSet {
@@ -56,13 +47,13 @@ class KIChatMessageCell<View: KIMessageView<ViewModel>,
         contentView.addSubview(selectionView)
     }
 
-    func updateUI() {
+    override func updateUI() {
         view.viewModel = viewModel
 //        print("ki updateui", viewModel ?? "nil")
         view.frame = .init(origin: .zero, size: viewModel?.size ?? .zero)
     }
     
-    func update(model: Any?) {
+    override func update(model: Any?) {
 //        print("ki updatemodel", model ?? "nil")
         if model == nil {
             self.viewModel = nil
