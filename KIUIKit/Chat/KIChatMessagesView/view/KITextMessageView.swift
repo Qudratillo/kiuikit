@@ -16,7 +16,7 @@ public class KITextMessageView: KIMessageView<KITextMessageViewModel> {
     private let avatar: KIAvatarImageView = .init()
     private let containerView: UIView = .init()
     private let contentView: KITextMessageContentView = .init()
-    let selectionVeiw: UIView = .init()
+    private let selectionVeiw: UIView = .init()
     let checkBox: CheckBox = .init()
     
     override func initView() {
