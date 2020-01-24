@@ -8,9 +8,13 @@
 
 import UIKit
 
-class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageViewModel>: KICollectionViewCell<View, ViewModel> {
+class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageViewModel>: KICollectionViewCell<View, ViewModel>, CheckBoxDelegate {
     weak var item: KIChatMessageItem?
     
+    var selectedItemAction: ((_ messageId: Int, _ isChecked: Bool) -> Void)?
+//    var tapGestureRecognizer: UITapGestureRecognizer? = nil
+    
+    private let view: View = .init()
     private let selectionView: UIImageView = .init()
     
     var isEditing: Bool = false {
@@ -30,11 +34,52 @@ class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageView
 
     
     func initView() {
+        contentView.addSubview(view)
+        if let v = self.view as? KITextMessageView {
+            v.checkBox.delegate = self
+        }
+        
         selectionView.contentMode = .center
         selectionView.layer.cornerRadius = 15
         selectionView.clipsToBounds = true
         selectionView.layer.borderWidth = 2
         selectionView.layer.borderColor = UIColor.lightGray.cgColor
         contentView.addSubview(selectionView)
+    }
+
+    override func updateUI() {
+        view.viewModel = viewModel
+//        print("ki updateui", viewModel ?? "nil")
+        view.frame = .init(origin: .zero, size: viewModel?.size ?? .zero)
+    }
+    
+    override func update(model: Any?) {
+//        print("ki updatemodel", model ?? "nil")
+        if model == nil {
+            self.viewModel = nil
+        }
+        else if let model = model as? ViewModel {
+            self.viewModel = model
+        }
+    }
+    
+    func checkView(isChecked: Bool) {
+        if let v = self.view as? KITextMessageView {
+            v.checkBox.isChecked = isChecked
+            backgroundColor = isChecked ? #colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1).withAlphaComponent(0.25): UIColor.clear
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
+    func checkBoxClicked(isChecked: Bool) {
+        if let id = item?.id {
+            selectedItemAction?(id, isChecked)
+            UIView.animate(withDuration: 0.5) {
+                 self.backgroundColor = isChecked ? #colorLiteral(red: 0.4620226622, green: 0.8382837176, blue: 1, alpha: 1).withAlphaComponent(0.25): UIColor.clear
+            }
+        }
     }
 }
