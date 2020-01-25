@@ -118,8 +118,8 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     private(set) var isFetchingBottom: Bool = false
     private(set) var inFetchTopZone: Bool = false
     private(set) var inFetchBottomZone: Bool = false
-    
-    private(set) var isSelectionMode:Bool = false
+
+    private(set) var isEditing:Bool = false
     
     
     public var fetchThreshold: CGFloat = 500
@@ -134,7 +134,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         super.init(frame: frame, collectionViewLayout: flowLayout)
         initView()
         
-//        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(switchEditingMode)))
+        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(switchOnSelectionMode)))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -176,7 +176,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
             cell.viewModel = viewModel
             item.view = cell
             cell.selectedItemAction = selectedItemAction
-            if isSelectionMode {
+            if isEditing {
                 cell.checkView(isChecked: self.selectedMessageIds.contains(item.id))
             }
             
@@ -190,7 +190,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
             cell.item = item
             cell.viewModel = viewModel
             item.view = cell
-            if isSelectionMode {
+            if isEditing {
                 cell.checkView(isChecked: self.selectedMessageIds.contains(item.id))
             }
             return cell
@@ -512,7 +512,7 @@ extension KIChatMessagesCollectionView {
         
         for item in items {
             if let model = item.viewModel as? KITextMessageViewModel {
-                model.isEditing = self.isSelectionMode
+                model.isEditing = self.isEditing
             }
             setup(item: item, width: width)
             if Calendar.current.isDate(section.date, inSameDayAs: item.date) {
@@ -570,11 +570,15 @@ extension KIChatMessagesCollectionView {
         })
     }
     
-    @objc private func switchEditingMode() {
-        if !isSelectionMode {
-            isSelectionMode = true
-            selectionModeUpdate()
+    @objc private func switchOnSelectionMode() {
+        if !isEditing {
+            setSelectionMode(isEditing: true)
         }
+    }
+    
+    public func setSelectionMode(isEditing: Bool) {
+        self.isEditing = isEditing
+        selectionModeUpdate()
     }
     
     func selectedItemAction(_ messageId: Int, _ isChecked: Bool) {
@@ -585,8 +589,7 @@ extension KIChatMessagesCollectionView {
         }
         
         if selectedMessageIds.isEmpty {
-            self.isSelectionMode = false
-            self.selectionModeUpdate()
+            setSelectionMode(isEditing: false)
         }
     }
     
@@ -595,10 +598,8 @@ extension KIChatMessagesCollectionView {
         q.addOperation {
             self.sections.forEach { (sections) in
                 sections.items.forEach { (item) in
-                    if let viewModel = item.viewModel as? KITextMessageViewModel {
-                        viewModel.isEditing = self.isSelectionMode
-                        self.setup(item: item, width: width)
-                    }
+                    item.viewModel.isEditing = self.isEditing
+                    self.setup(item: item, width: width)
                 }
             }
             OperationQueue.main.addOperation {

@@ -16,7 +16,7 @@ public class KITextMessageView: KIMessageView<KITextMessageViewModel> {
     private let avatar: KIAvatarImageView = .init()
     private let containerView: UIView = .init()
     private let contentView: KITextMessageContentView = .init()
-    let selectionVeiw: UIView = .init()
+    private let selectionVeiw: UIView = .init()
     let checkBox: CheckBox = .init()
     
     override func initView() {
@@ -106,11 +106,10 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
     
     override public var isEditing: Bool {
         didSet {
-            checkBoxWidth = isEditing ? 40 : 0
-            
+            contentModel.isEditing = isEditing
         }
     }
-    private(set) var checkBoxWidth: CGFloat = 0
+    
     private(set) var checkBoxFrame: CGRect = .zero
     private(set) var selectionViewFrame: CGRect = .zero
     
