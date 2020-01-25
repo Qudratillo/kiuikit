@@ -32,11 +32,7 @@ class CheckBox: UIView {
     
     var delegate: CheckBoxDelegate?
     
-    private var imageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "icons8-checkmark")?.withRenderingMode(.alwaysTemplate))
-        imageView.tintColor = UIColor.white
-        return imageView
-    }()
+    private var imageView = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,6 +43,8 @@ class CheckBox: UIView {
         layer.cornerRadius = 13
         
         addSubview(imageView)
+        imageView.image = UIImage.resourceImage(for: self, named: "action_download")?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = UIColor.white
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         imageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
