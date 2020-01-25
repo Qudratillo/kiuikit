@@ -113,7 +113,7 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
     private(set) var checkBoxFrame: CGRect = .zero
     private(set) var selectionViewFrame: CGRect = .zero
     
-    public static var maxContainerOffset: CGFloat = 100
+    public static var maxContainerOffset: CGFloat = 140
     public static var maxContainerWidth: CGFloat = 400
     
     public static var leftMessageContainerColor: UIColor = .white
@@ -159,9 +159,9 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
         
         switch containerLocation {
         case .right:
-            containerFrame = .init(x: width - containerWidth - 12 - xOffset + checkBoxWidth,
+            containerFrame = .init(x: width - containerWidth - 12 - xOffset,
                                    y: self.height - containerHeight - 1,
-                                   width: containerWidth - checkBoxWidth,
+                                   width: containerWidth,
                                    height: containerHeight)
             avatarFrame = .init(x: width - 8 - 40,
                                 y: self.height - 40 - 1,
@@ -171,7 +171,7 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
         case .left:
             containerFrame = .init(x: 12 + xOffset + checkBoxWidth,
                                    y: self.height - containerHeight - 1,
-                                   width: containerWidth - checkBoxWidth,
+                                   width: containerWidth,
                                    height: containerHeight)
             avatarFrame = .init(x: 8 + checkBoxWidth,
                                 y: self.height - 40 - 1,

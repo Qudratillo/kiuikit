@@ -10,6 +10,5 @@ import Foundation
 
 public class KIViewModel {
     public var isEdited: Bool = false
-//    for selection mode
     public var isEditing: Bool = false
 }
