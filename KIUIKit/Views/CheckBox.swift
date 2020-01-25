@@ -43,7 +43,7 @@ class CheckBox: UIView {
         layer.cornerRadius = 13
         
         addSubview(imageView)
-        imageView.image = UIImage.resourceImage(for: self, named: "action_download")?.withRenderingMode(.alwaysTemplate)
+        imageView.image = UIImage.resourceImage(for: self, named: "icons8-checkmark")?.withRenderingMode(.alwaysTemplate)
         imageView.tintColor = UIColor.white
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
