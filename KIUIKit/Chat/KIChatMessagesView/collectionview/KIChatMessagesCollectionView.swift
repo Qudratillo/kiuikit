@@ -134,7 +134,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         super.init(frame: frame, collectionViewLayout: flowLayout)
         initView()
         
-        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(switchEditingMode)))
+//        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(switchEditingMode)))
     }
     
     required init?(coder aDecoder: NSCoder) {
