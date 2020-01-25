@@ -221,14 +221,14 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
         var height: CGFloat = 2
         
         if let nameText = nameText {
-            nameTextFrame = .init(origin: .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6), size: KITextMessageContentViewModel.nameTextFont.size(ofString: nameText, constrainedToWidth: width - checkBoxWidth - KITextMessageContentViewModel.textMarginX * 2))
+            nameTextFrame = .init(origin: .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6), size: KITextMessageContentViewModel.nameTextFont.size(ofString: nameText, constrainedToWidth: width - KITextMessageContentViewModel.textMarginX * 2))
             height = nameTextFrame.maxY
         } else {
             nameTextFrame = .zero
         }
         
         if let forwardedFromText = forwardedFromText {
-            forwardedFromTextFrame = .init(origin: .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6), size: KITextMessageContentViewModel.forwardedFromTextFont.size(ofString: forwardedFromText, constrainedToWidth: width - checkBoxWidth - KITextMessageContentViewModel.textMarginX * 2))
+            forwardedFromTextFrame = .init(origin: .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6), size: KITextMessageContentViewModel.forwardedFromTextFont.size(ofString: forwardedFromText, constrainedToWidth: width - KITextMessageContentViewModel.textMarginX * 2))
             height = forwardedFromTextFrame.maxY
         } else {
             forwardedFromTextFrame = .zero
@@ -237,21 +237,21 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
         if let replyModel = replyModel {
             replyModel.width = width - 2 * KITextMessageContentViewModel.textMarginX
             replyModel.updateFrames()
-            replyFrame = .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6, width: replyModel.width - checkBoxWidth, height: replyModel.height)
+            replyFrame = .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6, width: replyModel.width, height: replyModel.height)
             height = replyFrame.maxY
         } else {
             replyFrame = .zero
         }
         
         if let imageAttachmentViewModel = attachmentModel as? KIMessageImageAttachmentViewModel {
-            imageAttachmentFrame = .init(x: 2, y: height == 2 ? 2 : (height + 4), width: imageAttachmentViewModel.width - checkBoxWidth, height: imageAttachmentViewModel.height)
+            imageAttachmentFrame = .init(x: 2, y: height == 2 ? 2 : (height + 4), width: imageAttachmentViewModel.width, height: imageAttachmentViewModel.height)
             detailAttachmentFrame = .zero
             height = imageAttachmentFrame.maxY
         } else if let detailAttachmentViewModel = attachmentModel as? KIMessageDetailAttachmentViewModel {
             imageAttachmentFrame = .zero
             detailAttachmentViewModel.width = width
             detailAttachmentViewModel.updateFrames()
-            detailAttachmentFrame = .init(x: 0, y: height + 6, width: detailAttachmentViewModel.width - checkBoxWidth, height: detailAttachmentViewModel.height)
+            detailAttachmentFrame = .init(x: 0, y: height + 6, width: detailAttachmentViewModel.width, height: detailAttachmentViewModel.height)
             height += detailAttachmentFrame.height + 6
         } else {
             imageAttachmentFrame = .zero
@@ -259,7 +259,7 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
         }
         
         if let text = text {
-            textFrame = .init(origin: .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6), size: KITextMessageContentViewModel.textFont.size(ofString: text, constrainedToWidth: width - checkBoxWidth - KITextMessageContentViewModel.textMarginX * 2))
+            textFrame = .init(origin: .init(x: KITextMessageContentViewModel.textMarginX, y: height + 6), size: KITextMessageContentViewModel.textFont.size(ofString: text, constrainedToWidth: width - KITextMessageContentViewModel.textMarginX * 2))
             height = textFrame.maxY
         }
         else {
@@ -291,10 +291,10 @@ public class KITextMessageContentViewModel: KISizeAwareViewModel {
         }
         
         if textFrame.height == 0 && imageAttachmentFrame.height != 0 {
-            timeFrame = .init(x: width - tw - 6 - checkBoxWidth, y: height - KITextMessageContentViewModel.timeFrameHeight - 4, width: tw, height: KITextMessageContentViewModel.timeFrameHeight)
+            timeFrame = .init(x: width - tw - 6, y: height - KITextMessageContentViewModel.timeFrameHeight - 4, width: tw, height: KITextMessageContentViewModel.timeFrameHeight)
         }
         else {
-            timeFrame = .init(x: width - tw - 2 - checkBoxWidth, y: height, width: tw, height: KITextMessageContentViewModel.timeFrameHeight)
+            timeFrame = .init(x: width - tw - 2, y: height, width: tw, height: KITextMessageContentViewModel.timeFrameHeight)
             height += timeFrame.height
         }
         

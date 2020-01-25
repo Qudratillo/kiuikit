@@ -104,12 +104,13 @@ public class KITextMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
         }
     }
     
-    override public var isEditing: Bool {
+        public override var isEditing: Bool {
         didSet {
-            contentModel.isEditing = isEditing
+            checkBoxWidth = isEditing ? 40 : 0
         }
     }
     
+    private(set) var checkBoxWidth: CGFloat = 0
     private(set) var checkBoxFrame: CGRect = .zero
     private(set) var selectionViewFrame: CGRect = .zero
     
