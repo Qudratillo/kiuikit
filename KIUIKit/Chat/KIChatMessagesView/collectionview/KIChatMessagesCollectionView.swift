@@ -53,7 +53,7 @@ public class KIChatMessageItem {
         self.attachmentDownloadData = item.attachmentDownloadData
         self.bag = item.bag
     }
-        
+    
     
     public func set(contentsOf item: KIChatMessageItem) {
         self.id = item.id
@@ -108,6 +108,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     private let replyQ: OperationQueue = .init()
     
     private var sections: [KIChatMessagesCollectionViewSection] = []
+    public var selectedMessageIds: Set<Int> = Set()
     
     var contentHeight: CGFloat {
         return self.collectionViewLayout.collectionViewContentSize.height
@@ -117,6 +118,8 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     private(set) var isFetchingBottom: Bool = false
     private(set) var inFetchTopZone: Bool = false
     private(set) var inFetchBottomZone: Bool = false
+    
+    private(set) var isSelectionMode:Bool = false
     
     
     public var fetchThreshold: CGFloat = 500
@@ -130,6 +133,8 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         
         super.init(frame: frame, collectionViewLayout: flowLayout)
         initView()
+        
+        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(switchEditingMode)))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -170,6 +175,11 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
             cell.item = item
             cell.viewModel = viewModel
             item.view = cell
+            cell.selectedItemAction = selectedItemAction
+            if isSelectionMode {
+                cell.checkView(isChecked: self.selectedMessageIds.contains(item.id))
+            }
+            
             return cell
         }
         else if let viewModel = item.viewModel as? KIActionMessageViewModel {
@@ -180,6 +190,9 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
             cell.item = item
             cell.viewModel = viewModel
             item.view = cell
+            if isSelectionMode {
+                cell.checkView(isChecked: self.selectedMessageIds.contains(item.id))
+            }
             return cell
         }
         
@@ -430,7 +443,7 @@ extension KIChatMessagesCollectionView {
     }
     
     private func setup(item: KIChatMessageItem, width: CGFloat) {
-//        print("kiuikit setup item ", item.id)
+        //        print("kiuikit setup item ", item.id)
         item.viewModel.width = width
         item.viewModel.updateFrames()
         if let viewModel = item.viewModel as? KITextMessageViewModel {
@@ -498,6 +511,9 @@ extension KIChatMessagesCollectionView {
         var section: KIChatMessagesCollectionViewSection = .init(width: width, date: .init(timeIntervalSince1970: 0))
         
         for item in items {
+            if let model = item.viewModel as? KITextMessageViewModel {
+                model.isEditing = self.isSelectionMode
+            }
             setup(item: item, width: width)
             if Calendar.current.isDate(section.date, inSameDayAs: item.date) {
                 section.items.append(item)
@@ -552,6 +568,43 @@ extension KIChatMessagesCollectionView {
                 }
             })
         })
+    }
+    
+    @objc private func switchEditingMode() {
+        if !isSelectionMode {
+            isSelectionMode = true
+            selectionModeUpdate()
+        }
+    }
+    
+    func selectedItemAction(_ messageId: Int, _ isChecked: Bool) {
+        if isChecked {
+            selectedMessageIds.insert(messageId)
+        } else {
+            selectedMessageIds.remove(messageId)
+        }
+        
+        if selectedMessageIds.isEmpty {
+            self.isSelectionMode = false
+            self.selectionModeUpdate()
+        }
+    }
+    
+    private func selectionModeUpdate() {
+        let width = self.frame.width
+        q.addOperation {
+            self.sections.forEach { (sections) in
+                sections.items.forEach { (item) in
+                    if let viewModel = item.viewModel as? KITextMessageViewModel {
+                        viewModel.isEditing = self.isSelectionMode
+                        self.setup(item: item, width: width)
+                    }
+                }
+            }
+            OperationQueue.main.addOperation {
+                self.reloadData()
+            }
+        }
     }
     
     @discardableResult
