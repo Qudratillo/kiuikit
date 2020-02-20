@@ -134,7 +134,6 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         super.init(frame: frame, collectionViewLayout: flowLayout)
         initView()
         
-        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(switchOnSelectionMode)))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -568,12 +567,6 @@ extension KIChatMessagesCollectionView {
                 }
             })
         })
-    }
-    
-    @objc private func switchOnSelectionMode() {
-        if !isEditing {
-            setSelectionMode(isEditing: true)
-        }
     }
     
     public func setSelectionMode(isEditing: Bool) {
