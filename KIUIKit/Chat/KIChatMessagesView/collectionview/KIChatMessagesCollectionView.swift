@@ -108,7 +108,13 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     private let replyQ: OperationQueue = .init()
     
     private var sections: [KIChatMessagesCollectionViewSection] = []
-    public var selectedMessageIds: Set<Int> = Set()
+    public var selectedMessageIds: Set<Int> = Set() {
+        didSet {
+            didSelectMessageItemHandler?(selectedMessageIds.count)
+        }
+    }
+    
+    public var didSelectMessageItemHandler: ((_ countOfselectedItems: Int) -> ())? = nil
     
     var contentHeight: CGFloat {
         return self.collectionViewLayout.collectionViewContentSize.height
@@ -119,8 +125,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     private(set) var inFetchTopZone: Bool = false
     private(set) var inFetchBottomZone: Bool = false
 
-    private(set) var isEditing:Bool = false
-    
+    public private(set) var isEditing:Bool = false
     
     public var fetchThreshold: CGFloat = 500
     
@@ -575,6 +580,7 @@ extension KIChatMessagesCollectionView {
     }
     
     func selectedItemAction(_ messageId: Int, _ isChecked: Bool) {
+//        l_ = isChecked ? selectedMessageIds.insert(messageId) : selectedMessageIds.remove(messageId)
         if isChecked {
             selectedMessageIds.insert(messageId)
         } else {
