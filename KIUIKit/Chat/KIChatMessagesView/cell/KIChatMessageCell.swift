@@ -12,6 +12,7 @@ class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageView
     weak var item: KIChatMessageItem?
     
     var selectedItemAction: ((_ messageId: Int, _ isChecked: Bool) -> Void)?
+    var selectionModeCellDelegate: SelectionModeCellDelegate?
 //    var tapGestureRecognizer: UITapGestureRecognizer? = nil
     
     private let view: View = .init()
@@ -45,8 +46,26 @@ class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageView
         selectionView.layer.borderWidth = 2
         selectionView.layer.borderColor = UIColor.lightGray.cgColor
         contentView.addSubview(selectionView)
+        
+        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(switchOnSelectionMode)))
     }
 
+    @objc private func switchOnSelectionMode() {
+        if !(item?.viewModel.isEditing ?? true)  {
+            DispatchQueue.global(qos: .background).sync {
+                selectionModeCellDelegate?.setSelectionMode(isEditing: true)
+                DispatchQueue.main.async {
+                    self.isEditing = !self.isEditing
+                    if let v = self.view as? KITextMessageView {
+                        v.checkBox.checkMarkClicked()
+                    }
+                    self.selectionModeCellDelegate?.reloadAfterCellFrameCalculation()
+                }
+            }
+           
+        }
+    }
+    
     override func updateUI() {
         view.viewModel = viewModel
 //        print("ki updateui", viewModel ?? "nil")

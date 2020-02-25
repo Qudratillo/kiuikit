@@ -12,6 +12,11 @@ public class KIEmptyMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
     
 }
 
+protocol SelectionModeCellDelegate {
+    func setSelectionMode(isEditing: Bool)
+    func reloadAfterCellFrameCalculation()
+}
+
 public class KIChatMessageItem {
     public var id: Int
     public var date: Date
@@ -102,7 +107,7 @@ private class KIChatMessagesCollectionViewSection {
     
 }
 
-public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SelectionModeCellDelegate {
     
     private let q: OperationQueue = .init()
     private let replyQ: OperationQueue = .init()
@@ -155,7 +160,14 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         self.register(KIChatMessageSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header-view")
         self.alwaysBounceVertical = true
         
+//        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(switchOnSelectionMode)))
     }
+    
+//    @objc private func switchOnSelectionMode() {
+//        if !isEditing {
+//            setSelectionMode(isEditing: true)
+//        }
+//    }
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections.count
@@ -175,7 +187,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
             if let item = cell.item, item.view == cell {
                 item.view = nil
             }
-            
+            cell.selectionModeCellDelegate = self
             cell.item = item
             cell.viewModel = viewModel
             item.view = cell
@@ -580,7 +592,6 @@ extension KIChatMessagesCollectionView {
     }
     
     func selectedItemAction(_ messageId: Int, _ isChecked: Bool) {
-//        l_ = isChecked ? selectedMessageIds.insert(messageId) : selectedMessageIds.remove(messageId)
         if isChecked {
             selectedMessageIds.insert(messageId)
         } else {
@@ -588,23 +599,39 @@ extension KIChatMessagesCollectionView {
         }
         
         if selectedMessageIds.isEmpty {
-            setSelectionMode(isEditing: false)
+            DispatchQueue.global(qos: .background).async {
+                self.setSelectionMode(isEditing: false)
+                DispatchQueue.main.async {
+                    self.reloadData()
+                }
+            }
+            
         }
+    }
+    
+    func reloadAfterCellFrameCalculation() {
+        self.reloadData()
     }
     
     private func selectionModeUpdate() {
         let width = self.frame.width
-        q.addOperation {
-            self.sections.forEach { (sections) in
-                sections.items.forEach { (item) in
-                    item.viewModel.isEditing = self.isEditing
-                    self.setup(item: item, width: width)
-                }
-            }
-            OperationQueue.main.addOperation {
-                self.reloadData()
+        self.sections.forEach { (sections) in
+            sections.items.forEach { (item) in
+                item.viewModel.isEditing = self.isEditing
+                self.setup(item: item, width: width)
             }
         }
+//        q.addOperation {
+//            self.sections.forEach { (sections) in
+//                sections.items.forEach { (item) in
+//                    item.viewModel.isEditing = self.isEditing
+//                    self.setup(item: item, width: width)
+//                }
+//            }
+//            OperationQueue.main.addOperation {
+//                self.reloadData()
+//            }
+//        }
     }
     
     @discardableResult
