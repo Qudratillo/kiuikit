@@ -52,17 +52,12 @@ class KIChatMessageCell<View: KIMessageView<ViewModel>, ViewModel: KIMessageView
 
     @objc private func switchOnSelectionMode() {
         if !(item?.viewModel.isEditing ?? true)  {
-            DispatchQueue.global(qos: .background).sync {
-                selectionModeCellDelegate?.setSelectionMode(isEditing: true)
-                DispatchQueue.main.async {
-                    self.isEditing = !self.isEditing
-                    if let v = self.view as? KITextMessageView {
-                        v.checkBox.checkMarkClicked()
-                    }
-                    self.selectionModeCellDelegate?.reloadAfterCellFrameCalculation()
-                }
-            }
-           
+            selectionModeCellDelegate?.setSelectionMode(isEditing: true)
+//            selectionModeCellDelegate?.reloadAfterCellFrameCalculation()
+            self.isEditing = !self.isEditing
+            if let v = self.view as? KITextMessageView {
+                v.checkBox.checkMarkClicked()
+            } 
         }
     }
     

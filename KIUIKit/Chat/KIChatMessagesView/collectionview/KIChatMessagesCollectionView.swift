@@ -14,7 +14,6 @@ public class KIEmptyMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
 
 protocol SelectionModeCellDelegate {
     func setSelectionMode(isEditing: Bool)
-    func reloadAfterCellFrameCalculation()
 }
 
 public class KIChatMessageItem {
@@ -159,15 +158,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         self.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "empty-cell")
         self.register(KIChatMessageSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header-view")
         self.alwaysBounceVertical = true
-        
-//        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(switchOnSelectionMode)))
     }
-    
-//    @objc private func switchOnSelectionMode() {
-//        if !isEditing {
-//            setSelectionMode(isEditing: true)
-//        }
-//    }
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return sections.count
@@ -599,39 +590,23 @@ extension KIChatMessagesCollectionView {
         }
         
         if selectedMessageIds.isEmpty {
-            DispatchQueue.global(qos: .background).async {
-                self.setSelectionMode(isEditing: false)
-                DispatchQueue.main.async {
-                    self.reloadData()
-                }
-            }
-            
+            self.setSelectionMode(isEditing: false)
         }
-    }
-    
-    func reloadAfterCellFrameCalculation() {
-        self.reloadData()
     }
     
     private func selectionModeUpdate() {
         let width = self.frame.width
-        self.sections.forEach { (sections) in
-            sections.items.forEach { (item) in
-                item.viewModel.isEditing = self.isEditing
-                self.setup(item: item, width: width)
+        DispatchQueue.global(qos: .userInteractive).sync {
+            self.sections.forEach { (sections) in
+                sections.items.forEach { (item) in
+                    item.viewModel.isEditing = self.isEditing
+                    self.setup(item: item, width: width)
+                }
+            }
+            DispatchQueue.main.async {
+                self.reloadData()
             }
         }
-//        q.addOperation {
-//            self.sections.forEach { (sections) in
-//                sections.items.forEach { (item) in
-//                    item.viewModel.isEditing = self.isEditing
-//                    self.setup(item: item, width: width)
-//                }
-//            }
-//            OperationQueue.main.addOperation {
-//                self.reloadData()
-//            }
-//        }
     }
     
     @discardableResult
