@@ -588,10 +588,6 @@ extension KIChatMessagesCollectionView {
         } else {
             selectedMessageIds.remove(messageId)
         }
-        
-        if selectedMessageIds.isEmpty {
-            self.setSelectionMode(isEditing: false)
-        }
     }
     
     private func selectionModeUpdate() {

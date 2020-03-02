@@ -92,6 +92,7 @@ public class MessageActionsToolBar: UIToolbar {
                      copyToolBarItem, flexibleSpace,
                      forwardToolBarItem]
         }
+        items?.forEach({ $0.isEnabled = countOfSelectedMessageItems != 0 })
     }
     
     public func showEasySelectMessageToolBarItem(isShown: Bool) {

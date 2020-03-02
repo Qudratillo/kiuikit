@@ -144,20 +144,6 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
         view.messagesDelegate = self
         
         self.view.addSubview(view)
-        
-        let toolbar = MessageActionsToolBar(isGroup: true)
-        self.view.addSubview(toolbar)
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-        toolbar.leftAnchor.constraint(equalTo: view.leftAnchor),
-        toolbar.rightAnchor.constraint(equalTo: view.rightAnchor)])
-        if #available(iOS 11.0, *) {
-            toolbar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        } else {
-            toolbar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        }
-        toolbar.messageActionsToolBarDelegate = self
-
     }
     
     func randomAlphanumericString(length: Int) -> String  {
