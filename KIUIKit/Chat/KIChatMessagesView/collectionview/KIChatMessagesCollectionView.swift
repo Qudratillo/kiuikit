@@ -582,6 +582,15 @@ extension KIChatMessagesCollectionView {
         selectionModeUpdate()
     }
     
+    public func deleteMessageSectionItems() {
+        
+        self.sections = self.sections.compactMap({ (section) -> KIChatMessagesCollectionViewSection? in
+            section.items = section.items.filter { !selectedMessageIds.contains($0.id) }
+            return section.items.isEmpty ? nil : section
+        })
+        self.reloadData()
+    }
+    
     func selectedItemAction(_ messageId: Int, _ isChecked: Bool) {
         if isChecked {
             selectedMessageIds.insert(messageId)
