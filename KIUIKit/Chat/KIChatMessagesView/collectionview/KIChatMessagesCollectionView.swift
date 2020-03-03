@@ -12,6 +12,10 @@ public class KIEmptyMessageViewModel: KISizeAwareViewModel, KIMessageViewModel {
     
 }
 
+protocol SelectionModeCellDelegate {
+    func setSelectionMode(isEditing: Bool)
+}
+
 public class KIChatMessageItem {
     public var id: Int
     public var date: Date
@@ -102,13 +106,19 @@ private class KIChatMessagesCollectionViewSection {
     
 }
 
-public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, SelectionModeCellDelegate {
     
     private let q: OperationQueue = .init()
     private let replyQ: OperationQueue = .init()
     
     private var sections: [KIChatMessagesCollectionViewSection] = []
-    public var selectedMessageIds: Set<Int> = Set()
+    public var selectedMessageIds: Set<Int> = Set() {
+        didSet {
+            didSelectMessageItemHandler?(selectedMessageIds.count)
+        }
+    }
+    
+    public var didSelectMessageItemHandler: ((_ countOfselectedItems: Int) -> ())? = nil
     
     var contentHeight: CGFloat {
         return self.collectionViewLayout.collectionViewContentSize.height
@@ -119,8 +129,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
     private(set) var inFetchTopZone: Bool = false
     private(set) var inFetchBottomZone: Bool = false
 
-    private(set) var isEditing:Bool = false
-    
+    public private(set) var isEditing:Bool = false
     
     public var fetchThreshold: CGFloat = 500
     
@@ -134,7 +143,6 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         super.init(frame: frame, collectionViewLayout: flowLayout)
         initView()
         
-        addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(switchOnSelectionMode)))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -150,7 +158,6 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
         self.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "empty-cell")
         self.register(KIChatMessageSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header-view")
         self.alwaysBounceVertical = true
-        
     }
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -171,7 +178,7 @@ public class KIChatMessagesCollectionView: UICollectionView, UICollectionViewDat
             if let item = cell.item, item.view == cell {
                 item.view = nil
             }
-            
+            cell.selectionModeCellDelegate = self
             cell.item = item
             cell.viewModel = viewModel
             item.view = cell
@@ -570,15 +577,18 @@ extension KIChatMessagesCollectionView {
         })
     }
     
-    @objc private func switchOnSelectionMode() {
-        if !isEditing {
-            setSelectionMode(isEditing: true)
-        }
-    }
-    
     public func setSelectionMode(isEditing: Bool) {
         self.isEditing = isEditing
         selectionModeUpdate()
+    }
+    
+    public func deleteMessageSectionItems() {
+        
+        self.sections = self.sections.compactMap({ (section) -> KIChatMessagesCollectionViewSection? in
+            section.items = section.items.filter { !selectedMessageIds.contains($0.id) }
+            return section.items.isEmpty ? nil : section
+        })
+        self.reloadData()
     }
     
     func selectedItemAction(_ messageId: Int, _ isChecked: Bool) {
@@ -587,22 +597,18 @@ extension KIChatMessagesCollectionView {
         } else {
             selectedMessageIds.remove(messageId)
         }
-        
-        if selectedMessageIds.isEmpty {
-            setSelectionMode(isEditing: false)
-        }
     }
     
     private func selectionModeUpdate() {
         let width = self.frame.width
-        q.addOperation {
+        DispatchQueue.global(qos: .userInteractive).sync {
             self.sections.forEach { (sections) in
                 sections.items.forEach { (item) in
                     item.viewModel.isEditing = self.isEditing
                     self.setup(item: item, width: width)
                 }
             }
-            OperationQueue.main.addOperation {
+            DispatchQueue.main.async {
                 self.reloadData()
             }
         }

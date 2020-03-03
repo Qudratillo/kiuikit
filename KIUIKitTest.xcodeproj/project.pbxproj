@@ -33,6 +33,7 @@
 
 /* Begin PBXBuildFile section */
 		151146D423D3156F009A92C3 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151146D323D3156F009A92C3 /* CheckBox.swift */; };
+		159CC0A124012F0500AAC90D /* MessageActionsToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159CC0A024012F0500AAC90D /* MessageActionsToolBar.swift */; };
 		2FE575352362C407005C8651 /* KIAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE575342362C407005C8651 /* KIAudioPlayer.swift */; };
 		2FF407D723D300CC00AF7723 /* KICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF407D623D300CC00AF7723 /* KICollectionViewCell.swift */; };
 		2FF407D923D30D3500AF7723 /* KICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF407D823D30D3500AF7723 /* KICollectionView.swift */; };
@@ -96,6 +97,7 @@
 
 /* Begin PBXFileReference section */
 		151146D323D3156F009A92C3 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		159CC0A024012F0500AAC90D /* MessageActionsToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageActionsToolBar.swift; sourceTree = "<group>"; };
 		2FE575342362C407005C8651 /* KIAudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KIAudioPlayer.swift; sourceTree = "<group>"; };
 		2FF407D623D300CC00AF7723 /* KICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KICollectionViewCell.swift; sourceTree = "<group>"; };
 		2FF407D823D30D3500AF7723 /* KICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KICollectionView.swift; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				F2F9A33E233619490089F037 /* KIMessageImageAttachmentView.swift */,
 				F2F9A33C233619490089F037 /* KIMessageDetailAttachmentView.swift */,
 				F2F9A33D233619490089F037 /* KIReplyMessageView.swift */,
+				159CC0A024012F0500AAC90D /* MessageActionsToolBar.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				F2F9A346233619490089F037 /* KICircleImageView.swift in Sources */,
 				F2F9A351233619490089F037 /* KIChatMessageCell.swift in Sources */,
 				F2F9A347233619490089F037 /* KIAvatarImageView.swift in Sources */,
+				159CC0A124012F0500AAC90D /* MessageActionsToolBar.swift in Sources */,
 				F2F9A356233619490089F037 /* KIMessageDetailAttachmentView.swift in Sources */,
 				F25BFC712348A5CA009E99B3 /* KIMessageAttachmentAction.swift in Sources */,
 				F2F9A342233619490089F037 /* Extensions.swift in Sources */,

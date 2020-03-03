@@ -31,7 +31,6 @@ public class KITextMessageView: KIMessageView<KITextMessageViewModel> {
         addSubview(containerView)
         
         containerView.addSubview(contentView)
-        
         selectionVeiw.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectMessage)))
         addSubview(selectionVeiw)
     }

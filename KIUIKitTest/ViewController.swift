@@ -422,3 +422,36 @@ class ViewController: UIViewController, KIChatMessagesCollectionViewMessagesDele
     
 }
 
+extension ViewController: MessageActionsToolBarDelegate {
+    func closeSelectionModeHandler() {
+            
+    }
+    
+    func replySelectionModeHandler() {
+            
+    }
+    
+    func forwardSelectionModeHandler() {
+            
+    }
+    
+    func copySelectionModeHandler() {
+            
+    }
+    
+    func deleteSelectionModeHandler() {
+            
+    }
+    
+    func easySelectMessageSelectionModeHandler() {
+            
+    }
+    
+    func editSelectionModeHandler() {
+            
+    }
+    
+ 
+    
+    
+}
